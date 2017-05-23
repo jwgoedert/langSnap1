@@ -1,12 +1,19 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>LangSnap</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		 <button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>LangSnap</ion-title>
+	</ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  {{ message }}
+<ion-content>
+  Home page
+	<ion-list *ngIf="!!profile">
+    Welcome {{profile.firstName}} {{profile.lastName}}!!!
+		
+		<div padding>
+			<button class="button button-full" (click)="logout()">Log out</button>
+		</div>
+	</ion-list>
 </ion-content>

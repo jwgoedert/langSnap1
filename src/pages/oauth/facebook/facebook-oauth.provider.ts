@@ -12,7 +12,6 @@ interface ILoginResponse {
 interface IProfileResponse {
 	first_name: string;
 	last_name: string;
-	email: string;
 }
 @Injectable()
 export class FacebookOauthProvider implements IOathProvider {
@@ -20,35 +19,31 @@ export class FacebookOauthProvider implements IOathProvider {
 	private http: Http;
 	private config: Config;
 	private facebook: Facebook;
-constructor(http: Http, config: Config) {
+	
+	constructor(http: Http, config: Config) {
 		this.http = http;
 		this.config = config;
 		this.facebook = new Facebook({ clientId: config.facebook.appId, appScope: config.facebook.scope });
 		this.cordovaOauth = new CordovaOauth();
 	}
-login(): Promise<string> {
+	login(): Promise<string> {
 		return this.cordovaOauth.login(this.facebook)
 			.then((x: ILoginResponse) => x.access_token);
 	}
 
-getProfile(accessToken): Promise<OAuthProfile> {
-  let query = `access_token=${accessToken}&format=json`;
-  let url = `${this.config.facebook.apiUrl}me?${query}`;
-	return this.http.get(url)
-    .map(x => x.json())
-    .map((x: IProfileResponse) => {
-			console.log(url, 'url')
-			console.log(x, 'looking to see what x is')
-			console.log(typeof x, 'type of  x is')
-			let profile: OAuthProfile = {
-        firstName: x['name'].split(' ')[0],
-        lastName: x['name'].split(' ')[1],
-        email: x['email'],
-        provider: 'facebook'
-      };
-			console.log(profile, 'this is the profile');
-      return profile;
-    })
-    .toPromise();
-}
+	getProfile(accessToken): Promise<OAuthProfile> {
+		let query = `access_token=${accessToken}&format=json`;
+		let url = `${this.config.facebook.apiUrl}me?${query}`;
+		return this.http.get(url)
+			.map(x => x.json())
+			.map((x: IProfileResponse) => {
+				let profile: OAuthProfile = {
+					firstName: x['name'].split(' ')[0],
+					lastName: x['name'].split(' ')[1],
+					provider: 'facebook'
+				};
+				return profile;
+			})
+			.toPromise();
+	}
 }

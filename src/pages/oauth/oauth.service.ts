@@ -9,11 +9,11 @@ export class OAuthService {
 	private oauthTokenKey = 'oauthToken';
 	private injector: Injector;
 
-constructor(injector: Injector) {
+	constructor(injector: Injector) {
 		this.injector = injector;
 	}
 	
-login(source: string): Promise<OAuthToken> {
+	login(source: string): Promise<OAuthToken> {
 		return this.getOAuthService(source).login().then((accessToken: string) : Promise<OAuthToken> => {
 			if (!accessToken) {
 				return Promise.reject('No access token found');
@@ -23,23 +23,23 @@ login(source: string): Promise<OAuthToken> {
 				source: source
 			};
 			this.setOAuthToken(oauthToken);
-			console.log(oauthToken, 'hitting token');
 			return Promise.resolve(oauthToken);
 		});
-}
-
-getProfile(): Promise<OAuthProfile> {
-	if (!this.isAuthorized()) {
-		return Promise.reject('You are not authorized');
 	}
-	let oauthService = this.getOAuthService();
-	return oauthService.getProfile(this.getOAuthToken().accessToken);
-}
-isAuthorized(): boolean {
-	return !!this.getOAuthToken();
-}
 
-getOAuthService(source?: string): IOathProvider {
+	getProfile(): Promise<OAuthProfile> {
+		if (!this.isAuthorized()) {
+			return Promise.reject('You are not authorized');
+		}
+		let oauthService = this.getOAuthService();
+		return oauthService.getProfile(this.getOAuthToken().accessToken);
+	}
+
+	isAuthorized(): boolean {
+		return !!this.getOAuthToken();
+	}
+
+	getOAuthService(source?: string): IOathProvider {
 		source = source || this.getOAuthToken().source;
 		switch (source) {
 			case 'facebook':
@@ -48,13 +48,12 @@ getOAuthService(source?: string): IOathProvider {
 				throw new Error(`Source '${source}' is not valid`);
 		}
 	}
-setOAuthToken(token: OAuthToken) {
+
+	setOAuthToken(token: OAuthToken) {
 		localStorage.setItem(this.oauthTokenKey, JSON.stringify(token));
-		console.log(localStorage, 'LOCAL STORAGE!!!!!!')
-		console.log(token, 'LOOK FOR ME IM Token in LOCAL STORAGE')
 	}
-getOAuthToken(): OAuthToken {
-		console.log('hitting get oauth token')
+	
+	getOAuthToken(): OAuthToken {
 		let token = localStorage.getItem(this.oauthTokenKey);
 		return token ? JSON.parse(token) : null;
 	}
