@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -18,7 +17,6 @@ import { Config } from '../config';
   declarations: [
     MyApp,
     HomePage,
-    LoginPage,
     // OAuthProvidersListPage
   ],
   imports: [
@@ -31,7 +29,6 @@ import { Config } from '../config';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage,
     // OAuthProvidersListPage
   ],
   providers: [

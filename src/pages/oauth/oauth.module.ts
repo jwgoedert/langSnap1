@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { OAuthProvidersListPage } from './list/oauth-providers.list.page';
 
 import { OAuthService } from '../../pages/oauth/oauth.service';
-import { OAuthProfilePage } from './profile/oauth-profile.page';
 
 import { FacebookOauthProvider } from './facebook/facebook-oauth.provider';
 
@@ -11,11 +10,9 @@ import { FacebookOauthProvider } from './facebook/facebook-oauth.provider';
 	imports: [IonicModule],
 	declarations: [
 		OAuthProvidersListPage,
-		OAuthProfilePage
 	],
 	entryComponents: [
 		OAuthProvidersListPage,
-		OAuthProfilePage
 	],
 	providers: [
 		OAuthService,

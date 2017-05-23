@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/login/login';
 
 import { OAuthProvidersListPage } from '../pages/oauth/list/oauth-providers.list.page';
 
@@ -14,7 +13,7 @@ import { OAuthProvidersListPage } from '../pages/oauth/list/oauth-providers.list
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = OAuthProvidersListPage;
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -23,9 +22,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
+      { title: 'Login', component: OAuthProvidersListPage, icon: 'log-in' },
       { title: 'Home', component: HomePage, icon: 'home' },
-      { title: 'Login', component: LoginPage, icon: 'log-in' },
-      { title: 'OAuth', component: OAuthProvidersListPage, icon: 'log-in' },
     ];
 
   }
