@@ -17,4 +17,7 @@ export class CreateDeckPage {
     console.log('ionViewDidLoad CreateDeckPage');
   }
 
+  click() {
+    console.log('they gone think i won a grammy!!!!!!')
+  }
 }
