@@ -3,17 +3,42 @@
 		 <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		<ion-title>LangSnap</ion-title>
+		<ion-title>Welcome</ion-title>
 	</ion-navbar>
 </ion-header>
 
 <ion-content>
-  Home page
-	<ion-list *ngIf="!!profile">
-    Welcome {{profile.firstName}} {{profile.lastName}}!!!
-		
+	<ion-content *ngIf="!!profile">
+		Welcome {{profile.firstName}} {{profile.lastName}}!!!
+		<ion-content *ngIf="!myLanguages">
+			<form (click)="logForm(langForm.native, langForm.learning)">
+				<ion-item>
+					<ion-label>Native Lang. Please!</ion-label>
+					<ion-input type="text" [(ngModel)]="langForm.native" name="native" required></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>Learning Lang. Please!</ion-label>
+					<ion-select  [(ngModel)]="langForm.learning" name="learning">
+						<ion-option *ngFor="let language of chooseALang" value= {{language}} required>
+							{{ language }}
+						</ion-option>
+					</ion-select>
+				</ion-item>
+				<button ion-button type="button" block>submit</button>
+			</form>
+		</ion-content>
+		<ion-content *ngIf="!!myLanguages">
+			Languages!
+				Native: {{ myLanguages[0] }} 
+				Learning: {{ myLanguages[1] }}
+
+				<button ion-button type="button" [navPush]="createPage" block>Create A Deck</button>
+				<button ion-button type="button" [navPush]="findAddPage" block>Find/Add A Deck</button>
+				<button ion-button type="button" [navPush]="myDecksPage" block>My Decks</button>
+
 		<div padding>
-			<button class="button button-full" (click)="logout()">Log out</button>
+			<button class="button button-full" type="button" (click)="logout()" block>Log out</button>
 		</div>
-	</ion-list>
+		</ion-content>
+	</ion-content>
 </ion-content>

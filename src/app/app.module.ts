@@ -5,10 +5,12 @@ import { HttpModule } from '@angular/http';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { CreateDeckPage } from '../pages/create-deck/create-deck';
+import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
+import { MyDecksPage } from '../pages/my-decks/my-decks';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-// import { OAuthProvidersListPage } from '../pages/oauth/list/oauth-providers.list.page';
 
 import { OAuthModule } from '../pages/oauth/oauth.module';
 import { Config } from '../config';
@@ -17,7 +19,9 @@ import { Config } from '../config';
   declarations: [
     MyApp,
     HomePage,
-    // OAuthProvidersListPage
+    CreateDeckPage,
+    FindAddDeckPage,
+    MyDecksPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,9 @@ import { Config } from '../config';
   entryComponents: [
     MyApp,
     HomePage,
-    // OAuthProvidersListPage
+    CreateDeckPage,
+    FindAddDeckPage,
+    MyDecksPage
   ],
   providers: [
     Config,
