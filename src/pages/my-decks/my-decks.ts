@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { EditDeckPage } from '../edit-deck/edit-deck';
 
 @Component({
   selector: 'page-my-decks',
@@ -9,7 +9,7 @@ import { HomePage } from '../home/home';
 export class MyDecksPage {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = MyDecksPage;
 
   constructor(public navCtrl: NavController) {
   }
@@ -18,4 +18,12 @@ export class MyDecksPage {
     console.log('ionViewDidLoad MyDecksPage');
   }
 
+  editDeck() {
+    console.log('edit deck button was clicked!')
+    this.navCtrl.setRoot(EditDeckPage)
+  }
+  
+  deleteDeck() {
+    console.log('delete deck button was clicked!')
+  }
 }

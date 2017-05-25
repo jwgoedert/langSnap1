@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { MyDecksPage } from '../my-decks/my-decks';
 
 @Component({
   selector: 'page-create-deck',
@@ -9,7 +9,7 @@ import { HomePage } from '../home/home';
 export class CreateDeckPage {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = CreateDeckPage;
   constructor(public navCtrl: NavController) {
   }
 
@@ -19,5 +19,9 @@ export class CreateDeckPage {
 
   click() {
     console.log('they gone think i won a grammy!!!!!!')
+  }
+  
+  createDeck() {
+    this.navCtrl.setRoot(MyDecksPage)
   }
 }
