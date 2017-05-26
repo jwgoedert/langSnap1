@@ -17,25 +17,19 @@ import { CreateDeckPage } from '../create-deck/create-deck';
 export class HomePage {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = OAuthProvidersListPage;
+  rootPage: any = HomePage;
 
 	private oauthService: OAuthService;
 	profile: OAuthProfile;
   myLanguages: Array<string>;
   langForm: Object;
   chooseALang: Array<string>;
-  createPage;
-  findAddPage;
-  myDecksPage;
   
 	constructor(oauthService: OAuthService, public navCtrl: NavController) {
 		this.oauthService = oauthService;
     if (localStorage.getItem('oauthToken') === null) {
       this.navCtrl.setRoot(OAuthProvidersListPage);
     }
-    this.createPage = CreateDeckPage
-    this.findAddPage = FindAddDeckPage
-    this.myDecksPage = MyDecksPage
     this.langForm = {}
     oauthService.getProfile()
       .then(profile => this.profile = profile); 

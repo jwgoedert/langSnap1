@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { MyDecksPage } from '../my-decks/my-decks';
 
 @Component({
   selector: 'page-find-add-deck',
@@ -9,7 +9,7 @@ import { HomePage } from '../home/home';
 export class FindAddDeckPage {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = FindAddDeckPage;
   constructor(public navCtrl: NavController) {
   }
 
@@ -17,4 +17,8 @@ export class FindAddDeckPage {
     console.log('ionViewDidLoad FindAddDeckPage');
   }
 
+  addDeck() {
+    console.log('add deck button clicked')
+    this.navCtrl.setRoot(MyDecksPage)
+  }
 }

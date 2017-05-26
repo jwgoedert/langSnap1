@@ -8,6 +8,9 @@ import { HomePage } from '../pages/home/home';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
 import { MyDecksPage } from '../pages/my-decks/my-decks';
+import { AboutUsPage } from '../pages/about-us/about-us';
+import { EditDeckPage } from '../pages/edit-deck/edit-deck';
+import { QuizPage } from '../pages/quiz/quiz';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +24,10 @@ import { Config } from '../config';
     HomePage,
     CreateDeckPage,
     FindAddDeckPage,
-    MyDecksPage
+    MyDecksPage, 
+    AboutUsPage,
+    EditDeckPage,
+    QuizPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +41,10 @@ import { Config } from '../config';
     HomePage,
     CreateDeckPage,
     FindAddDeckPage,
-    MyDecksPage
+    MyDecksPage,
+    AboutUsPage,
+    EditDeckPage,
+    QuizPage
   ],
   providers: [
     Config,
