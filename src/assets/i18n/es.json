@@ -1,0 +1,17 @@
+{
+  "FIND_ADD": "Encontrar / Añadir",
+  "ADD_DECK": "Añadir cubierta",
+  "ABOUT_US": "Sobre nosotros",
+  "CREATE_A_DECK" : "Crear una cubierta",
+  "CREATE_DECK" : "Crear cubierta",
+  "EDIT_DECK" : "Editar la cubierta",
+  "ADD_CARD" : "Agregar tarjeta",
+  "DELETE_CARD" : "Eliminar tarjeta",
+  "WELCOME": "Bienvenido",
+  "FIND_ADD_A_DECK": "Encontrar / Añadir una cubierta",
+  "MY_DECKS": "Mis cubiertas",
+  "LOG_OUT": "Cerrar sesión",
+  "LOG_IN": "Iniciar sesión",
+  "DELETE_DECK" : "Eliminar cubierta",
+  "QUIZ" : "Examen"
+}

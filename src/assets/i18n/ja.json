@@ -1,0 +1,17 @@
+{
+  "FIND_ADD": "検索 / 追加",
+  "ADD_DECK": "デッキを追加",
+  "ABOUT_US": "私たちに関しては",
+  "CREATE_A_DECK" : "デッキの作成",
+  "CREATE_DECK" : "デッキの作成",
+  "EDIT_DECK" : "デッキの編集",
+  "ADD_CARD" : "カードを追加",
+  "DELETE_CARD" : "カードを削除する",
+  "WELCOME": "ようこそ",
+  "FIND_ADD_A_DECK": "デッキを探す",
+  "MY_DECKS": "私のデッキ",
+  "LOG_OUT": "ログアウト",
+  "LOG_IN": "ログイン",
+  "DELETE_DECK" : "デッキの削除",
+  "QUIZ" : "クイズ"
+}

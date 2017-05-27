@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav } from 'ionic-angular';
 import { EditDeckPage } from '../edit-deck/edit-deck';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'page-my-decks',
@@ -11,7 +12,8 @@ export class MyDecksPage {
 
   rootPage: any = MyDecksPage;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public translateService: TranslateService) {
+    translateService.use('fr');
   }
 
   ionViewDidLoad() {

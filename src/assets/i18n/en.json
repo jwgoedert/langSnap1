@@ -1,0 +1,17 @@
+{
+  "FIND_ADD": "Find / Add",
+  "ADD_DECK": "Add Deck",
+  "ABOUT_US": "About Us",
+  "CREATE_A_DECK" : "Create A Deck",
+  "CREATE_DECK" : "Create Deck",
+  "EDIT_DECK" : "Edit Deck",
+  "ADD_CARD" : "Add Card",
+  "DELETE_CARD" : "Delete Card",
+  "WELCOME": "Welcome",
+  "FIND_ADD_A_DECK": "Find A Deck",
+  "MY_DECKS": "My Decks",
+  "LOG_OUT": "Log Out",
+  "LOG_IN": "Log In",
+  "DELETE_DECK" : "Delete Deck",
+  "QUIZ" : "Quiz"
+}

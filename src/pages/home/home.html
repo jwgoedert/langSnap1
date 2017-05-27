@@ -3,7 +3,7 @@
 		 <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		<ion-title>Welcome</ion-title>
+		<ion-title>{{ 'WELCOME' | translate }}</ion-title>
 	</ion-navbar>
 </ion-header>
 
@@ -32,12 +32,12 @@
 				Native: {{ myLanguages[0] }} 
 				Learning: {{ myLanguages[1] }}
 
-				<button ion-button type="button" [navPush]="createPage" block>Create A Deck</button>
-				<button ion-button type="button" [navPush]="findAddPage" block>Find/Add A Deck</button>
-				<button ion-button type="button" [navPush]="myDecksPage" block>My Decks</button>
+				<button ion-button type="button" [navPush]="createPage" block>{{ 'CREATE_A_DECK' | translate }}</button>
+				<button ion-button type="button" [navPush]="findAddPage" block>{{ 'FIND_ADD_A_DECK' | translate }}</button>
+				<button ion-button type="button" [navPush]="myDecksPage" block>{{ 'MY_DECKS' | translate }}</button>
 
 		<div padding>
-			<button class="button button-full" type="button" (click)="logout()" block>Log out</button>
+			<button class="button button-full" type="button" (click)="logout()" block>{{ 'LOG_OUT' | translate}}</button>
 		</div>
 		</ion-content>
 	</ion-content>

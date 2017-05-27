@@ -3,6 +3,7 @@ import { Nav } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { OAuthService } from '../oauth.service';
 import { HomePage } from '../../home/home';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	templateUrl: 'oauth-providers.list.html',
@@ -13,8 +14,11 @@ export class OAuthProvidersListPage {
 	private oauthService: OAuthService;
 	rootPage: any = HomePage;
 
-	constructor(oauthService: OAuthService, public navCtrl: NavController ) {
-		this.oauthService = oauthService;
+	constructor(oauthService: OAuthService, 
+		public navCtrl: NavController, 
+		public translateService: TranslateService ) {
+			translateService.use('fr');
+			this.oauthService = oauthService;
 	}
 
 	public login(source: string) {

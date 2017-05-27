@@ -1,13 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav } from 'ionic-angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { OAuthService } from '../oauth/oauth.service';
 import { OAuthProfile } from '../oauth/models/oauth-profile.model';
 
 import { OAuthProvidersListPage } from '../oauth/list/oauth-providers.list.page';
-import { MyDecksPage } from '../my-decks/my-decks';
-import { FindAddDeckPage } from '../find-add-deck/find-add-deck';
-import { CreateDeckPage } from '../create-deck/create-deck';
 
 @Component({
   selector: 'page-home',
@@ -25,8 +23,10 @@ export class HomePage {
   langForm: Object;
   chooseALang: Array<string>;
   
-	constructor(oauthService: OAuthService, public navCtrl: NavController) {
-		this.oauthService = oauthService;
+	constructor(oauthService: OAuthService, public navCtrl: NavController, public translateService: TranslateService) {
+    translateService.use('fr');
+
+    this.oauthService = oauthService;
     if (localStorage.getItem('oauthToken') === null) {
       this.navCtrl.setRoot(OAuthProvidersListPage);
     }
@@ -36,6 +36,7 @@ export class HomePage {
     // create a service to get languages from db
     // this.languages = []
     this.chooseALang = [
+     'English',
      'French',
      'Spanish',
      'Japanese',

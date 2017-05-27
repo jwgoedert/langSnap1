@@ -4,13 +4,13 @@
     <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-    <ion-title>Edit Deck</ion-title>
+    <ion-title>{{ 'EDIT_DECK' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <button ion-button type="button" (click)="addCard()" block>add card</button>
-	<button ion-button type="button" (click)="deleteCard()" block>delete card</button>
+  <button ion-button type="button" (click)="addCard()" block>{{ 'ADD_CARD' | translate }}</button>
+	<button ion-button type="button" (click)="deleteCard()" block>{{ 'DELETE_CARD' | translate }}</button>
 </ion-content>
