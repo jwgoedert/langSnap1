@@ -1,0 +1,17 @@
+{
+  "FIND_ADD": "Trouver / Ajouter",
+  "ADD_DECK": "Ajouter un pont",
+  "ABOUT_US": "À propos de nous",
+  "CREATE_A_DECK" : "Créer un pont",
+  "CREATE_DECK" : "Créer un pont",
+  "EDIT_DECK" : "Modifier le Deck",
+  "ADD_CARD" : "Ajouter une carte",
+  "DELETE_CARD" : "Supprimer la carte",
+  "WELCOME": "Bienvenue",
+  "FIND_ADD_A_DECK": "Trouver / Ajouter un pont",
+  "MY_DECKS": "My Decks",
+  "LOG_OUT": "Connectez - Out",
+  "LOG_IN": "S'identifier",
+  "DELETE_DECK" : "Supprimer le pont",
+  "QUIZ" : "Quiz"
+}

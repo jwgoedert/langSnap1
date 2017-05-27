@@ -1,0 +1,17 @@
+{
+  "FIND_ADD": "Finden / Hinzufügen",
+  "ADD_DECK": "Deck hinzufügen",
+  "ABOUT_US": "Über uns",
+  "CREATE_A_DECK" : "Erstellen Sie ein Deck",
+  "CREATE_DECK" : "Deck erstellen",
+  "EDIT_DECK" : "Bearbeiten Deck",
+  "ADD_CARD" : "Karte hinzufügen",
+  "DELETE_CARD" : "Karte löschen",
+  "WELCOME": "Herzlich willkommen",
+  "FIND_ADD_A_DECK": "Finden / Füge ein Deck hinzu",
+  "MY_DECKS": "Meine Decks",
+  "LOG_OUT": "Ausloggen",
+  "LOG_IN": "Einloggen",
+  "DELETE_DECK" : "Deck löschen",
+  "QUIZ" : "Quiz"
+}

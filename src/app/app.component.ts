@@ -8,28 +8,32 @@ import { OAuthProvidersListPage } from '../pages/oauth/list/oauth-providers.list
 import { MyDecksPage } from '../pages/my-decks/my-decks';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = OAuthProvidersListPage;
 
   pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
-    this.initializeApp();
+  constructor(public platform: Platform, 
+    public statusBar: StatusBar, 
+    public splashScreen: SplashScreen,
+    public translate: TranslateService) {
+      this.initializeApp();
 
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Login', component: OAuthProvidersListPage, icon: 'log-in' },
-      { title: 'Home', component: HomePage, icon: 'home' },
-      { title: 'My Decks', component: MyDecksPage, icon: 'albums' },
-      { title: 'Find/Add Decks', component: FindAddDeckPage, icon: 'search' },
-      { title: 'Create Decks', component: CreateDeckPage, icon: 'add' },
-    ];
+      // used for an example of ngFor and navigation
+      translate.setDefaultLang('en');
+      this.pages = [
+        { title: 'Login', component: OAuthProvidersListPage, icon: 'log-in' },
+        { title: 'Home', component: HomePage, icon: 'home' },
+        { title: 'My Decks', component: MyDecksPage, icon: 'albums' },
+        { title: 'Find/Add Decks', component: FindAddDeckPage, icon: 'search' },
+        { title: 'Create Decks', component: CreateDeckPage, icon: 'add' },
+      ];
 
   }
 
