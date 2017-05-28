@@ -102,7 +102,7 @@ export class CreateDeckPage {
     });
     confirm.present();
   }
-
+// not currently working, need to troubleshoot
     cameraRoll() {
     const options: CameraOptions = {
       quality: 100,
