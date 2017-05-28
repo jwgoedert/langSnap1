@@ -5,6 +5,7 @@ import { HttpModule, Http } from '@angular/http';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Camera } from '@ionic-native/camera'; 
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -59,6 +60,7 @@ import { Config } from '../config';
     Config,
     StatusBar,
     SplashScreen,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
