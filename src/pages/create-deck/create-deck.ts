@@ -14,13 +14,12 @@ export class CreateDeckPage {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = CreateDeckPage;
-      
+
   public photos: any;
   public base64Image: string;
+  public picUrl: string;
 
-
- 
-    constructor(
+  constructor(
     public navCtrl: NavController,
     private camera: Camera,
     private alertCtrl: AlertController,
@@ -36,21 +35,49 @@ export class CreateDeckPage {
   }
   takePhoto() {
     const options: CameraOptions = {
-      quality: 50,
+      quality: 100,
+      targetWidth: 300,
+      targetHeight: 300,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.CAMERA,
     }
     console.log("TOTOPHOTO");
     this.camera.getPicture(options).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:  
+      imageData = imageData.replace(/\r?\n|\r/g, "");
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      console.log('What is this?', this.base64Image);
+      var newForm = new FormData();
+      newForm.append("file", this.base64Image);
+      newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
+      this.http.post(`https://api.cloudinary.com/v1_1/${this.config.cloudinary.cloudId}/image/upload`, newForm)
+        .subscribe(info => {
+          this.picUrl = info.url;
+          // alert for response
+          // var alert = this.alertCtrl.create({
+          //   title: "Data String",
+          //   subTitle: JSON.stringify(info),
+          //   buttons: ["close"]
+
+          // });
+          // alert.present(alert);
+          console.log(JSON.stringify(info));
+        }, error => {
+          var alertErr = this.alertCtrl.create({
+            title: "ERROR",
+            subTitle: JSON.stringify(error.json().error),
+            buttons: ["close"]
+          });
+          alertErr.present(alertErr);
+        });
+      //put photos in grid for viewing  
       this.photos.push(this.base64Image);
       this.photos.reverse();
     }, (err) => {
       // Handle error
+      console.log(err);
     });
   }
   deletePhoto(index) {
@@ -75,16 +102,61 @@ export class CreateDeckPage {
     });
     confirm.present();
   }
-
-
-    ionViewDidLoad() {
-      console.log('ionViewDidLoad CreateDeckPage');
+// not currently working, need to troubleshoot
+    cameraRoll() {
+    const options: CameraOptions = {
+      quality: 100,
+      targetWidth: 300,
+      targetHeight: 300,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     }
+    console.log("TOTOPHOTO");
+    this.camera.getPicture(options).then((imageData) => {
 
-    click() {
-      console.log('they gone think i won a grammy!!!!!!')
-    }
-  
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:  
+      imageData = imageData.replace(/\r?\n|\r/g, "");
+      this.base64Image = 'data:image/jpeg;base64,' + imageData;
+      var newForm = new FormData();
+      newForm.append("file", this.base64Image);
+      newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
+      this.http.post(`https://api.cloudinary.com/v1_1/${this.config.cloudinary.cloudId}/image/upload`, newForm)
+        .subscribe(info => {
+          this.picUrl = info.url;
+        }, error => {
+          var alertErr = this.alertCtrl.create({
+            title: "ERROR",
+            subTitle: JSON.stringify(error.json().error),
+            buttons: ["close"]
+          });
+          alertErr.present(alertErr);
+        });
+      //put photos in grid for viewing  
+      this.photos.push(this.base64Image);
+      this.photos.reverse();
+    }, (err) => {
+      // Handle error
+      console.log(err);
+    });
+  }
+
+  findCard() {
+
+  };
+
+
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CreateDeckPage');
+  }
+
+  click() {
+    console.log('they gone think i won a grammy!!!!!!')
+  }
+
   createDeck() {
     this.navCtrl.setRoot(MyDecksPage)
   }
