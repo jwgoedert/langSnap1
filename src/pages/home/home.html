@@ -8,25 +8,18 @@
 </ion-header>
 
 <ion-content>
+				<button ion-button type="button" (click)="button()" block>Test</button>
+				<button ion-button type="button" (click)="post()" block>Post</button>
+
 	<ion-content *ngIf="!!profile">
 		Welcome {{profile.firstName}} {{profile.lastName}}!!!
-		<ion-content *ngIf="!myLanguages">
-			<form (click)="logForm(langForm.native, langForm.learning)">
-				<ion-item>
-					<ion-label>Native Lang. Please!</ion-label>
-					<ion-input type="text" [(ngModel)]="langForm.native" name="native" required></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-label>Learning Lang. Please!</ion-label>
-					<ion-select  [(ngModel)]="langForm.learning" name="learning">
-						<ion-option *ngFor="let language of chooseALang" value= {{language}} required>
-							{{ language }}
-						</ion-option>
-					</ion-select>
-				</ion-item>
-				<button ion-button type="button" block>submit</button>
-			</form>
+		<ion-content *ngIf="!!user">
+			this is user {{ user }}
 		</ion-content>
+
+
+			<!--Testing {{ test }}-->
+			<button class="button button-full" type="button" (click)="logout()" block>{{ 'LOG_OUT' | translate}}</button>
 		<ion-content *ngIf="!!myLanguages">
 			Languages!
 				Native: {{ myLanguages[0] }} 
@@ -37,7 +30,6 @@
 				<button ion-button type="button" [navPush]="myDecksPage" block>{{ 'MY_DECKS' | translate }}</button>
 
 		<div padding>
-			<button class="button button-full" type="button" (click)="logout()" block>{{ 'LOG_OUT' | translate}}</button>
 		</div>
 		</ion-content>
 	</ion-content>

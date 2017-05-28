@@ -1,0 +1,31 @@
+<ion-header>
+	<ion-navbar>
+		 <button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+    <ion-title> {{ 'PROFILE' | translate }} </ion-title>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <form (click)="langForm(langForm.email, langForm.native, langForm.learning)">
+       <ion-item>
+        <ion-label>Email Address</ion-label>
+        <ion-input type="text" [(ngModel)]="langForm.email" name=email required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Native Language</ion-label>
+        <ion-input type="text" [(ngModel)]="langForm.native" name="native" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Learning Language</ion-label>
+        <ion-select  [(ngModel)]="langForm.learning" name="learning">
+          <ion-option *ngFor="let language of chooseALang" value= {{language}} required>
+            {{ language }}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <button ion-button type="button" block>{{ 'SUBMIT' | translate }}</button>
+    </form>
+</ion-content>

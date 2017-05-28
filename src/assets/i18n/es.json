@@ -13,5 +13,7 @@
   "LOG_OUT": "Cerrar sesión",
   "LOG_IN": "Iniciar sesión",
   "DELETE_DECK" : "Eliminar cubierta",
-  "QUIZ" : "Examen"
+  "QUIZ" : "Examen",
+  "PROFILE" : "Perfil",
+  "SUBMIT" : "Enviar"
 }
