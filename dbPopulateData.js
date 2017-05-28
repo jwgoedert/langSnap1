@@ -1,0 +1,46 @@
+{
+	"facebookUsername":"mdsafo",
+	"email":"harry@gail.com",
+	"firstName":"Harry",
+    "lastName":"Bgmann",
+    "token":"dfdsghjkhfgdfdsafgfhdjfhklhgfdsghjfkghhgfd",
+    "nativeLang":"English",
+    "learnLang":"French"
+}
+
+{
+	"facebookUsername":"abc100",
+	"email":"james@gail.com",
+	"firstName":"james",
+    "lastName":"goedert",
+    "token":"token100",
+    "nativeLang":"English",
+    "learnLang":"French"
+}
+{
+	"facebookUsername":"abc101",
+	"email":"nisha@gail.com",
+	"firstName":"nisha",
+    "lastName":"franklin",
+    "token":"token101",
+    "nativeLang":"English",
+    "learnLang":"French"
+}
+{
+	"facebookUsername":"abc102",
+	"email":"harry@gail.com",
+	"firstName":"Harry",
+    "lastName":"Bgmann",
+    "token":"token102",
+    "nativeLang":"English",
+    "learnLang":"Spanish"
+}
+{
+	"facebookUsername":"abc103",
+	"email":"ali@gail.com",
+	"firstName":"shams",
+    "lastName":"ali",
+    "token":"token103",
+    "nativeLang":"English",
+    "learnLang":"French"
+}
