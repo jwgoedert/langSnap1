@@ -17,7 +17,7 @@ export class ProfileService {
       userName,
       source
     }
-    this.http.get(`http://f377bcf8.ngrok.io/v1/users/auth/${source}/${userName}`)
+    this.http.get(`http://52.14.252.211/v1/users/auth/${source}/${userName}`)
       .subscribe(data => {
         this.data = JSON.stringify(data);
         console.log(data, 'Data');

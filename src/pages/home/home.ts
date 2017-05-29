@@ -24,8 +24,7 @@ export class HomePage {
   public langForm: Object;
   public chooseALang: Array<string>;
   public data: any;
-  private user;
-  private name: string = 'Jeralnisha';
+  public name: string = 'Jay';
   public sor: string = 'facebook'
 	constructor(oauthService: OAuthService, 
     public navCtrl: NavController, 
@@ -39,6 +38,7 @@ export class HomePage {
       // if (localStorage.getItem('oauthToken') === null) {
       //   this.navCtrl.setRoot(OAuthProvidersListPage);
       // }
+      console.log('updated')
       oauthService.getProfile()
         .then(profile => {
           console.log(profile, 'profile')
@@ -55,11 +55,7 @@ export class HomePage {
   }
    button() {
     console.log('lookie im a button')
-    this.http.get(`http://f377bcf8.ngrok.io/v1/users/auth/${this.sor}/${this.name}`)
-      // .map(res => {
-      //   console.log('inside map')
-      //   res.json()
-      // })
+    this.http.get(`http://52.14.252.211/v1/users/auth/${this.sor}/${this.name}`)
       .subscribe(data => {
         // this.user = {
         //   userName,
@@ -82,8 +78,8 @@ export class HomePage {
    }
    post() {
     let temp = {};
-    
-     this.http.post('http://f377bcf8.ngrok.io/v1/users/findorcreate', temp)
+
+     this.http.post('http://52.14.252.211/v1/users/findorcreate', temp)
       .subscribe(data => {
         console.log('farshcafluugen')
         this.data = JSON.stringify(data);
