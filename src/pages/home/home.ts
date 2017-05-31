@@ -4,14 +4,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { Http } from '@angular/http';
 
 import { OAuthService } from '../oauth/oauth.service';
-import { OAuthProfile } from '../oauth/models/oauth-profile.model';
-import { ProfileService } from '../../services/profile.service'
+import { ProfileService } from '../../services/profile.service';
+import { LanguageService } from '../../services/language.service';
 import { OAuthProvidersListPage } from '../oauth/list/oauth-providers.list.page';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
-  providers: [OAuthService, ProfileService]
+  providers: [OAuthService, ProfileService, LanguageService]
 })
 export class HomePage {
   @ViewChild(Nav) nav: Nav;
@@ -19,81 +19,70 @@ export class HomePage {
   rootPage: any = HomePage;
 
 	private oauthService: OAuthService;
-	public profile: OAuthProfile;
+	public profile: any;
   public myLanguages: Array<string>;
-  public langForm: Object;
   public chooseALang: Array<string>;
-  public data: any;
-  public name: string = 'Jay';
-  public sor: string = 'facebook'
+  public user: any;
+
 	constructor(oauthService: OAuthService, 
     public navCtrl: NavController, 
     public translateService: TranslateService,
     public http: Http,
     public profileService: ProfileService,
-    public alertCtrl: AlertController) {
-      translateService.use('fr');
+    public alertCtrl: AlertController,
+    public languageService: LanguageService) {
       this.alertCtrl = alertCtrl;
       this.oauthService = oauthService;
+      this.chooseALang = [
+        'English',
+        'French',
+        'Spanish',
+        'Japanese',
+        'Russian',
+        'German'
+      ];
       // if (localStorage.getItem('oauthToken') === null) {
       //   this.navCtrl.setRoot(OAuthProvidersListPage);
       // }
-      console.log('updated')
-      oauthService.getProfile()
+      console.log('update 1.5')
+      oauthService.getProfile().toPromise()
         .then(profile => {
           console.log(profile, 'profile')
-          this.profile = profile
+          this.profile = profile;
+          this.user = JSON.stringify(profile);
+          translateService.use(languageService.translateLang(this.profile.nativeLang));
+        })
+        .catch(err => {
+          console.log("Error" + JSON.stringify(err))
         }); 
-      
-      console.log(this.profile, 'profile that i am looking for')
-      
 	}
-  
+
+  langForm(email, native, learning) {
+    if (!email.includes("@") || !email.length || !native || !learning){ 
+      var formError = this.alertCtrl.create({
+        title: "Sorry",
+        subTitle: "Please check your email, native language and learning lanugages again.",
+        buttons: ['close']
+      });
+      formError.present(formError);
+    } else {
+      let user = {
+        "facebookUsername": this.profile.facebookUsername,
+        "email": email,
+        "firstName": this.profile.firstName,
+        "lastName": this.profile.lastName,
+        "token": JSON.stringify(JSON.parse(localStorage.getItem('oauthToken')).accessToken),
+        "nativeLang": native,
+        "learnLang": learning
+      }
+      this.profileService.updateUser(user);
+      this.navCtrl.setRoot(HomePage);
+    }
+  }
+
   logout(){
     localStorage.removeItem('oauthToken');
     this.navCtrl.setRoot(OAuthProvidersListPage);
   }
-   button() {
-    console.log('lookie im a button')
-    this.http.get(`http://52.14.252.211/v1/users/auth/${this.sor}/${this.name}`)
-      .subscribe(data => {
-        // this.user = {
-        //   userName,
-        //   source
-        // }
-        console.log('farshcafluugen')
-        this.data = JSON.stringify(data);
-        console.log(data, 'Data');
-        var alert = this.alertCtrl.create({
-          title: "Success is a hello!",
-          subTitle: JSON.stringify(data),
-          buttons: ["close"]
-        });
-        alert.present(alert);
-        console.log("Success", JSON.stringify(data))
-        return data;
-      }, error => {
-        console.log(JSON.stringify(error.json()));
-      });
-   }
-   post() {
-    let temp = {};
 
-     this.http.post('http://52.14.252.211/v1/users/findorcreate', temp)
-      .subscribe(data => {
-        console.log('farshcafluugen')
-        this.data = JSON.stringify(data);
-        console.log(data, 'Data');
-        var alert = this.alertCtrl.create({
-          title: "Success is a hello!",
-          subTitle: JSON.stringify(data),
-          buttons: ["close"]
-        });
-        alert.present(alert);
-        console.log("Success", JSON.stringify(data))
-        return data;
-      }, error => {
-        console.log(JSON.stringify(error.json()));
-      });
-   }
 }

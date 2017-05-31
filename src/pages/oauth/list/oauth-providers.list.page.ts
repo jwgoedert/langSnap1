@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { OAuthService } from '../oauth.service';
 import { HomePage } from '../../home/home';
 import { TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
 	templateUrl: 'oauth-providers.list.html',

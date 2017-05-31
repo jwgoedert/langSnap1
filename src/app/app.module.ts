@@ -20,7 +20,7 @@ import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
-
+import { LanguageService } from '../services/language.service';
 
 @NgModule({
   declarations: [
@@ -64,6 +64,7 @@ import { ProfilePage } from '../pages/profile/profile';
     StatusBar,
     SplashScreen,
     Camera,
+    LanguageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
