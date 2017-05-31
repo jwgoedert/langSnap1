@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { OAuthProvidersListPage } from './list/oauth-providers.list.page';
 
 import { OAuthService } from '../../pages/oauth/oauth.service';
+import { ProfileService } from '../../services/profile.service';
 
 import { FacebookOauthProvider } from './facebook/facebook-oauth.provider';
 
@@ -16,7 +17,8 @@ import { FacebookOauthProvider } from './facebook/facebook-oauth.provider';
 	],
 	providers: [
 		OAuthService,
- 		FacebookOauthProvider
+ 		FacebookOauthProvider,
+		ProfileService
 	]
 })
 export class OAuthModule {

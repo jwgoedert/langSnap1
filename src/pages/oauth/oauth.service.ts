@@ -3,6 +3,7 @@ import { FacebookOauthProvider } from './facebook/facebook-oauth.provider';
 import { IOathProvider } from './oauth.provider.interface';
 import { OAuthToken } from './models/oauth-token.model';
 import { OAuthProfile } from './models/oauth-profile.model';
+import { Observable } from 'rxjs/Observable'
 
 @Injectable()
 export class OAuthService {
@@ -27,9 +28,10 @@ export class OAuthService {
 		});
 	}
 
-	getProfile(): Promise<OAuthProfile> {
+	getProfile(): Observable<Promise<OAuthProfile>> {
 		if (!this.isAuthorized()) {
-			return Promise.reject('You are not authorized');
+			// return Promise.reject('You are not authorized');
+			console.log('You are not authorized');
 		}
 		let oauthService = this.getOAuthService();
 		return oauthService.getProfile(this.getOAuthToken().accessToken);

@@ -1,13 +1,17 @@
+import { MyApp } from './app.component';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { HttpModule, Http } from '@angular/http';
-
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Camera } from '@ionic-native/camera'; 
+import { OAuthModule } from '../pages/oauth/oauth.module';
+import { Config } from '../config';
 
-import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
@@ -15,11 +19,8 @@ import { MyDecksPage } from '../pages/my-decks/my-decks';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { QuizPage } from '../pages/quiz/quiz';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { OAuthModule } from '../pages/oauth/oauth.module';
-import { Config } from '../config';
+import { ProfilePage } from '../pages/profile/profile';
+import { LanguageService } from '../services/language.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { Config } from '../config';
     MyDecksPage, 
     AboutUsPage,
     EditDeckPage,
-    QuizPage
+    QuizPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
@@ -54,13 +56,15 @@ import { Config } from '../config';
     MyDecksPage,
     AboutUsPage,
     EditDeckPage,
-    QuizPage
+    QuizPage,
+    ProfilePage
   ],
   providers: [
     Config,
     StatusBar,
     SplashScreen,
     Camera,
+    LanguageService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

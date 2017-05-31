@@ -13,5 +13,7 @@
   "LOG_OUT": "Ausloggen",
   "LOG_IN": "Einloggen",
   "DELETE_DECK" : "Deck löschen",
-  "QUIZ" : "Quiz"
+  "QUIZ" : "Quiz",
+  "PROFILE": "Profil",
+  "SUBMIT": "einreichen"
 }

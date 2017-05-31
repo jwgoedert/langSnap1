@@ -8,37 +8,50 @@
 </ion-header>
 
 <ion-content>
+
 	<ion-content *ngIf="!!profile">
+
 		Welcome {{profile.firstName}} {{profile.lastName}}!!!
-		<ion-content *ngIf="!myLanguages">
-			<form (click)="logForm(langForm.native, langForm.learning)">
+		profile {{ profile }}
+		user {{ user }}
+
+		<ion-content *ngIf="profile.id <= 0" >
+			this is user {{ user }}
+			<ion-content padding>
+			<form (click)="langForm(langForm.email, langForm.native, langForm.learning)">
 				<ion-item>
-					<ion-label>Native Lang. Please!</ion-label>
-					<ion-input type="text" [(ngModel)]="langForm.native" name="native" required></ion-input>
+					<ion-label>Email Address</ion-label>
+					<ion-input type="text" [(ngModel)]="langForm.email" name="email" required></ion-input>
 				</ion-item>
 				<ion-item>
-					<ion-label>Learning Lang. Please!</ion-label>
+					<ion-label>Native Language</ion-label>
+					<!--<ion-input type="text" [(ngModel)]="langForm.native" name="native" required></ion-input>-->
+					<ion-select  [(ngModel)]="langForm.native" name="native">
+						<ion-option *ngFor="let language of chooseALang" value= {{language}} required>
+							{{ language }}
+						</ion-option>
+					</ion-select>
+				</ion-item>
+				<ion-item>
+					<ion-label>Learning Language</ion-label>
 					<ion-select  [(ngModel)]="langForm.learning" name="learning">
 						<ion-option *ngFor="let language of chooseALang" value= {{language}} required>
 							{{ language }}
 						</ion-option>
 					</ion-select>
 				</ion-item>
-				<button ion-button type="button" block>submit</button>
-			</form>
+					<!--<button ion-button type="submit" block>{{ 'SUBMIT' | translate }}</button>-->
+					<button ion-button type="submit" block>SUBMIT</button>
+				</form>
+			</ion-content>
 		</ion-content>
-		<ion-content *ngIf="!!myLanguages">
-			Languages!
-				Native: {{ myLanguages[0] }} 
-				Learning: {{ myLanguages[1] }}
-
+		<ion-content *ngIf="profile.id > 0" >
+			<div padding>
 				<button ion-button type="button" [navPush]="createPage" block>{{ 'CREATE_A_DECK' | translate }}</button>
 				<button ion-button type="button" [navPush]="findAddPage" block>{{ 'FIND_ADD_A_DECK' | translate }}</button>
 				<button ion-button type="button" [navPush]="myDecksPage" block>{{ 'MY_DECKS' | translate }}</button>
-
-		<div padding>
-			<button class="button button-full" type="button" (click)="logout()" block>{{ 'LOG_OUT' | translate}}</button>
-		</div>
+			</div>
+			<button ion-button class="button button-full" type="button" (click)="logout()" block>{{ 'LOG_OUT' | translate}}</button>
 		</ion-content>
 	</ion-content>
 </ion-content>

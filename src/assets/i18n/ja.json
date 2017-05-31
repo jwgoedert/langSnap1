@@ -13,5 +13,7 @@
   "LOG_OUT": "ログアウト",
   "LOG_IN": "ログイン",
   "DELETE_DECK" : "デッキの削除",
-  "QUIZ" : "クイズ"
+  "QUIZ" : "クイズ",
+  "PROFILE" : "プロフィール",
+  "SUBMIT" : "提出する"
 }

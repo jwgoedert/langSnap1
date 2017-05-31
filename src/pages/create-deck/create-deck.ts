@@ -5,6 +5,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Http } from '@angular/http';
 import { Config } from '../../config';
+import { OAuthService } from '../oauth/oauth.service';
+import { LanguageService } from '../../services/language.service';
+
 // @Injectable() ???
 @Component({
   selector: 'page-create-deck',
@@ -18,6 +21,7 @@ export class CreateDeckPage {
   public photos: any;
   public base64Image: string;
   public picUrl: string;
+	public profile: any;
 
   constructor(
     public navCtrl: NavController,
@@ -26,8 +30,16 @@ export class CreateDeckPage {
     private http: Http,
     private config: Config,
     public translateService: TranslateService,
-  ) {
-    translateService.use('fr');
+    oauthService: OAuthService,
+    public languageService: LanguageService) {
+    oauthService.getProfile().toPromise()
+        .then(profile => {
+          this.profile = profile;
+          translateService.use(languageService.translateLang(this.profile.nativeLang));
+        })
+        .catch(err => {
+          console.log("Error" + JSON.stringify(err))
+        }); 
     this.http = http;
   }
   ngOnInit() {

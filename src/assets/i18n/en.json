@@ -13,5 +13,7 @@
   "LOG_OUT": "Log Out",
   "LOG_IN": "Log In",
   "DELETE_DECK" : "Delete Deck",
-  "QUIZ" : "Quiz"
+  "QUIZ" : "Quiz",
+  "PROFILE" : "Profile",
+  "SUBMIT" : "Submit"
 }

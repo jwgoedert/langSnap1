@@ -1,38 +1,31 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Nav, AlertController } from 'ionic-angular';
+import { Nav, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Http } from '@angular/http';
-
+import { AlertController } from 'ionic-angular';
+import { ProfileService } from '../../services/profile.service'
 import { OAuthService } from '../oauth/oauth.service';
-import { ProfileService } from '../../services/profile.service';
 import { LanguageService } from '../../services/language.service';
-import { OAuthProvidersListPage } from '../oauth/list/oauth-providers.list.page';
+import { HomePage } from '../home/home';
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html',
-  providers: [OAuthService, ProfileService, LanguageService]
+  selector: 'page-profile',
+  templateUrl: 'profile.html',
 })
-export class HomePage {
+export class ProfilePage {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
-
-	private oauthService: OAuthService;
-	public profile: any;
-  public myLanguages: Array<string>;
+  public rootPage: any = ProfilePage;
   public chooseALang: Array<string>;
-  public user: any;
+	public profile: any;
 
-	constructor(oauthService: OAuthService, 
+  constructor(oauthService: OAuthService,
     public navCtrl: NavController, 
+    public navParams: NavParams, 
     public translateService: TranslateService,
-    public http: Http,
-    public profileService: ProfileService,
     public alertCtrl: AlertController,
+    public profileServices: ProfileService,
     public languageService: LanguageService) {
-      this.alertCtrl = alertCtrl;
-      this.oauthService = oauthService;
+      translateService.use('fr');
       this.chooseALang = [
         'English',
         'French',
@@ -41,27 +34,25 @@ export class HomePage {
         'Russian',
         'German'
       ];
-      // if (localStorage.getItem('oauthToken') === null) {
-      //   this.navCtrl.setRoot(OAuthProvidersListPage);
-      // }
-      console.log('update 1.5')
       oauthService.getProfile().toPromise()
         .then(profile => {
-          console.log(profile, 'profile')
           this.profile = profile;
-          this.user = JSON.stringify(profile);
           translateService.use(languageService.translateLang(this.profile.nativeLang));
         })
         .catch(err => {
           console.log("Error" + JSON.stringify(err))
         }); 
-	}
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ProfilePage');
+  }
 
   langForm(email, native, learning) {
     if (!email.includes("@") || !email.length || !native || !learning){ 
       var formError = this.alertCtrl.create({
         title: "Sorry",
-        subTitle: "Please check your email, native language and learning lanugages again.",
+        subTitle: "Please check your email, native language and learning lanugage again.",
         buttons: ['close']
       });
       formError.present(formError);
@@ -75,14 +66,8 @@ export class HomePage {
         "nativeLang": native,
         "learnLang": learning
       }
-      this.profileService.updateUser(user);
+      this.profileServices.updateUser(user)
       this.navCtrl.setRoot(HomePage);
     }
   }
-
-  logout(){
-    localStorage.removeItem('oauthToken');
-    this.navCtrl.setRoot(OAuthProvidersListPage);
-  }
-
 }

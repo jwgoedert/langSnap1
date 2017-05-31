@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { EditDeckPage } from './edit-deck';
+import { ProfilePage } from './profile';
 
 @NgModule({
   declarations: [
-    EditDeckPage,
+    ProfilePage,
   ],
   imports: [
-    IonicPageModule.forChild(EditDeckPage),
+    IonicPageModule.forChild(ProfilePage),
   ],
   exports: [
-    EditDeckPage
+    ProfilePage
   ]
 })
-export class EditDeckPageModule {}
+export class ProfilePageModule {}
