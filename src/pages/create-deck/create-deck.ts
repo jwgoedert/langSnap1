@@ -19,6 +19,7 @@ export class CreateDeckPage {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = CreateDeckPage;
 
+  public deckname: string;
   public googObj: any;
   public photos: any;
   public base64Image: string;
@@ -28,7 +29,6 @@ export class CreateDeckPage {
   public translatedWord;
   public counter: number = 0;
   public deckId;
-
 
   constructor(
     public navCtrl: NavController,
@@ -135,6 +135,7 @@ export class CreateDeckPage {
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     }
+<<<<<<< HEAD
     console.log("CAMERAROLLPHOTO");
     this.camera.getPicture(options).then((imageData) => {
       imageData = imageData.replace(/\r?\n|\r/g, "");
@@ -167,6 +168,38 @@ export class CreateDeckPage {
         buttons: ['close']
       });
       formError.present(formError);
+=======
+
+
+    checkTitle() {
+      if (this.title) {
+        this.navCtrl.setRoot(CardPage)
+      } else {
+        var formError = this.alertCtrl.create({
+          title: "Dont Forget A Deck Title",
+          subTitle: "Please enter a title for your deck.",
+          buttons: ['close']
+        });
+        formError.present(formError);
+      }
+    }
+    findCard() {
+      // this.deckService.getUsersDecks(this.profile.id);
+      // this.navCtrl.setRoot(CardPage);
+      // this.deckService.getUsersDecks(1);
+      this.navCtrl.setRoot(CardPage);
+    };
+
+    addATitle(title) {
+      this.title = title;
+      console.log(this.title)
+      console.log('title')
+      this.cameraService.addTitle(this.title) 
+      this.deckId = this.deckService.postUserDeck(this.title, this.profile.id)
+    }
+    ionViewDidLoad() {
+      console.log('ionViewDidLoad CreateDeckPage');
+>>>>>>> (maint)Refactor create-deck page
     }
   }
   findCard() {
