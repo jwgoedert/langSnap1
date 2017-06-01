@@ -3,17 +3,18 @@
     <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-    <ion-title>{{ 'CREATE_CARD' | translate }} create card</ion-title>
+    <ion-title>{{ 'CREATE_CARD' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-       <!--title => {{ cardInfo.title }} 
-        <img [src]= {{ cardInfo.picture }} />
+       title => {{ cardInfo.title }} 
+        <img [src]= "cardInfo.picture" />
        word => {{ cardInfo.word }} 
-       translation =>  {{ cardInfo.translation }} -->
-  <button ion-button full (click)="editWord()" outline>{{ 'EDIT_WORD' | translate }} edit word</button>
+       translation =>  {{ translation }} 
+  <button ion-button full (click)="editWord()" outline>{{ 'EDIT_WORD' | translate }}</button>
+  <button ion-button full (click)="translate()" outline>translate</button>
 
-  <button ion-button full (click)="createCard()" outline>{{ 'CREATE_CARD' | translate }} create card</button>
+  <button ion-button full (click)="createCard()" outline>{{ 'CREATE_CARD' | translate }}</button>
 </ion-content>

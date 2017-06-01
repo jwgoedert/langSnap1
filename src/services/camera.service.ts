@@ -38,9 +38,9 @@ export class CameraService {
    })
    .then((word) => {
     this.word = word
-    setTimeout(() => {
-     this.getTranslation()
-    }, 1500)
+    // setTimeout(() => {
+    //  this.getTranslation()
+    // }, 1500)
    })
    // .then( word => {
    //  console.log(word)
@@ -92,7 +92,7 @@ export class CameraService {
   // use this.url to get picture from cloudinary
   }
 ​
-  getTranslation() {
+  getTranslation(str) {
    // get translation
    
    console.log('in translation')
@@ -106,7 +106,7 @@ export class CameraService {
   // tranlationData.append("source", this.source);
   // tranlationData.append("target", this.target);
    let tranlationData = {
-    "q": this.getWord(),
+    "q": str,
     "source": this.source,
     "target": this.target
    }
@@ -130,7 +130,7 @@ export class CameraService {
     console.log('translation yea yea')
     console.log(this.translation)
     console.log('translation yea yea')
-    return resp;
+    return this.translation;
    })
   }
 ​

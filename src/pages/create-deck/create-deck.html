@@ -23,15 +23,18 @@
       <ion-item>
         <ion-col col-12 *ngFor="let photo of photos; let id = index">
           <ion-thumbnail item-left>
-            <img [src]="photo" *ngIf="photo" />
+            <img [src]="photo.image" *ngIf="photo.image" />
           </ion-thumbnail>
           <h2>{{picUrl}}</h2>
-      <ion-content *ngIf="!!fourN" >
-          <h2>{{fourN}}</h2>
-          <h2>{{translatedWord}}</h2>
-      </ion-content>
+          <ion-content *ngIf="!!photo.word" >
+              <h2>{{photo.word}}</h2>
+          </ion-content>
+          <ion-content *ngIf="!!photo.translation" >
+              <h2>{{photo.translation}}</h2>
+          </ion-content>
+          
           <p>ForeignWord</p>
-          <button ion-button clear item-right>View</button>
+          <button ion-button clear item-right (click)="translate()">Translate</button>
         </ion-col>
       </ion-item>
     </ion-list>
@@ -66,7 +69,7 @@
 
       <ion-col col-4>
         <button ion-button icon-left outline (click)="findCard()">
-            <ion-icon ios="ios-search" md="md-search" ></ion-icon>
+            <ion-icon ios="ios-checkmark-circle" md="md-search" ></ion-icon>
           </button>
       </ion-col>
 
