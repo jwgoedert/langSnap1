@@ -13,6 +13,7 @@ import { OAuthModule } from '../pages/oauth/oauth.module';
 import { Config } from '../config';
 
 import { HomePage } from '../pages/home/home';
+import { CardPage } from '../pages/card/card';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
 import { MyDecksPage } from '../pages/my-decks/my-decks';
@@ -21,6 +22,7 @@ import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
 import { LanguageService } from '../services/language.service';
+import { CameraService } from '../services/camera.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { LanguageService } from '../services/language.service';
     AboutUsPage,
     EditDeckPage,
     QuizPage,
-    ProfilePage
+    ProfilePage,
+    CardPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { LanguageService } from '../services/language.service';
     AboutUsPage,
     EditDeckPage,
     QuizPage,
-    ProfilePage
+    ProfilePage,
+    CardPage
   ],
   providers: [
     Config,
@@ -65,6 +69,7 @@ import { LanguageService } from '../services/language.service';
     SplashScreen,
     Camera,
     LanguageService,
+    CameraService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

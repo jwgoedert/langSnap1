@@ -15,7 +15,7 @@
 		profile {{ profile }}
 		user {{ user }}
 
-		<ion-content *ngIf="profile.id <= 0" >
+		<!--<ion-content *ngIf="profile.id <= 0" >
 			this is user {{ user }}
 			<ion-content padding>
 			<form (click)="langForm(langForm.email, langForm.native, langForm.learning)">
@@ -26,7 +26,7 @@
 				<ion-item>
 					<ion-label>Native Language</ion-label>
 					<!--<ion-input type="text" [(ngModel)]="langForm.native" name="native" required></ion-input>-->
-					<ion-select  [(ngModel)]="langForm.native" name="native">
+					<!--<ion-select  [(ngModel)]="langForm.native" name="native">
 						<ion-option *ngFor="let language of chooseALang" value= {{language}} required>
 							{{ language }}
 						</ion-option>
@@ -41,15 +41,15 @@
 					</ion-select>
 				</ion-item>
 					<!--<button ion-button type="submit" block>{{ 'SUBMIT' | translate }}</button>-->
-					<button ion-button type="submit" block>SUBMIT</button>
+					<!--<button ion-button type="submit" block>SUBMIT</button>
 				</form>
 			</ion-content>
-		</ion-content>
+		</ion-content>-->
 		<ion-content *ngIf="profile.id > 0" >
 			<div padding>
-				<button ion-button type="button" [navPush]="createPage" block>{{ 'CREATE_A_DECK' | translate }}</button>
-				<button ion-button type="button" [navPush]="findAddPage" block>{{ 'FIND_ADD_A_DECK' | translate }}</button>
-				<button ion-button type="button" [navPush]="myDecksPage" block>{{ 'MY_DECKS' | translate }}</button>
+				<button ion-button type="button" (click)="createPage()" block>{{ 'CREATE_A_DECK' | translate }}</button>
+				<button ion-button type="button" (click)="findAddPage()" block>{{ 'FIND_ADD_A_DECK' | translate }}</button>
+				<button ion-button type="button" (click)="myDecksPage()" block>{{ 'MY_DECKS' | translate }}</button>
 			</div>
 			<button ion-button class="button button-full" type="button" (click)="logout()" block>{{ 'LOG_OUT' | translate}}</button>
 		</ion-content>

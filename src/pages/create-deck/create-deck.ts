@@ -7,8 +7,9 @@ import { Http } from '@angular/http';
 import { Config } from '../../config';
 import { OAuthService } from '../oauth/oauth.service';
 import { LanguageService } from '../../services/language.service';
+import { CameraService } from '../../services/camera.service';
+import { CardPage } from '../card/card';
 
-// @Injectable() ???
 @Component({
   selector: 'page-create-deck',
   templateUrl: 'create-deck.html',
@@ -22,6 +23,9 @@ export class CreateDeckPage {
   public base64Image: string;
   public picUrl: string;
 	public profile: any;
+  public fourN: any;
+  public photoNames: any;
+  public title: any;
 
   constructor(
     public navCtrl: NavController,
@@ -31,25 +35,30 @@ export class CreateDeckPage {
     private config: Config,
     public translateService: TranslateService,
     oauthService: OAuthService,
-    public languageService: LanguageService) {
+    public languageService: LanguageService,
+    public cameraService: CameraService) {
     oauthService.getProfile().toPromise()
         .then(profile => {
           this.profile = profile;
           translateService.use(languageService.translateLang(this.profile.nativeLang));
+          this.cameraService.languages(this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang))
         })
         .catch(err => {
           console.log("Error" + JSON.stringify(err))
         }); 
     this.http = http;
+    
   }
   ngOnInit() {
     this.photos = [];
+    this.photoNames = [];
   }
   takePhoto() {
     const options: CameraOptions = {
       quality: 100,
       targetWidth: 300,
       targetHeight: 300,
+      correctOrientation: true,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
@@ -64,36 +73,19 @@ export class CreateDeckPage {
       var newForm = new FormData();
       newForm.append("file", this.base64Image);
       newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
-      this.http.post(`https://api.cloudinary.com/v1_1/${this.config.cloudinary.cloudId}/image/upload`, newForm)
-        .subscribe(info => {
-          this.picUrl = info.url;
-          // alert for response
-          // var alert = this.alertCtrl.create({
-          //   title: "Data String",
-          //   subTitle: JSON.stringify(info),
-          //   buttons: ["close"]
-
-          // });
-          // alert.present(alert);
-          console.log(JSON.stringify(info));
-        }, error => {
-          var alertErr = this.alertCtrl.create({
-            title: "ERROR",
-            subTitle: JSON.stringify(error.json().error),
-            buttons: ["close"]
-          });
-          alertErr.present(alertErr);
-        });
       //put photos in grid for viewing  
       this.photos.push(this.base64Image);
       this.photos.reverse();
-    }, (err) => {
-      // Handle error
-      console.log(err);
-    });
+      return newForm;
+    }).then(imgFormatted => {
+        this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
+        setTimeout(() => {
+          this.fourN = this.cameraService.getWord();
+          this.cameraService.getTranslation()
+        }, 1500)
+      })
   }
   deletePhoto(index) {
-    // this.photos.splice(index, 1);
     let confirm = this.alertCtrl.create({
       title: 'Sure you want to delete this photo?',
       message: '',
@@ -114,63 +106,75 @@ export class CreateDeckPage {
     });
     confirm.present();
   }
-// not currently working, need to troubleshoot
+
     cameraRoll() {
-    const options: CameraOptions = {
-      quality: 100,
-      targetWidth: 300,
-      targetHeight: 300,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      const options: CameraOptions = {
+        quality: 100,
+        targetWidth: 300,
+        targetHeight: 300,
+        correctOrientation: true,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      }
+      console.log("CAMERAROLLPHOTO");
+      this.camera.getPicture(options).then((imageData) => {
+        // imageData is either a base64 encoded string or a file URI
+        // If it's base64:  
+        imageData = imageData.replace(/\r?\n|\r/g, "");
+        this.base64Image = 'data:image/jpeg;base64,' + imageData;
+        var newForm = new FormData();
+        newForm.append("file", this.base64Image);
+        newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
+        //put photos in grid for viewing  
+        this.photos.push(this.base64Image);
+        this.photos.reverse();
+        return newForm;
+      }).then(imgFormatted => {
+          this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
+          setTimeout(() => {
+            this.fourN = this.cameraService.getWord();
+            this.photoNames.push(this.cameraService.getWord())
+            this.checkTitle()
+          }, 1500)
+      })
     }
-    console.log("TOTOPHOTO");
-    this.camera.getPicture(options).then((imageData) => {
 
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:  
-      imageData = imageData.replace(/\r?\n|\r/g, "");
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      var newForm = new FormData();
-      newForm.append("file", this.base64Image);
-      newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
-      this.http.post(`https://api.cloudinary.com/v1_1/${this.config.cloudinary.cloudId}/image/upload`, newForm)
-        .subscribe(info => {
-          this.picUrl = info.url;
-        }, error => {
-          var alertErr = this.alertCtrl.create({
-            title: "ERROR",
-            subTitle: JSON.stringify(error.json().error),
-            buttons: ["close"]
-          });
-          alertErr.present(alertErr);
+    checkTitle() {
+      if (this.title) {
+        this.navCtrl.setRoot(CardPage)
+      } else {
+        var formError = this.alertCtrl.create({
+          title: "Dont Forget A Deck Title",
+          subTitle: "Please enter a title for your deck.",
+          buttons: ['close']
         });
-      //put photos in grid for viewing  
-      this.photos.push(this.base64Image);
-      this.photos.reverse();
-    }, (err) => {
-      // Handle error
-      console.log(err);
-    });
-  }
+        formError.present(formError);
+      }
+    }
 
-  findCard() {
+    findCard() {
 
-  };
+    };
 
+    addATitle(title) {
+      this.title = title;
+      console.log(this.title)
+      console.log('title')
+      this.cameraService.addTitle(this.title) 
+    }
 
+    ionViewDidLoad() {
+      console.log('ionViewDidLoad CreateDeckPage');
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CreateDeckPage');
-  }
+    click() {
+      console.log('they gone think i won a grammy!!!!!!')
+    }
 
-  click() {
-    console.log('they gone think i won a grammy!!!!!!')
-  }
-
-  createDeck() {
-    this.navCtrl.setRoot(MyDecksPage)
-  }
+    createDeck() {
+      this.navCtrl.setRoot(MyDecksPage)
+    }
 }
 
