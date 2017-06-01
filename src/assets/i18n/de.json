@@ -15,5 +15,7 @@
   "DELETE_DECK" : "Deck löschen",
   "QUIZ" : "Quiz",
   "PROFILE": "Profil",
-  "SUBMIT": "einreichen"
+  "SUBMIT": "einreichen",
+  "EDIT_WORD": "Wort Bearbeiten",
+  "CREATE_CARD": "Erstellen karte"
 }

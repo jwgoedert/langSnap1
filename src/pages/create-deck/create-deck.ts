@@ -26,6 +26,8 @@ export class CreateDeckPage {
   public fourN: any;
   public photoNames: any;
   public title: any;
+  public translatedWord;
+  public counter: number = 0;
 
   constructor(
     public navCtrl: NavController,
@@ -74,15 +76,22 @@ export class CreateDeckPage {
       newForm.append("file", this.base64Image);
       newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
       //put photos in grid for viewing  
-      this.photos.push(this.base64Image);
+      this.photos.push({ image: this.base64Image});
       this.photos.reverse();
       return newForm;
     }).then(imgFormatted => {
-        this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
+        this.cameraService.sendPic(imgFormatted)
+        // this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
+        setTimeout(() => {
+          // this.photoNames.push(this.cameraService.getWord())
+          // this.cameraService.getTranslation()
+        }, 1500)
         setTimeout(() => {
           this.fourN = this.cameraService.getWord();
-          this.cameraService.getTranslation()
-        }, 1500)
+          this.photos[this.counter]['word'] = this.fourN;
+          this.counter = this.counter + 1;
+          // this.translatedWord = this.cameraService.getTranslatedWord()
+        }, 3000)
       })
   }
   deletePhoto(index) {
@@ -132,12 +141,17 @@ export class CreateDeckPage {
         this.photos.reverse();
         return newForm;
       }).then(imgFormatted => {
-          this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
+          this.cameraService.sendPic(imgFormatted)
+          // this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
+          setTimeout(() => {
+            this.photos.push(this.cameraService.getWord())
+            // this.checkTitle()
+          }, 1500)
           setTimeout(() => {
             this.fourN = this.cameraService.getWord();
-            this.photoNames.push(this.cameraService.getWord())
-            this.checkTitle()
-          }, 1500)
+            this.photos[this.counter]['word'] = this.fourN;
+            // this.translatedWord = this.cameraService.getTranslatedWord()
+          }, 3000)
       })
     }
 
@@ -155,7 +169,8 @@ export class CreateDeckPage {
     }
 
     findCard() {
-
+      // this.deckService.getUsersDecks(1);
+      this.navCtrl.setRoot(CardPage);
     };
 
     addATitle(title) {
@@ -176,5 +191,15 @@ export class CreateDeckPage {
     createDeck() {
       this.navCtrl.setRoot(MyDecksPage)
     }
+    translate(){
+      this.cameraService.getTranslation(this.cameraService.getWord())
+      setTimeout(() => {
+        this.setTranslation();
+      }, 1500)
+    }
+    setTranslation() {
+      this.translatedWord = this.cameraService.getTranslatedWord();
+      this.photos[this.counter]['translation'] = this.translatedWord;
+      this.counter = this.photos.length - 1;
+    }
 }
-

@@ -15,5 +15,7 @@
   "DELETE_DECK" : "Supprimer le pont",
   "QUIZ" : "Quiz",
   "PROFILE" : "Profil",
-  "SUBMIT" : "Soumettre"
+  "SUBMIT" : "Soumettre",
+  "EDIT_WORD": " Modifier le mot",
+  "CREATE_CARD": "Créer catre"
 }

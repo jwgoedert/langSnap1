@@ -15,5 +15,7 @@
   "DELETE_DECK" : "デッキの削除",
   "QUIZ" : "クイズ",
   "PROFILE" : "プロフィール",
-  "SUBMIT" : "提出する"
+  "SUBMIT" : "提出する",
+  "EDIT_WORD": "単語を編集する",
+  "CREATE_CARD": "カードを作成する"
 }
