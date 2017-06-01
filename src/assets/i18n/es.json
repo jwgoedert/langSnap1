@@ -15,5 +15,7 @@
   "DELETE_DECK" : "Eliminar cubierta",
   "QUIZ" : "Examen",
   "PROFILE" : "Perfil",
-  "SUBMIT" : "Enviar"
+  "SUBMIT" : "Enviar",
+  "EDIT_WORD": "Editar Palabra",
+  "CREATE_CARD": "Crear tarjeta"
 }

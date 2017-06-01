@@ -37,7 +37,11 @@ export class ProfilePage {
       oauthService.getProfile().toPromise()
         .then(profile => {
           this.profile = profile;
-          translateService.use(languageService.translateLang(this.profile.nativeLang));
+          if (this.profile.nativeLang === "") {
+            translateService.use("en");
+          } else {
+            translateService.use(languageService.translateLang(this.profile.nativeLang));
+          }
         })
         .catch(err => {
           console.log("Error" + JSON.stringify(err))

@@ -15,5 +15,7 @@
   "DELETE_DECK" : "Delete Deck",
   "QUIZ" : "Quiz",
   "PROFILE" : "Profile",
-  "SUBMIT" : "Submit"
+  "SUBMIT" : "Submit",
+  "EDIT_WORD": "Edit Word",
+  "CREATE_CARD": "Create Card"
 }

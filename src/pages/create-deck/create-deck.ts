@@ -26,6 +26,7 @@ export class CreateDeckPage {
   public fourN: any;
   public photoNames: any;
   public title: any;
+  public translatedWord;
 
   constructor(
     public navCtrl: NavController,
@@ -78,11 +79,14 @@ export class CreateDeckPage {
       this.photos.reverse();
       return newForm;
     }).then(imgFormatted => {
-        this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
+        // this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
         setTimeout(() => {
           this.fourN = this.cameraService.getWord();
           this.cameraService.getTranslation()
         }, 1500)
+        setTimeout(() => {
+          this.translatedWord = this.cameraService.getTranslatedWord()
+        }, 3000)
       })
   }
   deletePhoto(index) {
@@ -136,8 +140,11 @@ export class CreateDeckPage {
           setTimeout(() => {
             this.fourN = this.cameraService.getWord();
             this.photoNames.push(this.cameraService.getWord())
-            this.checkTitle()
+            // this.checkTitle()
           }, 1500)
+          setTimeout(() => {
+            this.translatedWord = this.cameraService.getTranslatedWord()
+          }, 3000)
       })
     }
 
@@ -177,4 +184,3 @@ export class CreateDeckPage {
       this.navCtrl.setRoot(MyDecksPage)
     }
 }
-
