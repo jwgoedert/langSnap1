@@ -89,7 +89,7 @@ export class CreateDeckPage {
         setTimeout(() => {
           this.fourN = this.cameraService.getWord();
           this.photos[this.counter]['word'] = this.fourN;
-          this.counter = this.counter + 1;
+          // this.counter = this.counter + 1;
           // this.translatedWord = this.cameraService.getTranslatedWord()
         }, 3000)
       })
@@ -137,14 +137,14 @@ export class CreateDeckPage {
         newForm.append("file", this.base64Image);
         newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
         //put photos in grid for viewing  
-        this.photos.push(this.base64Image);
+        this.photos.push({ image: this.base64Image});
         this.photos.reverse();
         return newForm;
       }).then(imgFormatted => {
           this.cameraService.sendPic(imgFormatted)
           // this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
           setTimeout(() => {
-            this.photos.push(this.cameraService.getWord())
+            // this.photos.push(this.cameraService.getWord())
             // this.checkTitle()
           }, 1500)
           setTimeout(() => {
