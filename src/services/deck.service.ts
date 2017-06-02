@@ -119,11 +119,13 @@ export class DeckService {
     this.http.get(`${this.serverDBUrl}/v1/decks/all`)
       .map(deck => deck.json().forEach(el => {
         this.allDecks.push(el);
+        return this.allDecks;
       }))
       .subscribe(deckName => {
-        console.log('ALL decks');
+        console.log("all decks?????????????????????????????????????????????");
+        console.log(deckName);
         console.log(JSON.stringify(this.allDecks))
-        return deckName;
+        return this.allDecks;
       }), error => console.log(error);
   }
   addDecksToUser(userId, deckIds) {
