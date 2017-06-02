@@ -97,10 +97,10 @@ export class DeckService {
           console.log(JSON.stringify(this.currentDeck))
           console.log("JSON.stringify(this.currentDeck)")
           this.emptyCurrentDeck();
-          return this.currentDeck[0];
+          return this.currentDeck;
         } else {
           this.emptyCurrentDeck();
-          return this.currentDeck[0];
+          return this.currentDeck;
         }
       }), error => console.log(error);
   }
