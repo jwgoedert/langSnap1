@@ -10,7 +10,8 @@ export class DeckService {
   public usersDecks: any;
   public allDecks: any;
   public deckId: any;
-  
+  public currentDeck: Array<any> = [];
+
   constructor(
     public http: Http,
     public alertCtrl: AlertController,
@@ -21,8 +22,8 @@ export class DeckService {
     this.allDecks = [];
   }
   ngOnInit() {
-    this.usersDecks = this.getUsersDecks(1);
-    this.allDecks = this.getAllDecks();
+    // this.usersDecks = this.getUsersDecks(1);
+    // this.allDecks = this.getAllDecks();
   }
   //create deck page
   postUserDeck(deckName, userId) {
@@ -58,28 +59,45 @@ export class DeckService {
 
   }
   //mydecks page
-  getUsersDecks(userId) {
-    this.http.get(`${this.serverDBUrl}/v1/decks/userid/${userId}`)
+  getUsersDecks(userId) { 
+    return this.http.get(`${this.serverDBUrl}/v1/decks/userid/${userId}`)
       .map(deck => deck.json().forEach(el => {
-        this.usersDecks.push(el.name);
+        this.usersDecks.push(el);
+        return this.usersDecks;
       }))
       .subscribe(deckName => {
+        console.log("deck name")
+        console.log(JSON.stringify(deckName))
         console.log(JSON.stringify(this.usersDecks))
-        return deckName;
+        console.log("deck name")
+        
+        return this.usersDecks;
       }), error => console.log(error);
   }
 
   getAllCardsInADeck(userDeckId) {
-    this.http.get(`${this.serverDBUrl}/v1/cards/deckid/${userDeckId}`)
+    return this.http.get(`${this.serverDBUrl}/v1/cards/deckid/${userDeckId}`)
       .map(deck => deck.json().forEach(el => {
-        this.usersDecks.push(el.name);
+        this.currentDeck.push(el);
+        return el;
       }))
-      .subscribe(deckName => {
-        console.log(JSON.stringify(this.usersDecks))
-        return deckName;
+      .subscribe(deck => {
+        console.log("looking for deck")
+        console.log(JSON.stringify(deck))
+        console.log(JSON.stringify(this.currentDeck))
+        console.log("looking for deck")
+        if (!this.currentDeck[0].cards){
+          this.currentDeck[0] = "https://www.askideas.com/media/08/Sorry-With-Emoticon-Picture.jpg";
+          this.currentDeck[0].wordMap["sorry"] = "No Cards, Try Another Deck";
+          return this.currentDeck[0];
+        } else {
+          return this.currentDeck[0];
+        }
       }), error => console.log(error);
   }
-
+  getCurrentDeck() {
+    return this.currentDeck;
+  }
   deleteDecks(decks) {
   }
   //find/add decks page

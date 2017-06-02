@@ -157,8 +157,8 @@ export class CreateDeckPage {
     }
 
     findCard() {
-      // this.deckService.getUsersDecks(1);
-      this.navCtrl.setRoot(CardPage);
+      // this.deckService.getUsersDecks(this.profile.id);
+      // this.navCtrl.setRoot(CardPage);
     };
 
     addATitle(title) {

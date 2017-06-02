@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 
 import { OAuthService } from '../oauth/oauth.service';
 import { ProfileService } from '../../services/profile.service';
+import { DeckService } from '../../services/deck.service';
 import { LanguageService } from '../../services/language.service';
 import { OAuthProvidersListPage } from '../oauth/list/oauth-providers.list.page';
 
@@ -35,7 +36,8 @@ export class HomePage {
     public http: Http,
     public profileService: ProfileService,
     public alertCtrl: AlertController,
-    public languageService: LanguageService) {
+    public languageService: LanguageService,
+    public deckService: DeckService) {
       this.alertCtrl = alertCtrl;
       this.oauthService = oauthService;
       this.chooseALang = [
@@ -93,9 +95,12 @@ export class HomePage {
     this.navCtrl.setRoot(CreateDeckPage);
   }
   findAddPage(){
+    // this.deckService.getAllDecks()
     this.navCtrl.setRoot(FindAddDeckPage);
   }
   myDecksPage(){
+    // this.deckService.getUsersDecks(this.profile.id)
+    // this.deckService.getUsersDecks(1)
     this.navCtrl.setRoot(MyDecksPage);
   }
   logout(){
