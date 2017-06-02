@@ -9,6 +9,7 @@ import { OAuthService } from '../oauth/oauth.service';
 import { LanguageService } from '../../services/language.service';
 import { CameraService } from '../../services/camera.service';
 import { CardPage } from '../card/card';
+import { DeckService } from '../../services/deck.service';
 
 @Component({
   selector: 'page-create-deck',
@@ -24,10 +25,10 @@ export class CreateDeckPage {
   public picUrl: string;
 	public profile: any;
   public fourN: any;
-  public photoNames: any;
   public title: any;
   public translatedWord;
   public counter: number = 0;
+  public deckId;
 
   constructor(
     public navCtrl: NavController,
@@ -38,7 +39,8 @@ export class CreateDeckPage {
     public translateService: TranslateService,
     oauthService: OAuthService,
     public languageService: LanguageService,
-    public cameraService: CameraService) {
+    public cameraService: CameraService,
+    public deckService: DeckService) {
     oauthService.getProfile().toPromise()
         .then(profile => {
           this.profile = profile;
@@ -49,11 +51,9 @@ export class CreateDeckPage {
           console.log("Error" + JSON.stringify(err))
         }); 
     this.http = http;
-    
   }
   ngOnInit() {
     this.photos = [];
-    this.photoNames = [];
   }
   takePhoto() {
     const options: CameraOptions = {
@@ -81,16 +81,11 @@ export class CreateDeckPage {
       return newForm;
     }).then(imgFormatted => {
         this.cameraService.sendPic(imgFormatted)
-        // this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
-        setTimeout(() => {
-          // this.photoNames.push(this.cameraService.getWord())
-          // this.cameraService.getTranslation()
-        }, 1500)
         setTimeout(() => {
           this.fourN = this.cameraService.getWord();
+          this.cameraService.getTranslation(this.fourN)
+          this.navCtrl.setRoot(CardPage)          
           this.photos[this.counter]['word'] = this.fourN;
-          this.counter = this.counter + 1;
-          // this.translatedWord = this.cameraService.getTranslatedWord()
         }, 3000)
       })
   }
@@ -129,28 +124,21 @@ export class CreateDeckPage {
       }
       console.log("CAMERAROLLPHOTO");
       this.camera.getPicture(options).then((imageData) => {
-        // imageData is either a base64 encoded string or a file URI
-        // If it's base64:  
         imageData = imageData.replace(/\r?\n|\r/g, "");
         this.base64Image = 'data:image/jpeg;base64,' + imageData;
         var newForm = new FormData();
         newForm.append("file", this.base64Image);
         newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
-        //put photos in grid for viewing  
-        this.photos.push(this.base64Image);
+        this.photos.push({ image: this.base64Image});
         this.photos.reverse();
         return newForm;
       }).then(imgFormatted => {
           this.cameraService.sendPic(imgFormatted)
-          // this.fourN = JSON.stringify(this.cameraService.sendPic(imgFormatted));
-          setTimeout(() => {
-            this.photos.push(this.cameraService.getWord())
-            // this.checkTitle()
-          }, 1500)
           setTimeout(() => {
             this.fourN = this.cameraService.getWord();
+            this.cameraService.getTranslation(this.fourN)
+            this.navCtrl.setRoot(CardPage)        
             this.photos[this.counter]['word'] = this.fourN;
-            // this.translatedWord = this.cameraService.getTranslatedWord()
           }, 3000)
       })
     }
@@ -178,6 +166,7 @@ export class CreateDeckPage {
       console.log(this.title)
       console.log('title')
       this.cameraService.addTitle(this.title) 
+      this.deckId = this.deckService.postUserDeck(this.title, this.profile.id)
     }
 
     ionViewDidLoad() {
@@ -189,7 +178,8 @@ export class CreateDeckPage {
     }
 
     createDeck() {
-      this.navCtrl.setRoot(MyDecksPage)
+      // this.deckService.postUserDeck(this.title, this.profile.id)
+      // this.navCtrl.setRoot(MyDecksPage)
     }
     translate(){
       this.cameraService.getTranslation(this.cameraService.getWord())

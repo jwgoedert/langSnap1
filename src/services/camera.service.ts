@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
 import { AlertController } from 'ionic-angular';
 import { Config } from '../config';
 ​
 @Injectable()
 export class CameraService {
+ translationUpdate: EventEmitter<string> = new EventEmitter();
  private serverUrl = `https://vision.googleapis.com/v1/images:annotate?key=${this.config.googleKey}`;
  public googleReq: any;
  public picUrl: any;
@@ -13,7 +14,7 @@ export class CameraService {
  public translation: any;
  public source: any;
  public target: any;
-​
+​ 
  constructor(public http: Http,
   public alertCtrl: AlertController, 
   public config: Config) {
@@ -64,12 +65,12 @@ export class CameraService {
   })
   .subscribe(word => {
    this.word = word
-    var formError = this.alertCtrl.create({
-     title: "Other Form",
-     subTitle: JSON.stringify(word),
-     buttons: ['close']
-    });
-    formError.present(formError);
+    // var formError = this.alertCtrl.create({
+    //  title: "Other Form",
+    //  subTitle: JSON.stringify(word),
+    //  buttons: ['close']
+    // });
+    // formError.present(formError);
    console.log(this.word)
    return this.word;
   }, err => console.log(err),
@@ -93,18 +94,12 @@ export class CameraService {
   }
 ​
   getTranslation(str) {
-   // get translation
-   
    console.log('in translation')
    console.log(this.getWord())
    console.log(this.source)
    console.log(this.target)
    console.log('in translation')
-​
-  // var tranlationData = new FormData();
-  // tranlationData.append("q", this.getWord());
-  // tranlationData.append("source", this.source);
-  // tranlationData.append("target", this.target);
+
    let tranlationData = {
     "q": str,
     "source": this.source,
@@ -113,15 +108,16 @@ export class CameraService {
    return this.http.post('http://52.14.252.211/v1/googletranslate/sentence', tranlationData)
    .map(translate => {
     this.translation = translate;
-    var formError = this.alertCtrl.create({
-     title: "Translation",
-     subTitle: JSON.stringify(translate),
-     buttons: ['close']
-    });
-    formError.present(formError);
+    // var formError = this.alertCtrl.create({
+    //  title: "Translation",
+    //  subTitle: JSON.stringify(translate),
+    //  buttons: ['close']
+    // });
+    // formError.present(formError);
     console.log(this.translation)
     console.log("this.translation")
-    return this.translation
+    // this.translationUpdate.emit(this.translation);
+    return this.translation;
    })
    .subscribe(resp => {
     console.log('RESP', resp);
