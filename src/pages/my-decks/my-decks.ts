@@ -29,9 +29,9 @@ export class MyDecksPage {
         console.log(profile, 'profile')
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
-        if(this.deckService.usersDecks.length === 0){
-        this.deckService.getUsersDecks(this.profile.id)
-      }
+        if (this.deckService.usersDecks.length === 0) {
+          this.deckService.getUsersDecks(this.profile.id)
+        }
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
@@ -91,28 +91,32 @@ export class MyDecksPage {
     console.log(index);
     console.log("delete!!!!!!!!!!!!!!!!!!!!!");
     // this.navCtrl.setRoot(MyDecksPage)
-    this.items = this.deckService.deleteADeck(index, this.profile.id);
+    // this.items = this.deckService.deleteADeck(index, this.profile.id);
     console.log(JSON.stringify(this.items));
+
     // this.navCtrl.setRoot(MyDecksPage)
 
-    //   let confirm = this.alertCtrl.create({
-    //     title: 'Sure you want to delete this Deck?',
-    //     message: '',
-    //     buttons: [
-    //       {
-    //         text: 'No',
-    //         handler: () => {
-    //         }
-    //       },
-    //       {
-    //         text: 'Yes',
-    //         handler: () => {
-    //           return this.deckService.deleteADeck(+index);
-    //         }
-    //       }
-    //     ]
-    //   });
-    //   confirm.present();
+    let confirm = this.alertCtrl.create({
+      title: 'Sure you want to delete this Deck?',
+      message: '',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.items = this.deckService.deleteADeck(index, this.profile.id);
+            this.navCtrl.setRoot(MyDecksPage)
+
+            // return this.deckService.deleteADeck(+index);
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
 }
