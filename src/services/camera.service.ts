@@ -147,6 +147,9 @@ export class CameraService {
   getTitle() {
     return this.title;
   }
+  deleteTitle(){
+    this.title = null;
+  }
 ​   getTranslatedWord() {
     return this.translation;
   }

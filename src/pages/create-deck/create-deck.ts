@@ -51,7 +51,11 @@ export class CreateDeckPage {
         console.log("Error" + JSON.stringify(err))
       });
     this.http = http;
-    this.cards = this.deckService.deckCreation();
+    console.log('look for me')
+    if (this.deckService.deckCreation().length > 0){
+      this.cards = this.deckService.deckCreation();
+    }
+    console.log('look for me')
     if (this.cameraService.getTitle()) {
       this.title = this.cameraService.getTitle();
     }
@@ -93,6 +97,9 @@ export class CreateDeckPage {
           this.fourN = this.cameraService.getWord();
           this.cameraService.getTranslation(this.fourN)
           this.photos[this.counter]['word'] = this.fourN;
+          console.log("this.photos[this.counter]")
+          console.log(JSON.stringify(this.photos[this.counter]))
+          console.log("this.photos[this.counter]")
           this.deckService.addToDeckCreation(this.photos[this.counter])
           this.navCtrl.setRoot(CardPage)          
         }, 3000)
@@ -147,10 +154,14 @@ export class CreateDeckPage {
       this.cameraService.showLoading(5000);
 
       setTimeout(() => {
-        this.fourN = this.cameraService.getWord();
-        this.cameraService.getTranslation(this.fourN)
-        this.navCtrl.setRoot(CardPage)
-        this.photos[this.counter]['word'] = this.fourN;
+         this.fourN = this.cameraService.getWord();
+          this.cameraService.getTranslation(this.fourN)
+          this.photos[this.counter]['word'] = this.fourN;
+          console.log("this.photos[this.counter]")
+          console.log(JSON.stringify(this.photos[this.counter]))
+          console.log("this.photos[this.counter]")
+          this.deckService.addToDeckCreation(this.photos[this.counter])
+          this.navCtrl.setRoot(CardPage) 
       }, 3000)
     })
   }
@@ -195,9 +206,9 @@ export class CreateDeckPage {
 
 
     createDeck() {
-      // clear title
-      this.deckService.clearDeckCreation()
-      this.navCtrl.setRoot(MyDecksPage)
+      this.deckService.clearDeckCreation();
+      this.cameraService.deleteTitle();
+      this.navCtrl.setRoot(MyDecksPage);
     }
     // translate(){
     //   this.cameraService.getTranslation(this.cameraService.getWord())

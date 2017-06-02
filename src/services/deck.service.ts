@@ -11,7 +11,7 @@ export class DeckService {
   public allDecks: any;
   public deckId: any;
   public currentDeck: Array<any> = [];
-  public creatingDeck: Array<object>;
+  public creatingDeck: Array<object> = [];
 
   constructor(
     public http: Http,
@@ -27,9 +27,12 @@ export class DeckService {
     // this.allDecks = this.getAllDecks();
   }
   addToDeckCreation(card) {
-    console.log("inside add card to deck creation function")
-    // this.creatingDeck.push(card)
-    console.log(card)
+    console.log("inside add card to deck creation function");
+    console.log(JSON.stringify(card));
+    this.creatingDeck.push(card);
+    console.log('this.creatingdeck');
+    console.log(JSON.stringify(this.creatingDeck));
+    console.log('this.creatingdeck');
     console.log("inside add card to deck creation function")
   }
   deckCreation() {

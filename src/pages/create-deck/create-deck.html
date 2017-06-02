@@ -46,19 +46,44 @@
     <h3>{{ title }}</h3>
     <ion-list >
       <ion-card>
-        <ion-item *ngFor="let photo of photoss; let id = index">
+        <ion-item *ngFor="let card of cards; let id = index">
           <ion-card>
-              <img [src]="photo.image" *ngIf="photo.image" />
+            <ion-thumbnail item-left>
+              <img [src]="card.image" *ngIf="card.image" />
+            </ion-thumbnail>
           </ion-card>
+          <ion-card>
+            <div class=“card-title”>{{card.word}}</div>
+          </ion-card>
+          <ion-card>
+            <div class=“card-subtitle”>{{card.translation}}</div>
+          </ion-card>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+
+
+
+
+
+    <!--<ion-list >
+      <ion-card>
+        <ion-item *ngFor="let photo of photos; let id = index">
+          <ion-card>
+            <ion-thumbnail item-left>
+              <img [src]="photo.image" *ngIf="photo.image" />
+            </ion-thumbnail>
           <ion-card>
             <div class=“card-title”>{{photo.word}}</div>
           </ion-card>
           <ion-card>
             <div class=“card-subtitle”>{{photo.translation}}</div>
           </ion-card>
+          </ion-card>
         </ion-item>
       </ion-card>
-    </ion-list>
+    </ion-list>-->
 
     <!--<ion-grid>
     <ion-row>
