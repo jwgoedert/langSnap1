@@ -1,9 +1,11 @@
+
+
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav, AlertController, LoadingController } from 'ionic-angular';
 import { MyDecksPage } from '../my-decks/my-decks';
 import { TranslateService } from '@ngx-translate/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Http, RequestOptions, Headers, Request, RequestMethod } from '@angular/http';
+import { Http } from '@angular/http';
 import { Config } from '../../config';
 import { OAuthService } from '../oauth/oauth.service';
 import { LanguageService } from '../../services/language.service';
@@ -18,12 +20,10 @@ import { DeckService } from '../../services/deck.service';
 export class CreateDeckPage {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = CreateDeckPage;
-
-  public deckname: string;
-  public googObj: any;
   public photos: any;
   public base64Image: string;
-  public profile: any;
+  public picUrl: string;
+    public profile: any;
   public fourN: any;
   public title: any;
   public translatedWord;
@@ -52,11 +52,11 @@ export class CreateDeckPage {
         console.log("Error" + JSON.stringify(err))
       });
     this.http = http;
+
   }
   ngOnInit() {
     this.photos = [];
   }
-
   takePhoto() {
     this.cameraService.showLoading();
     const options: CameraOptions = {
@@ -67,11 +67,13 @@ export class CreateDeckPage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      sourceType: this.camera.PictureSourceType.CAMERA,
     }
+    console.log("TOTOPHOTO");
     this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:  
       imageData = imageData.replace(/\r?\n|\r/g, "");
-      // this.base64Image = this.config.devMode ?  this.config.base64ImageData : 'data:image/jpeg;base64,' + imageData;
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
       var newForm = new FormData();
       newForm.append("file", this.base64Image);
@@ -99,6 +101,7 @@ export class CreateDeckPage {
   //   }).present();
   // }
 
+
   deletePhoto(index) {
     let confirm = this.alertCtrl.create({
       title: 'Sure you want to delete this photo?',
@@ -107,7 +110,6 @@ export class CreateDeckPage {
         {
           text: 'No',
           handler: () => {
-
           }
         },
         {
@@ -135,7 +137,6 @@ export class CreateDeckPage {
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
     }
-<<<<<<< HEAD
     console.log("CAMERAROLLPHOTO");
     this.camera.getPicture(options).then((imageData) => {
       imageData = imageData.replace(/\r?\n|\r/g, "");
@@ -168,40 +169,11 @@ export class CreateDeckPage {
         buttons: ['close']
       });
       formError.present(formError);
-=======
 
+    }
 
-    checkTitle() {
-      if (this.title) {
-        this.navCtrl.setRoot(CardPage)
-      } else {
-        var formError = this.alertCtrl.create({
-          title: "Dont Forget A Deck Title",
-          subTitle: "Please enter a title for your deck.",
-          buttons: ['close']
-        });
-        formError.present(formError);
-      }
-    }
-    findCard() {
-      // this.deckService.getUsersDecks(this.profile.id);
-      // this.navCtrl.setRoot(CardPage);
-      // this.deckService.getUsersDecks(1);
-      this.navCtrl.setRoot(CardPage);
-    };
-
-    addATitle(title) {
-      this.title = title;
-      console.log(this.title)
-      console.log('title')
-      this.cameraService.addTitle(this.title) 
-      this.deckId = this.deckService.postUserDeck(this.title, this.profile.id)
-    }
-    ionViewDidLoad() {
-      console.log('ionViewDidLoad CreateDeckPage');
->>>>>>> (maint)Refactor create-deck page
-    }
   }
+
   findCard() {
     // this.deckService.getUsersDecks(this.profile.id);
     // this.navCtrl.setRoot(CardPage);
@@ -243,4 +215,3 @@ export class CreateDeckPage {
     this.counter = this.photos.length - 1;
   }
 }
-
