@@ -12,13 +12,13 @@
 
 <ion-content padding>
   <ion-content>
-    <form (click)="addATitle(addATitle.title)">
+    <form (click)="addATitle(addATitle.title); titleForm.reset()" #titleForm="ngForm" *ngIf="!title">
       <ion-input type="text" [(ngModel)]="addATitle.title" name="title" placeholder="Deck Title"></ion-input>
       <button type="button">Add Title</button>
     </form>
-    <ion-thumbnail item-left>
+    <!--<ion-thumbnail item-left>
       <img [src]="photo" *ngIf="photo" />
-    </ion-thumbnail>
+    </ion-thumbnail>-->
 
     <!--<ion-list class="">-->
     <!--<ion-item>
@@ -43,9 +43,10 @@
           <button ion-button clear item-right (click)="translate()">Translate</button>
       </ion-item>-->
     <!--</ion-list>-->
-    <ion-list>
+    <h3>{{ title }}</h3>
+    <ion-list >
       <ion-card>
-        <ion-item *ngFor="let photo of photos; let id = index">
+        <ion-item *ngFor="let photo of photoss; let id = index">
           <ion-card>
               <img [src]="photo.image" *ngIf="photo.image" />
           </ion-card>
@@ -55,7 +56,6 @@
           <ion-card>
             <div class=“card-subtitle”>{{photo.translation}}</div>
           </ion-card>
-          <button ion-button clear item-right (click)="translate()">Translate</button>
         </ion-item>
       </ion-card>
     </ion-list>

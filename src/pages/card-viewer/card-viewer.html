@@ -11,9 +11,10 @@
 <ion-content padding>
 <ion-slides pager>
     <ion-slide *ngFor="let card of deck; let id = index" (swipeleft)="swipeLeftEvent(id)" (swiperight)="swipeRightEvent(id)">
-      <h2 class="slide-title" [innerHTML]="card.name"></h2>
+      <h2 class="slide-title">{{ deckTitle }}</h2>
+        <h4>{{ deckLanguage }}</h4>
         <img [src]="card.imgUrl" class="slide-image"/>
-        {{ word }}
+      <ion-card>{{ word }}</ion-card>
       <button (click)="flip(id)">Flip</button>
     </ion-slide>
   </ion-slides>

@@ -17,6 +17,8 @@ export class CardViewerPage {
   public word: any;
   public wordsLanguages: any;
   public wordsTranslations: any;
+  public deckTitle: any;
+  public deckLanguage: any;
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
@@ -29,11 +31,11 @@ export class CardViewerPage {
           this.profile = profile;
           translateService.use(languageService.translateLang(this.profile.nativeLang));
           this.deck = this.deckService.getCurrentDeck();
+          this.deckTitle = this.deck[0].name
           this.deck = this.deck[0].cards
-          console.log('this.deck')
-          console.log(JSON.stringify(this.deck))
-          console.log(typeof this.deck[0])
-          console.log('this.deck')
+          if (!JSON.parse(this.deck[0].wordMap)["sorry"]) {
+            this.deckLanguage = Object.keys(JSON.parse(this.deck[0].wordMap))[1];
+          }
           this.translations();
         })
         .catch(err => {
@@ -45,18 +47,12 @@ export class CardViewerPage {
     console.log('ionViewDidLoad CardViewerPage');
   }
   translations() {
-    console.log('inside translations')
     this.wordsLanguages = Object.keys(JSON.parse(this.deck[0].wordMap))
     this.wordsTranslations = JSON.parse(this.deck[0].wordMap)
     
     this.word = this.wordsTranslations[this.wordsLanguages[0]];
-    console.log("this.word")
-    console.log(this.word)
-    console.log("this.word")
   }
   swipeLeftEvent(index) {
-    console.log(index, 'swiped left')
-    console.log('swiped left')
     if (index < this.deck.length - 1) {
       let currentPos = index + 1
 
@@ -67,8 +63,6 @@ export class CardViewerPage {
     }
   }
   swipeRightEvent(index) {
-    console.log(index, 'swiped right')
-    console.log('swiped right')
     if (index > 0) {
     let currentPos = index - 1;
 
@@ -79,10 +73,6 @@ export class CardViewerPage {
     }
   }
   flip(index) {
-    console.log(index)
-    console.log("index")
-    console.log('flip')
-
     if (this.word === this.wordsTranslations[this.wordsLanguages[0]]){
     console.log('flip before 0', this.word)
       this.word = this.wordsTranslations[this.wordsLanguages[1]];
