@@ -26,16 +26,16 @@ export class CameraService {
 ​
  }
 ​
-   showLoading() {
+   showLoading(wait) {
   let loading = this.loadingCtrl.create({
-    content: 'Hold your gall dang horses please'
+    content: 'Please wait... Learning takes time.'
   });
 
   loading.present();
 
   setTimeout(() => {
     loading.dismiss();
-  }, 5000);
+  }, wait);
   //   this.loading = this.loadingCtrl.create({
   //     content: 'Learning takes time...',
   //     duration: 3000,
@@ -43,7 +43,6 @@ export class CameraService {
   //   }).present();
   }
  sendPic(form) {
-  this.showLoading();
   console.log('inside send pic')
   console.log(form)
   console.log(JSON.stringify(form))

@@ -58,7 +58,7 @@ export class CreateDeckPage {
     this.photos = [];
   }
   takePhoto() {
-    this.cameraService.showLoading();
+    this.cameraService.showLoading(5000);
     const options: CameraOptions = {
       quality: 100,
       targetWidth: 300,
@@ -124,7 +124,7 @@ export class CreateDeckPage {
   }
 
   cameraRoll() {
-    this.cameraService.showLoading();
+    // this.cameraService.showLoading();
     
     
     const options: CameraOptions = {
