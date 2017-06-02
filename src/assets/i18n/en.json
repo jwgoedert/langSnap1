@@ -18,5 +18,6 @@
   "SUBMIT" : "Submit",
   "EDIT_WORD": "Edit Word",
   "CREATE_CARD": "Create Card",
-  "CARD_VIEWER" : "Card Viewer"
+  "CARD_VIEWER" : "Card Viewer",
+  "SHARED_DECKS" : "Shared Decks"
 }

@@ -19,5 +19,6 @@
   "EDIT_WORD": "Wort Bearbeiten",
   "CREATE_CARD": "Erstellen karte",
   "TRY_AGAIN" : "Versuch es noch einmal",
-  "CARD_VIEWER" : "Karten-Viewer"
+  "CARD_VIEWER" : "Karten-Viewer",
+  "SHARED_DECKS" : "Gemeinsame Decks"
 }

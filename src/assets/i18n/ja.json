@@ -19,5 +19,6 @@
   "EDIT_WORD": "単語を編集する",
   "CREATE_CARD": "カードを作成する",
   "TRY_AGAIN" : "再試行する",
-  "CARD_VIEWER" : "カードビューア"
+  "CARD_VIEWER" : "カードビューア",
+  "SHARED_DECKS" : "共有デッキ"
 }
