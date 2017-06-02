@@ -53,7 +53,7 @@ export class CreateDeckPage {
     this.http = http;
     console.log('look for me')
     if (this.deckService.deckCreation().length > 0){
-      this.cards = this.deckService.deckCreation();
+      this.cards = this.deckService.deckCreation().reverse();
     }
     console.log('look for me')
     if (this.cameraService.getTitle()) {

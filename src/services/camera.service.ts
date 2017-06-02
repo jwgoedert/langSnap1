@@ -158,6 +158,9 @@ export class CameraService {
   this.target = target;
   }
   getCardInfo(){
+    if (!this.title) {
+      this.title = "Default Deck Name"
+    }
    return {
     title: this.title,
     picture: this.picUrl,

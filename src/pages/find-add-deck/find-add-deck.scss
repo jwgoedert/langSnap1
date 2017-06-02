@@ -4,22 +4,29 @@ page-find-add-deck {
     position: relative;
     text-align: center;
   }
-
- .card-title {
+img {
+    position: relative;
+    height: 70vh;
+    width: auto;
+    margin: auto;
+    display: block;    
+    align-items: center;
+  }
+  .card-title {
     position: absolute;
-    top: 36%;
+    top: 43%;
     font-size: 2.0em;
     width: 100%;
     font-weight: bold;
-    color: black;
+    color: teal;
   }
 
- .card-subtitle {
-    font-size: 1.0em;
+  .card-subtitle {
+    font-size: 1.7em;
     position: absolute;
-    top: 52%;
+    top: 50%;
     width: 100%;
-    color: black;
+    color: maroon;
   }
 
 
