@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Nav } from 'ionic-angular';
+import { NavController, Nav, AlertController } from 'ionic-angular';
 import { EditDeckPage } from '../edit-deck/edit-deck';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
@@ -18,6 +18,7 @@ export class MyDecksPage {
   public profile: any;
   public items: any;
   constructor(public navCtrl: NavController,
+    public alertCtrl: AlertController,
     public translateService: TranslateService,
     public languageService: LanguageService,
     oauthService: OAuthService,
@@ -28,9 +29,9 @@ export class MyDecksPage {
         console.log(profile, 'profile')
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
-        if(this.deckService.usersDecks.length === 0){
-        this.deckService.getUsersDecks(this.profile.id)
-      }
+        if (this.deckService.usersDecks.length === 0) {
+          this.deckService.getUsersDecks(this.profile.id)
+        }
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
@@ -84,7 +85,38 @@ export class MyDecksPage {
     console.log('edit deck button was clicked!')
     this.navCtrl.setRoot(EditDeckPage)
   }
-  deleteDeck() {
-    console.log('delete deck button was clicked!')
+
+  deleteDeck(index) {
+    console.log("BOUT TO DELETE");
+    console.log(index);
+    console.log("delete!!!!!!!!!!!!!!!!!!!!!");
+    // this.navCtrl.setRoot(MyDecksPage)
+    // this.items = this.deckService.deleteADeck(index, this.profile.id);
+    console.log(JSON.stringify(this.items));
+
+    // this.navCtrl.setRoot(MyDecksPage)
+
+    let confirm = this.alertCtrl.create({
+      title: 'Sure you want to delete this Deck?',
+      message: '',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.items = this.deckService.deleteADeck(index, this.profile.id);
+            this.navCtrl.setRoot(MyDecksPage)
+
+            // return this.deckService.deleteADeck(+index);
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
+
 }

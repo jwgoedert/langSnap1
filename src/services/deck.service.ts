@@ -135,8 +135,22 @@ export class DeckService {
       this.currentDeck = [];
     }, 2000)
   }
-  deleteDecks(decks) {
-  }
+  deleteADeck(deckId,userId) {
+    this.http.delete((`${this.serverDBUrl}/v1/decks/${deckId}`))
+    .map( res => res)
+    .subscribe( resp => {
+      console.log("DELETING FROM INSIDE APP");
+      console.log(JSON.stringify(resp));
+      this.usersDecks = [];
+      return this.getUsersDecks(userId);
+      
+      // console.log(userId);
+      // return resp;
+    }), err => {
+      console.log("fromDelete");
+      console.log(JSON.stringify(err));
+     }
+    }
   //find/add decks page
   getAllDecks() {
     this.http.get(`${this.serverDBUrl}/v1/decks/all`)
