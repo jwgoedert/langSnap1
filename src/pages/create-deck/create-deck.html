@@ -14,35 +14,9 @@
   <ion-content>
     <form (click)="addATitle(addATitle.title); titleForm.reset()" #titleForm="ngForm" *ngIf="!title">
       <ion-input type="text" [(ngModel)]="addATitle.title" name="title" placeholder="Deck Title"></ion-input>
-      <button type="button">Add Title</button>
+      <button type="button" class="add_title_btn" ion-button outline >Add Title</button>
     </form>
-    <!--<ion-thumbnail item-left>
-      <img [src]="photo" *ngIf="photo" />
-    </ion-thumbnail>-->
-
-    <!--<ion-list class="">-->
-    <!--<ion-item>
-        <ion-col col-12 *ngFor="let photo of photos; let id = index">
-          <ion-card>
-          <ion-thumbnail item-left>
-            <img [src]="photo.image" *ngIf="photo.image" />
-          </ion-thumbnail>
-          <h2>{{picUrl}}</h2>
-          <div>
-          <ion-content *ngIf="!!photo.word" >
-              <h1 class="card-title">{{photo.word}}</h1>
-          </ion-content>
-          </div>
-          <div>
-          <ion-content *ngIf="!!photo.translation" >
-              <h1 class="card-subtitle">{{photo.translation}}</h1>
-          </ion-content>
-          </div>
-          </ion-card>
-        </ion-col>
-          <button ion-button clear item-right (click)="translate()">Translate</button>
-      </ion-item>-->
-    <!--</ion-list>-->
+ 
     <h3>{{ title }}</h3>
     <ion-list >
       <ion-card>
@@ -62,29 +36,6 @@
       </ion-card>
     </ion-list>
 
-
-
-
-
-
-    <!--<ion-list >
-      <ion-card>
-        <ion-item *ngFor="let photo of photos; let id = index">
-          <ion-card>
-            <ion-thumbnail item-left>
-              <img [src]="photo.image" *ngIf="photo.image" />
-            </ion-thumbnail>
-          <ion-card>
-            <div class=“card-title”>{{photo.word}}</div>
-          </ion-card>
-          <ion-card>
-            <div class=“card-subtitle”>{{photo.translation}}</div>
-          </ion-card>
-          </ion-card>
-        </ion-item>
-      </ion-card>
-    </ion-list>-->
-
     <!--<ion-grid>
     <ion-row>
       <ion-col col-6 *ngFor="let photo of photos; let id = index">
@@ -101,19 +52,19 @@
     <ion-grid>
       <ion-row>
         <ion-col col-4>
-          <button ion-button icon-left outline (click)="cameraRoll()">
+          <button ion-button icon-middle outline (click)="cameraRoll()">
             <ion-icon ios="ios-image" md="md-image" ></ion-icon>
           </button>
         </ion-col>
 
         <ion-col col-4>
-          <button ion-button icon-left outline (click)="takePhoto()">
+          <button ion-button icon-middle outline (click)="takePhoto()">
             <ion-icon ios="ios-camera" md="md-camera" ></ion-icon>
           </button>
         </ion-col>
 
         <ion-col col-4>
-          <button ion-button icon-left outline (click)="findCard()">
+          <button ion-button icon-middle outline (click)="findCard()">
             <ion-icon ios="ios-checkmark-circle" md="md-search" ></ion-icon>
           </button>
         </ion-col>

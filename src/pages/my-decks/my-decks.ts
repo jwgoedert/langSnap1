@@ -28,39 +28,48 @@ export class MyDecksPage {
         console.log(profile, 'profile')
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
+        if(this.deckService.usersDecks.length === 0){
         this.deckService.getUsersDecks(this.profile.id)
+      }
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
       });
-    // this.initializeItems();
     this.cameraService.showLoading(1500);
     setTimeout(() => {
-
       this.items = this.deckService.usersDecks.map((deck) => {
         if (!deck.cards[0]) { deck.cards[0] = { imgUrl: "https://www.wired.com/wp-content/uploads/2015/01/learning-styles.jpg" } }
         return deck;
       })
+      this.initializeItems();
     }, 1500)
 
   }
 
-  // initializeItems() {
-
-  //   // this.items = this.deckService.usersDecks; 
-  // }
-  // getItems(ev) {
-  //   // Reset items back to all of the items
-  //   this.initializeItems();
-  //   // set val to the value of the ev target
-  //   var val = ev.target.value;
-  //   // if the value is an empty string don't filter the items
-  //   if (val && val.trim() != '') {
-  //     this.items = this.items.filter((item) => {
-  //       return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
-  //     })
-  //   }
-  // }
+  initializeItems() {
+    if (this.deckService.usersDecks.length === 0) {
+      setTimeout(() => {
+        this.items = this.deckService.usersDecks; 
+      }, 1500)
+    } else {
+        this.items = this.deckService.usersDecks; 
+      
+    }
+  }
+  getItems(ev) {
+    // Reset items back to all of the items
+    this.initializeItems();
+    // set val to the value of the ev target
+    var val = ev.target.value;
+    console.log("target letter", val)
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        if ((item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)) { console.log(item.name.toLowerCase) }
+        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
   ///////////////
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyDecksPage');
@@ -69,7 +78,7 @@ export class MyDecksPage {
     console.log(deckId)
     console.log("deckId")
     this.deckService.getAllCardsInADeck(deckId);
-    this.navCtrl.setRoot(CardViewerPage)
+    this.navCtrl.push(CardViewerPage)
   }
   editDeck() {
     console.log('edit deck button was clicked!')

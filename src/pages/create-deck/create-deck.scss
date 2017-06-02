@@ -11,7 +11,11 @@ page-create-deck {
       font-size: 30px !important;
     }
   }
+  text-align: center;
 
+  .add_title_btn{
+    outline-color: teal;
+  }
 
   ion-card {
     position: relative;
