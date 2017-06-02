@@ -13,6 +13,7 @@ export class CardViewerPage {
   @ViewChild(Nav) nav: Nav;
   public rootPage: any = CardViewerPage;
   public profile: any;
+  public deck: Array<any>;
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
@@ -24,6 +25,11 @@ export class CardViewerPage {
           console.log(profile, 'profile')
           this.profile = profile;
           translateService.use(languageService.translateLang(this.profile.nativeLang));
+          this.deck = this.deckService.getCurrentDeck();
+          console.log('this.deck')
+          console.log(JSON.stringify(this.deck))
+          console.log(typeof this.deck[0])
+          console.log('this.deck')
         })
         .catch(err => {
           console.log("Error" + JSON.stringify(err))

@@ -86,17 +86,31 @@ export class DeckService {
         console.log(JSON.stringify(deck))
         console.log(JSON.stringify(this.currentDeck))
         console.log("looking for deck")
-        if (!this.currentDeck[0].cards){
-          this.currentDeck[0] = "https://www.askideas.com/media/08/Sorry-With-Emoticon-Picture.jpg";
-          this.currentDeck[0].wordMap["sorry"] = "No Cards, Try Another Deck";
+        if (!this.currentDeck[0].cards.length){
+          this.currentDeck[0].cards[0] = {
+            imgUrl: "https://www.askideas.com/media/08/Sorry-With-Emoticon-Picture.jpg",
+            wordMap : {
+              sorry: "No Cards, Try Another Deck"
+            }
+          }
+          console.log("JSON.stringify(this.currentDeck)")
+          console.log(JSON.stringify(this.currentDeck))
+          console.log("JSON.stringify(this.currentDeck)")
+          this.emptyCurrentDeck();
           return this.currentDeck[0];
         } else {
+          this.emptyCurrentDeck();
           return this.currentDeck[0];
         }
       }), error => console.log(error);
   }
   getCurrentDeck() {
     return this.currentDeck;
+  }
+  emptyCurrentDeck() {
+    setTimeout(() => {
+      this.currentDeck = [];
+    }, 2000)
   }
   deleteDecks(decks) {
   }
