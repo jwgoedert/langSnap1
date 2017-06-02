@@ -17,5 +17,6 @@
   "PROFILE" : "Profile",
   "SUBMIT" : "Submit",
   "EDIT_WORD": "Edit Word",
-  "CREATE_CARD": "Create Card"
+  "CREATE_CARD": "Create Card",
+  "CARD_VIEWER" : "Card Viewer"
 }

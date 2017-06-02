@@ -17,6 +17,7 @@ import { CardPage } from '../pages/card/card';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
 import { MyDecksPage } from '../pages/my-decks/my-decks';
+import { CardViewerPage } from '../pages/card-viewer/card-viewer';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { QuizPage } from '../pages/quiz/quiz';
@@ -36,7 +37,8 @@ import { DeckService } from '../services/deck.service';
     EditDeckPage,
     QuizPage,
     ProfilePage,
-    CardPage
+    CardPage,
+    CardViewerPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ import { DeckService } from '../services/deck.service';
     EditDeckPage,
     QuizPage,
     ProfilePage,
-    CardPage
+    CardPage,
+    CardViewerPage
   ],
   providers: [
     Config,

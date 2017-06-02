@@ -18,5 +18,6 @@
   "SUBMIT" : "Enviar",
   "EDIT_WORD": "Editar Palabra",
   "CREATE_CARD": "Crear tarjeta",
-  "TRY_AGAIN" : "Inténtalo de nuevo"
+  "TRY_AGAIN" : "Inténtalo de nuevo",
+  "CARD_VIEWER" : "Visor de tarjetas"
 }

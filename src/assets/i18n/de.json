@@ -18,5 +18,6 @@
   "SUBMIT": "einreichen",
   "EDIT_WORD": "Wort Bearbeiten",
   "CREATE_CARD": "Erstellen karte",
-  "TRY_AGAIN" : "Versuch es noch einmal"
+  "TRY_AGAIN" : "Versuch es noch einmal",
+  "CARD_VIEWER" : "Karten-Viewer"
 }
