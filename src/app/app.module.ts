@@ -23,6 +23,7 @@ import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
 import { LanguageService } from '../services/language.service';
 import { CameraService } from '../services/camera.service';
+import { DeckService } from '../services/deck.service';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { CameraService } from '../services/camera.service';
     Camera,
     LanguageService,
     CameraService,
+    DeckService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { CameraService } from '../../services/camera.service';
 import { CreateDeckPage } from '../create-deck/create-deck';
-// import { TranslateService } from '@ngx-translate/core';
-// import { LanguageService } from '../../services/language.service';
+import { LanguageService } from '../../services/language.service';
+import { DeckService } from '../../services/deck.service';
+import { OAuthService } from '../oauth/oauth.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'page-card',
   templateUrl: 'card.html',
@@ -12,29 +15,68 @@ export class CardPage {
   public title: string;
   public cardInfo: any;
   public translation: any;
+  public profile: any;
+  public show: boolean = false;
   public rootPage: any = CardPage;
+  
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
-    public cameraService: CameraService) {
-    this.cardInfo = this.cameraService.getCardInfo();
-    console.log('v 1.1')
+    public cameraService: CameraService,
+    private oauthService: OAuthService,
+    private languageService: LanguageService,
+    private translateService: TranslateService,
+    private deckService: DeckService) {
+      oauthService.getProfile().toPromise()
+        .then(profile => {
+          this.profile = profile;
+          translateService.use(languageService.translateLang(this.profile.nativeLang));
+          this.cameraService.languages(this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang))
+        })
+        .catch(err => {
+          console.log("Error" + JSON.stringify(err))
+        });
+      this.cardInfo = this.cameraService.getCardInfo();
+      console.log('v 1.3')
+      this.getTranslation();
   }
+  getTranslation() {
+    setTimeout(() => {
+      this.translation = this.cameraService.getTranslatedWord();
+    }, 1500)
+  }
+
+  tryAgain(word) {
+    // send word off fro new translation
+    console.log("word")
+    console.log(word)
+    console.log("word")
+    this.cardInfo.word = word;
+    this.cameraService.getTranslation(this.cardInfo.word);
+    word = "";
+    this.getTranslation();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad CardPage');
   }
-  translate(){
-    this.cameraService.getTranslation(this.cardInfo.word)
-    setTimeout(() => {
-      this.setTranslation();
-    }, 1500)
-  }
-  setTranslation() {
-    this.translation = this.cameraService.getTranslatedWord();
-  }
-  editWord(){
-    // sends word to translation api
+
+  editWord(word){
+    this.show = true;
   }
   createCard() {
+     let addCard = {
+      "user_id": this.profile.id,
+      "deck_id": this.deckService.getDeckId(),
+      "wordMap": {
+      [this.profile.nativeLang]: this.cardInfo.word,
+      [this.profile.learnLang]: this.translation
+      },
+      "imgUrl": this.cardInfo.picture
+    }
+    this.deckService.postCardToUserDeck(addCard)
+    setTimeout(() => {
+
     this.navCtrl.setRoot(CreateDeckPage)
+    }, 1500)
   }
 }

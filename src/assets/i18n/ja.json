@@ -17,5 +17,6 @@
   "PROFILE" : "プロフィール",
   "SUBMIT" : "提出する",
   "EDIT_WORD": "単語を編集する",
-  "CREATE_CARD": "カードを作成する"
+  "CREATE_CARD": "カードを作成する",
+  "TRY_AGAIN" : "再試行する"
 }
