@@ -10,11 +10,11 @@
 
 <ion-content padding>
 <ion-slides pager>
-    <ion-slide *ngFor="let card of deck">
+    <ion-slide *ngFor="let card of deck; let id = index" (swipeleft)="swipeLeftEvent(id)" (swiperight)="swipeRightEvent(id)">
       <h2 class="slide-title" [innerHTML]="card.name"></h2>
-            <img [src]="card.cards[0].imgUrl" class="slide-image"/>
-      <!--<p [innerHTML]="JSON.parse(card.cards[0].wordMap).English"></p>-->
-      {{card.cards[0].wordMap.sorry}}
+        <img [src]="card.imgUrl" class="slide-image"/>
+        {{ word }}
+      <button (click)="flip(id)">Flip</button>
     </ion-slide>
   </ion-slides>
 </ion-content>
