@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Http } from '@angular/http';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 import { Config } from '../config';
 ​
 @Injectable()
@@ -14,16 +14,36 @@ export class CameraService {
  public translation: any;
  public source: any;
  public target: any;
-​ 
+​ public loading: any;
+
  constructor(public http: Http,
   public alertCtrl: AlertController, 
+  public loadingCtrl: LoadingController,
   public config: Config) {
   this.http = http;
   this.alertCtrl = alertCtrl;
+  this.loadingCtrl = loadingCtrl;
 ​
  }
 ​
+   showLoading() {
+  let loading = this.loadingCtrl.create({
+    content: 'Hold your gall dang horses please'
+  });
+
+  loading.present();
+
+  setTimeout(() => {
+    loading.dismiss();
+  }, 5000);
+  //   this.loading = this.loadingCtrl.create({
+  //     content: 'Learning takes time...',
+  //     duration: 3000,
+  //     dismissOnPageChange: true
+  //   }).present();
+  }
  sendPic(form) {
+  this.showLoading();
   console.log('inside send pic')
   console.log(form)
   console.log(JSON.stringify(form))
