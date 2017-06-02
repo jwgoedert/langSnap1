@@ -51,8 +51,7 @@ export class DeckService {
       .map(deck => deck.json())
       .subscribe(deckObj => {
         console.log('post card')
-        console.log(deckObj);
-        console.log(deckObj['_body']);
+        console.log(JSON.stringify(deckObj));
         console.log('post card')
         return deckObj.id;
       }), error => console.log(error);
