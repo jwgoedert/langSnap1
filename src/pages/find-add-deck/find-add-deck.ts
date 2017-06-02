@@ -35,7 +35,7 @@ export class FindAddDeckPage {
         console.log("Error" + JSON.stringify(err))
       });
     // this.initializeItems();
-    this.cameraService.showLoading(1500);
+    this.cameraService.showLoading(3000);
     setTimeout(() => {
 
       this.items = this.deckService.allDecks.map((deck) => {

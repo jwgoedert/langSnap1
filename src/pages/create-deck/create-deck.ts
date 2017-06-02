@@ -23,7 +23,7 @@ export class CreateDeckPage {
   public photos: any;
   public base64Image: string;
   public picUrl: string;
-    public profile: any;
+  public profile: any;
   public fourN: any;
   public title: any;
   public translatedWord;
@@ -58,7 +58,6 @@ export class CreateDeckPage {
     this.photos = [];
   }
   takePhoto() {
-    this.cameraService.showLoading(5000);
     const options: CameraOptions = {
       quality: 100,
       targetWidth: 300,
@@ -84,6 +83,8 @@ export class CreateDeckPage {
       return newForm;
     }).then(imgFormatted => {
       this.cameraService.sendPic(imgFormatted)
+      this.cameraService.showLoading(5000);
+
       setTimeout(() => {
         this.fourN = this.cameraService.getWord();
         this.cameraService.getTranslation(this.fourN)
@@ -124,9 +125,9 @@ export class CreateDeckPage {
   }
 
   cameraRoll() {
-    // this.cameraService.showLoading();
-    
-    
+    // this.cameraService.showLoading(5000);
+
+
     const options: CameraOptions = {
       quality: 100,
       targetWidth: 300,
@@ -150,6 +151,8 @@ export class CreateDeckPage {
     }).then(imgFormatted => {
       // this.cameraService.showLoading();
       this.cameraService.sendPic(imgFormatted)
+      this.cameraService.showLoading(5000);
+
       setTimeout(() => {
         this.fourN = this.cameraService.getWord();
         this.cameraService.getTranslation(this.fourN)
