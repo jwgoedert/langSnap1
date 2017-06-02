@@ -9,5 +9,12 @@
 
 
 <ion-content padding>
-
+<ion-slides pager>
+    <ion-slide *ngFor="let card of deck">
+      <h2 class="slide-title" [innerHTML]="card.name"></h2>
+            <img [src]="card.cards[0].imgUrl" class="slide-image"/>
+      <!--<p [innerHTML]="JSON.parse(card.cards[0].wordMap).English"></p>-->
+      {{card.cards[0].wordMap.sorry}}
+    </ion-slide>
+  </ion-slides>
 </ion-content>
