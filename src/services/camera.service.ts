@@ -58,15 +58,7 @@ export class CameraService {
    })
    .then((word) => {
     this.word = word
-    // setTimeout(() => {
-    //  this.getTranslation()
-    // }, 1500)
    })
-   // .then( word => {
-   //  console.log(word)
-   //  console.log('word')
-   //  this.getTranslation()
-   // })
    .catch(err => {
     console.log('error from map:', JSON.stringify(err));
    });
@@ -150,7 +142,13 @@ export class CameraService {
   }
 ​
   addTitle(title) {
-  this.title = title;
+    this.title = title;
+  }
+  getTitle() {
+    return this.title;
+  }
+  deleteTitle(){
+    this.title = null;
   }
 ​   getTranslatedWord() {
     return this.translation;

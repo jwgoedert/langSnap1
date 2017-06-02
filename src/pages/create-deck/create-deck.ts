@@ -1,5 +1,3 @@
-
-
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav, AlertController, LoadingController } from 'ionic-angular';
 import { MyDecksPage } from '../my-decks/my-decks';
@@ -29,6 +27,7 @@ export class CreateDeckPage {
   public translatedWord;
   public counter: number = 0;
   public deckId;
+  public cards: Array<object>;
 
   constructor(
     public navCtrl: NavController,
@@ -52,7 +51,14 @@ export class CreateDeckPage {
         console.log("Error" + JSON.stringify(err))
       });
     this.http = http;
-
+    console.log('look for me')
+    if (this.deckService.deckCreation().length > 0){
+      this.cards = this.deckService.deckCreation();
+    }
+    console.log('look for me')
+    if (this.cameraService.getTitle()) {
+      this.title = this.cameraService.getTitle();
+    }
   }
   ngOnInit() {
     this.photos = [];
@@ -82,26 +88,23 @@ export class CreateDeckPage {
       this.photos.reverse();
       return newForm;
     }).then(imgFormatted => {
-      this.cameraService.sendPic(imgFormatted)
-      this.cameraService.showLoading(5000);
 
-      setTimeout(() => {
-        this.fourN = this.cameraService.getWord();
-        this.cameraService.getTranslation(this.fourN)
-        this.navCtrl.setRoot(CardPage)
-        this.photos[this.counter]['word'] = this.fourN;
-      }, 3000)
-    })
+        this.cameraService.sendPic(imgFormatted)
+        this.cameraService.showLoading(5000);
 
+        this.cameraService.sendPic(imgFormatted)
+        setTimeout(() => {
+          this.fourN = this.cameraService.getWord();
+          this.cameraService.getTranslation(this.fourN)
+          this.photos[this.counter]['word'] = this.fourN;
+          console.log("this.photos[this.counter]")
+          console.log(JSON.stringify(this.photos[this.counter]))
+          console.log("this.photos[this.counter]")
+          this.deckService.addToDeckCreation(this.photos[this.counter])
+          this.navCtrl.setRoot(CardPage)          
+        }, 3000)
+      })
   }
-  // showLoading() {
-  //   this.loadingCtrl.create({
-  //     content: 'Learning takes time...',
-  //     duration: 3000,
-  //     dismissOnPageChange: true
-  //   }).present();
-  // }
-
 
   deletePhoto(index) {
     let confirm = this.alertCtrl.create({
@@ -124,20 +127,18 @@ export class CreateDeckPage {
     confirm.present();
   }
 
-  cameraRoll() {
-    // this.cameraService.showLoading(5000);
+    cameraRoll() {
+      const options: CameraOptions = {
+        quality: 100,
+        targetWidth: 300,
+        targetHeight: 300,
+        correctOrientation: true,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      }
 
-
-    const options: CameraOptions = {
-      quality: 100,
-      targetWidth: 300,
-      targetHeight: 300,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-    }
     console.log("CAMERAROLLPHOTO");
     this.camera.getPicture(options).then((imageData) => {
       imageData = imageData.replace(/\r?\n|\r/g, "");
@@ -149,15 +150,18 @@ export class CreateDeckPage {
       this.photos.reverse();
       return newForm;
     }).then(imgFormatted => {
-      // this.cameraService.showLoading();
       this.cameraService.sendPic(imgFormatted)
       this.cameraService.showLoading(5000);
 
       setTimeout(() => {
-        this.fourN = this.cameraService.getWord();
-        this.cameraService.getTranslation(this.fourN)
-        this.navCtrl.setRoot(CardPage)
-        this.photos[this.counter]['word'] = this.fourN;
+         this.fourN = this.cameraService.getWord();
+          this.cameraService.getTranslation(this.fourN)
+          this.photos[this.counter]['word'] = this.fourN;
+          console.log("this.photos[this.counter]")
+          console.log(JSON.stringify(this.photos[this.counter]))
+          console.log("this.photos[this.counter]")
+          this.deckService.addToDeckCreation(this.photos[this.counter])
+          this.navCtrl.setRoot(CardPage) 
       }, 3000)
     })
   }
@@ -200,21 +204,21 @@ export class CreateDeckPage {
     console.log('they gone think i won a grammy!!!!!!')
   }
 
-  createDeck() {
-    // this.deckService.postUserDeck(this.title, this.profile.id)
-    // this.navCtrl.setRoot(MyDecksPage)
-  }
-  translate() {
-    this.cameraService.getTranslation(this.cameraService.getWord())
-    // this.cameraService.showLoading();
 
-    setTimeout(() => {
-      this.setTranslation();
-    }, 1500)
-  }
-  setTranslation() {
-    this.translatedWord = this.cameraService.getTranslatedWord();
-    this.photos[this.counter]['translation'] = this.translatedWord;
-    this.counter = this.photos.length - 1;
-  }
+    createDeck() {
+      this.deckService.clearDeckCreation();
+      this.cameraService.deleteTitle();
+      this.navCtrl.setRoot(MyDecksPage);
+    }
+    // translate(){
+    //   this.cameraService.getTranslation(this.cameraService.getWord())
+    //   setTimeout(() => {
+    //     this.setTranslation();
+    //   }, 1500)
+    // }
+    setTranslation() {
+      this.translatedWord = this.cameraService.getTranslatedWord();
+      this.photos[this.counter]['translation'] = this.translatedWord;
+      this.counter = this.photos.length - 1;
+    }
 }

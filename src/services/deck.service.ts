@@ -11,6 +11,7 @@ export class DeckService {
   public allDecks: any;
   public deckId: any;
   public currentDeck: Array<any> = [];
+  public creatingDeck: Array<object> = [];
 
   constructor(
     public http: Http,
@@ -24,6 +25,27 @@ export class DeckService {
   ngOnInit() {
     // this.usersDecks = this.getUsersDecks(1);
     // this.allDecks = this.getAllDecks();
+  }
+  addToDeckCreation(card) {
+    console.log("inside add card to deck creation function");
+    console.log(JSON.stringify(card));
+    this.creatingDeck.push(card);
+    console.log('this.creatingdeck');
+    console.log(JSON.stringify(this.creatingDeck));
+    console.log('this.creatingdeck');
+    console.log("inside add card to deck creation function")
+  }
+  deckCreation() {
+    console.log("inside deck creation function that returns current un finished deck")
+    console.log(JSON.stringify(this.creatingDeck))
+    console.log("inside deck creation function that returns current un finished deck")
+    return this.creatingDeck;
+  }
+  clearDeckCreation() {
+    console.log("inside clear deck creation function")
+    this.creatingDeck = [];
+    console.log(JSON.stringify(this.creatingDeck))
+    console.log("inside clear deck creation function")
   }
   //create deck page
   postUserDeck(deckName, userId) {
@@ -89,9 +111,10 @@ export class DeckService {
         if (!this.currentDeck[0].cards.length){
           this.currentDeck[0].cards[0] = {
             imgUrl: "https://www.askideas.com/media/08/Sorry-With-Emoticon-Picture.jpg",
-            wordMap : {
-              sorry: "No Cards, Try Another Deck"
-            }
+            wordMap : JSON.stringify({
+              sorry: "No Cards, Try Another Deck",
+              reallSorry: "Seriously Pick Another Deck Already."
+            })
           }
           console.log("JSON.stringify(this.currentDeck)")
           console.log(JSON.stringify(this.currentDeck))

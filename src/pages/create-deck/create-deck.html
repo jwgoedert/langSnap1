@@ -12,13 +12,13 @@
 
 <ion-content padding>
   <ion-content>
-    <form (click)="addATitle(addATitle.title)">
+    <form (click)="addATitle(addATitle.title); titleForm.reset()" #titleForm="ngForm" *ngIf="!title">
       <ion-input type="text" [(ngModel)]="addATitle.title" name="title" placeholder="Deck Title"></ion-input>
       <button type="button">Add Title</button>
     </form>
-    <ion-thumbnail item-left>
+    <!--<ion-thumbnail item-left>
       <img [src]="photo" *ngIf="photo" />
-    </ion-thumbnail>
+    </ion-thumbnail>-->
 
     <!--<ion-list class="">-->
     <!--<ion-item>
@@ -43,22 +43,47 @@
           <button ion-button clear item-right (click)="translate()">Translate</button>
       </ion-item>-->
     <!--</ion-list>-->
-    <ion-list>
+    <h3>{{ title }}</h3>
+    <ion-list >
+      <ion-card>
+        <ion-item *ngFor="let card of cards; let id = index">
+          <ion-card>
+            <ion-thumbnail item-left>
+              <img [src]="card.image" *ngIf="card.image" />
+            </ion-thumbnail>
+          </ion-card>
+          <ion-card>
+            <div class=“card-title”>{{card.word}}</div>
+          </ion-card>
+          <ion-card>
+            <div class=“card-subtitle”>{{card.translation}}</div>
+          </ion-card>
+        </ion-item>
+      </ion-card>
+    </ion-list>
+
+
+
+
+
+
+    <!--<ion-list >
       <ion-card>
         <ion-item *ngFor="let photo of photos; let id = index">
           <ion-card>
+            <ion-thumbnail item-left>
               <img [src]="photo.image" *ngIf="photo.image" />
-          </ion-card>
+            </ion-thumbnail>
           <ion-card>
             <div class=“card-title”>{{photo.word}}</div>
           </ion-card>
           <ion-card>
             <div class=“card-subtitle”>{{photo.translation}}</div>
           </ion-card>
-          <button ion-button clear item-right (click)="translate()">Translate</button>
+          </ion-card>
         </ion-item>
       </ion-card>
-    </ion-list>
+    </ion-list>-->
 
     <!--<ion-grid>
     <ion-row>
