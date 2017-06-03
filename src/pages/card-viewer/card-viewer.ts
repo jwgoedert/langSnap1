@@ -49,7 +49,6 @@ export class CardViewerPage {
   translations() {
     this.wordsLanguages = Object.keys(JSON.parse(this.deck[0].wordMap))
     this.wordsTranslations = JSON.parse(this.deck[0].wordMap)
-    
     this.word = this.wordsTranslations[this.wordsLanguages[0]];
   }
   swipeLeftEvent(index) {
@@ -58,31 +57,25 @@ export class CardViewerPage {
 
       this.wordsLanguages = Object.keys(JSON.parse(this.deck[currentPos].wordMap))
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
-      
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
   }
   swipeRightEvent(index) {
     if (index > 0) {
-    let currentPos = index - 1;
+      let currentPos = index - 1;
 
-    this.wordsLanguages = Object.keys(JSON.parse(this.deck[currentPos].wordMap))
-    this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
-    
-    this.word = this.wordsTranslations[this.wordsLanguages[0]];
+      this.wordsLanguages = Object.keys(JSON.parse(this.deck[currentPos].wordMap))
+      this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
+      this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
   }
   flip(index) {
     if (this.word === this.wordsTranslations[this.wordsLanguages[0]]){
-    console.log('flip before 0', this.word)
       this.word = this.wordsTranslations[this.wordsLanguages[1]];
-    console.log('flip after 0', this.word)
       return;
     } else if (this.word === this.wordsTranslations[this.wordsLanguages[1]]){
-    console.log('flip before 1', this.word)
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
-    console.log('flip after 1', this.word)
-    return;
+      return;
     }
   }
 }

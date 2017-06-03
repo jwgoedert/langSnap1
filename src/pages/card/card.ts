@@ -35,7 +35,6 @@ export class CardPage {
           console.log("Error" + JSON.stringify(err))
         });
       this.cardInfo = this.cameraService.getCardInfo();
-      console.log('v 1.3')
       this.getTranslation();
   }
   getTranslation() {
@@ -45,9 +44,6 @@ export class CardPage {
   }
 
   tryAgain(word) {
-    console.log("word")
-    console.log(word)
-    console.log("word")
     this.cardInfo.word = word;
     this.cameraService.getTranslation(this.cardInfo.word);
     word = "";

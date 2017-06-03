@@ -26,8 +26,6 @@ export class HomePage {
 
 	private oauthService: OAuthService;
 	public profile: any;
-  public myLanguages: Array<string>;
-  public chooseALang: Array<string>;
   public user: any;
 
 	constructor(oauthService: OAuthService, 
@@ -40,14 +38,6 @@ export class HomePage {
     public deckService: DeckService) {
       this.alertCtrl = alertCtrl;
       this.oauthService = oauthService;
-      this.chooseALang = [
-        'English',
-        'French',
-        'Spanish',
-        'Japanese',
-        'Russian',
-        'German'
-      ];
       // if (localStorage.getItem('oauthToken') === null) {
       //   this.navCtrl.setRoot(OAuthProvidersListPage);
       // }
@@ -57,7 +47,6 @@ export class HomePage {
           console.log(profile, 'profile')
           this.profile = profile;
           this.user = JSON.stringify(profile);
-          // this sends you to the profile page if you don't have languages set up
           if(this.profile.id === -1) {
             this.navCtrl.setRoot(ProfilePage)
           }
@@ -67,29 +56,6 @@ export class HomePage {
           console.log("Error" + JSON.stringify(err))
         }); 
 	}
-
-  langForm(email, native, learning) {
-    if (!email.includes("@") || !email.length || !native || !learning){ 
-      var formError = this.alertCtrl.create({
-        title: "Sorry",
-        subTitle: "Please check your email, native language and learning lanugages again.",
-        buttons: ['close']
-      });
-      formError.present(formError);
-    } else {
-      let user = {
-        "facebookUsername": this.profile.facebookUsername,
-        "email": email,
-        "firstName": this.profile.firstName,
-        "lastName": this.profile.lastName,
-        "token": JSON.stringify(JSON.parse(localStorage.getItem('oauthToken')).accessToken),
-        "nativeLang": native,
-        "learnLang": learning
-      }
-      this.profileService.updateUser(user);
-      this.navCtrl.setRoot(HomePage);
-    }
-  }
 
   createPage(){
     this.navCtrl.setRoot(CreateDeckPage);
@@ -107,5 +73,4 @@ export class HomePage {
     localStorage.removeItem('oauthToken');
     this.navCtrl.setRoot(OAuthProvidersListPage);
   }
-
 }

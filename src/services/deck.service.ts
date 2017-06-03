@@ -24,29 +24,16 @@ export class DeckService {
   }
 
   addToDeckCreation(card) {
-    console.log("inside add card to deck creation function");
-    console.log(JSON.stringify(card));
     this.creatingDeck.push(card);
-    console.log('this.creatingdeck');
-    console.log(JSON.stringify(this.creatingDeck));
-    console.log('this.creatingdeck');
-    console.log("inside add card to deck creation function")
   }
   editDeckCreation(word) {
-    console.log('inside edit word deck creation')
     this.creatingDeck[this.creatingDeck.length - 1]['word'] = word;
   }
   deckCreation() {
-    console.log("inside deck creation function that returns current un finished deck")
-    console.log(JSON.stringify(this.creatingDeck))
-    console.log("inside deck creation function that returns current un finished deck")
     return this.creatingDeck;
   }
   clearDeckCreation() {
-    console.log("inside clear deck creation function")
     this.creatingDeck = [];
-    console.log(JSON.stringify(this.creatingDeck))
-    console.log("inside clear deck creation function")
   }
   //create deck page
   postUserDeck(deckName, userId) {
@@ -55,7 +42,6 @@ export class DeckService {
       "user_id": userId,
       "stars": 5
     }
-    console.log('inside post user deck');
     return this.http.post(`${this.serverDBUrl}/v1/decks/new`, reqBody)
       .map(deck => deck.json())
       .subscribe(deckObj => {
@@ -68,33 +54,23 @@ export class DeckService {
     return this.deckId;
   }
   postCardToUserDeck(addCard) {
-    console.log('inside post card')
-    console.log(JSON.stringify(addCard))
-    console.log('inside post card')
     this.http.post(`${this.serverDBUrl}/v1/cards/addcard`, addCard)
       .map(deck => deck.json())
       .subscribe(deckObj => {
-        console.log('post card')
-        console.log(JSON.stringify(deckObj));
-        console.log('post card')
         return deckObj.id;
       }), error => console.log(error);
 
   }
   //mydecks page
   getUsersDecks(userId) { 
+    this.usersDecks = [];
     return this.http.get(`${this.serverDBUrl}/v1/decks/userid/${userId}`)
       .map(deck => deck.json().forEach(el => {
         this.usersDecks.push(el);
         return this.usersDecks;
       }))
       .subscribe(deckName => {
-        console.log("deck name")
-        console.log(JSON.stringify(deckName))
-        console.log(JSON.stringify(this.usersDecks))
-        console.log("deck name")
-        
-        return this.usersDecks;
+        return this.usersDecks.reverse();
       }), error => console.log(error);
   }
 
@@ -105,10 +81,6 @@ export class DeckService {
         return el;
       }))
       .subscribe(deck => {
-        console.log("looking for deck")
-        console.log(JSON.stringify(deck))
-        console.log(JSON.stringify(this.currentDeck))
-        console.log("looking for deck")
         if (!this.currentDeck[0].cards.length){
           this.currentDeck[0].cards[0] = {
             imgUrl: "https://www.askideas.com/media/08/Sorry-With-Emoticon-Picture.jpg",
@@ -117,9 +89,6 @@ export class DeckService {
               reallSorry: "Seriously Pick Another Deck Already."
             })
           }
-          console.log("JSON.stringify(this.currentDeck)")
-          console.log(JSON.stringify(this.currentDeck))
-          console.log("JSON.stringify(this.currentDeck)")
           this.emptyCurrentDeck();
           return this.currentDeck;
         } else {
@@ -140,15 +109,8 @@ export class DeckService {
     this.http.delete((`${this.serverDBUrl}/v1/decks/${deckId}`))
     .map( res => res)
     .subscribe( resp => {
-      console.log("DELETING FROM INSIDE APP");
-      console.log(JSON.stringify(resp));
-      this.usersDecks = [];
-      return this.getUsersDecks(userId);
-      
-      // console.log(userId);
-      // return resp;
+      return resp;
     }), err => {
-      console.log("fromDelete");
       console.log(JSON.stringify(err));
      }
     }
@@ -160,9 +122,6 @@ export class DeckService {
         return this.allDecks;
       }))
       .subscribe(deckName => {
-        console.log("all decks?????????????????????????????????????????????");
-        console.log(deckName);
-        console.log(JSON.stringify(this.allDecks))
         return this.allDecks;
       }), error => console.log(error);
   }

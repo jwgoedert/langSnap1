@@ -30,7 +30,7 @@ export class LanguageService {
         'ru',
         'de'
       ];
-      console.log(translateTo[this.languages.indexOf(lang)])
+    console.log(translateTo[this.languages.indexOf(lang)])
     return translateTo[this.languages.indexOf(lang)]
   }
 }
