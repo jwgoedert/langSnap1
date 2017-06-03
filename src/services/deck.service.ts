@@ -22,10 +22,7 @@ export class DeckService {
     this.usersDecks = [];
     this.allDecks = [];
   }
-  ngOnInit() {
-    // this.usersDecks = this.getUsersDecks(1);
-    // this.allDecks = this.getAllDecks();
-  }
+
   addToDeckCreation(card) {
     console.log("inside add card to deck creation function");
     console.log(JSON.stringify(card));
@@ -34,6 +31,10 @@ export class DeckService {
     console.log(JSON.stringify(this.creatingDeck));
     console.log('this.creatingdeck');
     console.log("inside add card to deck creation function")
+  }
+  editDeckCreation(word) {
+    console.log('inside edit word deck creation')
+    this.creatingDeck[this.creatingDeck.length - 1]['word'] = word;
   }
   deckCreation() {
     console.log("inside deck creation function that returns current un finished deck")

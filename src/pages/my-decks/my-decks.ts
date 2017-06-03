@@ -29,9 +29,7 @@ export class MyDecksPage {
         console.log(profile, 'profile')
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
-        if (this.deckService.usersDecks.length === 0) {
-          this.deckService.getUsersDecks(this.profile.id)
-        }
+        this.deckService.getUsersDecks(this.profile.id)
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))

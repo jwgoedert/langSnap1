@@ -16,7 +16,6 @@ export class CardPage {
   public cardInfo: any;
   public translation: any;
   public profile: any;
-  public show: boolean = false;
   public rootPage: any = CardPage;
   
   constructor(public navCtrl: NavController, 
@@ -46,7 +45,6 @@ export class CardPage {
   }
 
   tryAgain(word) {
-    // send word off fro new translation
     console.log("word")
     console.log(word)
     console.log("word")
@@ -54,15 +52,13 @@ export class CardPage {
     this.cameraService.getTranslation(this.cardInfo.word);
     word = "";
     this.getTranslation();
+    this.deckService.editDeckCreation(this.cardInfo.word);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CardPage');
   }
 
-  editWord(word){
-    this.show = true;
-  }
   createCard() {
      let addCard = {
       "user_id": this.profile.id,
