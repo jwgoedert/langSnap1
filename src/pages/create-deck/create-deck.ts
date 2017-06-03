@@ -62,38 +62,53 @@ export class CreateDeckPage {
     this.photos = [];
   }
   takePhoto() {
-    const options: CameraOptions = {
-      quality: 100,
-      targetWidth: 300,
-      targetHeight: 300,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-    }
-    this.camera.getPicture(options).then((imageData) => {
-      imageData = imageData.replace(/\r?\n|\r/g, "");
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      var newForm = new FormData();
-      newForm.append("file", this.base64Image);
-      newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
-      this.photos.push({ image: this.base64Image });
-      this.photos.reverse();
-      return newForm;
-    }).then(imgFormatted => {
-      this.cameraService.sendPic(imgFormatted)
-      this.cameraService.showLoading(5000);
+    if (this.title) {
+      const options: CameraOptions = {
+        quality: 100,
+        targetWidth: 300,
+        targetHeight: 300,
+        correctOrientation: true,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.CAMERA,
+      }
+      this.camera.getPicture(options).then((imageData) => {
+        imageData = imageData.replace(/\r?\n|\r/g, "");
+        this.base64Image = 'data:image/jpeg;base64,' + imageData;
+        var newForm = new FormData();
+        newForm.append("file", this.base64Image);
+        newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
+        this.photos.push({ image: this.base64Image });
+        this.photos.reverse();
+        return newForm;
+      }).then(imgFormatted => {
+        this.cameraService.sendPic(imgFormatted)
+        this.cameraService.showLoading(5000);
 
-      this.cameraService.sendPic(imgFormatted)
-      setTimeout(() => {
-        this.fourN = this.cameraService.getWord();
-        this.cameraService.getTranslation(this.fourN)
-        this.photos[this.counter]['word'] = this.fourN;
-        this.deckService.addToDeckCreation(this.photos[this.counter])
-        this.navCtrl.setRoot(CardPage)
-      }, 3000)
-    })
+        this.cameraService.sendPic(imgFormatted)
+        setTimeout(() => {
+          this.fourN = this.cameraService.getWord();
+          this.cameraService.getTranslation(this.fourN)
+          this.photos[this.counter]['word'] = this.fourN;
+          this.deckService.addToDeckCreation(this.photos[this.counter])
+          this.navCtrl.setRoot(CardPage)
+        }, 3000)
+      })
+    } else {
+      let confirm = this.alertCtrl.create({
+        title: `Looks like you didn't add a deck name... You're gonna have to do that first.`,
+        message: '',
+        buttons: [
+          {
+            text: 'Oh...got it. ',
+            handler: () => {
+            }
+          },
+        ]
+      });
+      confirm.present();
+    }
   }
 
   deletePhoto(index) {
@@ -118,41 +133,53 @@ export class CreateDeckPage {
   }
 
   cameraRoll() {
-    const options: CameraOptions = {
-      quality: 100,
-      targetWidth: 300,
-      targetHeight: 300,
-      correctOrientation: true,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    if (this.title) {
+      const options: CameraOptions = {
+        quality: 100,
+        targetWidth: 300,
+        targetHeight: 300,
+        correctOrientation: true,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      }
+
+      this.camera.getPicture(options).then((imageData) => {
+        imageData = imageData.replace(/\r?\n|\r/g, "");
+        this.base64Image = 'data:image/jpeg;base64,' + imageData;
+        var newForm = new FormData();
+        newForm.append("file", this.base64Image);
+        newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
+        this.photos.push({ image: this.base64Image });
+        this.photos.reverse();
+        return newForm;
+      }).then(imgFormatted => {
+        this.cameraService.sendPic(imgFormatted)
+        this.cameraService.showLoading(5000);
+
+        setTimeout(() => {
+          this.fourN = this.cameraService.getWord();
+          this.cameraService.getTranslation(this.fourN)
+          this.photos[this.counter]['word'] = this.fourN;
+          this.deckService.addToDeckCreation(this.photos[this.counter])
+          this.navCtrl.setRoot(CardPage)
+        }, 3000)
+      })
+    } else {
+      let confirm = this.alertCtrl.create({
+        title: `Looks like you didn't add a deck name... You're gonna have to do that first.`,
+        message: '',
+        buttons: [
+          {
+            text: 'Oh...got it. ',
+            handler: () => {
+            }
+          },
+        ]
+      });
+      confirm.present();
     }
-
-    this.camera.getPicture(options).then((imageData) => {
-      imageData = imageData.replace(/\r?\n|\r/g, "");
-      this.base64Image = 'data:image/jpeg;base64,' + imageData;
-      var newForm = new FormData();
-      newForm.append("file", this.base64Image);
-      newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
-      this.photos.push({ image: this.base64Image });
-      this.photos.reverse();
-      return newForm;
-    }).then(imgFormatted => {
-      this.cameraService.sendPic(imgFormatted)
-      this.cameraService.showLoading(5000);
-
-      setTimeout(() => {
-        this.fourN = this.cameraService.getWord();
-        console.log('this.fourN')
-        console.log(this.fourN)
-        console.log('this.fourN')
-        this.cameraService.getTranslation(this.fourN)
-        this.photos[this.counter]['word'] = this.fourN;
-        this.deckService.addToDeckCreation(this.photos[this.counter])
-        this.navCtrl.setRoot(CardPage)
-      }, 3000)
-    })
   }
 
   checkTitle() {
