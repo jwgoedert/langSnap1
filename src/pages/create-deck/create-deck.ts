@@ -51,11 +51,9 @@ export class CreateDeckPage {
         console.log("Error" + JSON.stringify(err))
       });
     this.http = http;
-    console.log('look for me')
-    if (this.deckService.deckCreation().length > 0){
+    if (this.deckService.deckCreation().length > 0) {
       this.cards = this.deckService.deckCreation().reverse();
     }
-    console.log('look for me')
     if (this.cameraService.getTitle()) {
       this.title = this.cameraService.getTitle();
     }
@@ -74,36 +72,28 @@ export class CreateDeckPage {
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.CAMERA,
     }
-    console.log("TOTOPHOTO");
     this.camera.getPicture(options).then((imageData) => {
-      // imageData is either a base64 encoded string or a file URI
-      // If it's base64:  
       imageData = imageData.replace(/\r?\n|\r/g, "");
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
       var newForm = new FormData();
       newForm.append("file", this.base64Image);
       newForm.append("upload_preset", this.config.cloudinary.uploadPreset);
-      //put photos in grid for viewing  
       this.photos.push({ image: this.base64Image });
       this.photos.reverse();
       return newForm;
     }).then(imgFormatted => {
+      this.cameraService.sendPic(imgFormatted)
+      this.cameraService.showLoading(5000);
 
-        this.cameraService.sendPic(imgFormatted)
-        this.cameraService.showLoading(5000);
-
-        this.cameraService.sendPic(imgFormatted)
-        setTimeout(() => {
-          this.fourN = this.cameraService.getWord();
-          this.cameraService.getTranslation(this.fourN)
-          this.photos[this.counter]['word'] = this.fourN;
-          console.log("this.photos[this.counter]")
-          console.log(JSON.stringify(this.photos[this.counter]))
-          console.log("this.photos[this.counter]")
-          this.deckService.addToDeckCreation(this.photos[this.counter])
-          this.navCtrl.setRoot(CardPage)          
-        }, 3000)
-      })
+      this.cameraService.sendPic(imgFormatted)
+      setTimeout(() => {
+        this.fourN = this.cameraService.getWord();
+        this.cameraService.getTranslation(this.fourN)
+        this.photos[this.counter]['word'] = this.fourN;
+        this.deckService.addToDeckCreation(this.photos[this.counter])
+        this.navCtrl.setRoot(CardPage)
+      }, 3000)
+    })
   }
 
   deletePhoto(index) {
@@ -127,19 +117,18 @@ export class CreateDeckPage {
     confirm.present();
   }
 
-    cameraRoll() {
-      const options: CameraOptions = {
-        quality: 100,
-        targetWidth: 300,
-        targetHeight: 300,
-        correctOrientation: true,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE,
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      }
+  cameraRoll() {
+    const options: CameraOptions = {
+      quality: 100,
+      targetWidth: 300,
+      targetHeight: 300,
+      correctOrientation: true,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+    }
 
-    console.log("CAMERAROLLPHOTO");
     this.camera.getPicture(options).then((imageData) => {
       imageData = imageData.replace(/\r?\n|\r/g, "");
       this.base64Image = 'data:image/jpeg;base64,' + imageData;
@@ -154,14 +143,11 @@ export class CreateDeckPage {
       this.cameraService.showLoading(5000);
 
       setTimeout(() => {
-         this.fourN = this.cameraService.getWord();
-          this.cameraService.getTranslation(this.fourN)
-          this.photos[this.counter]['word'] = this.fourN;
-          console.log("this.photos[this.counter]")
-          console.log(JSON.stringify(this.photos[this.counter]))
-          console.log("this.photos[this.counter]")
-          this.deckService.addToDeckCreation(this.photos[this.counter])
-          this.navCtrl.setRoot(CardPage) 
+        this.fourN = this.cameraService.getWord();
+        this.cameraService.getTranslation(this.fourN)
+        this.photos[this.counter]['word'] = this.fourN;
+        this.deckService.addToDeckCreation(this.photos[this.counter])
+        this.navCtrl.setRoot(CardPage)
       }, 3000)
     })
   }
@@ -176,22 +162,15 @@ export class CreateDeckPage {
         buttons: ['close']
       });
       formError.present(formError);
-
     }
-
   }
 
   findCard() {
-    // this.deckService.getUsersDecks(this.profile.id);
-    // this.navCtrl.setRoot(CardPage);
-    // this.deckService.getUsersDecks(1);
     this.navCtrl.setRoot(CardPage);
   };
 
   addATitle(title) {
     this.title = title;
-    console.log(this.title)
-    console.log('title')
     this.cameraService.addTitle(this.title)
     this.deckId = this.deckService.postUserDeck(this.title, this.profile.id)
   }
@@ -204,21 +183,15 @@ export class CreateDeckPage {
     console.log('they gone think i won a grammy!!!!!!')
   }
 
+  createDeck() {
+    this.deckService.clearDeckCreation();
+    this.cameraService.deleteTitle();
+    this.navCtrl.setRoot(MyDecksPage);
+  }
 
-    createDeck() {
-      this.deckService.clearDeckCreation();
-      this.cameraService.deleteTitle();
-      this.navCtrl.setRoot(MyDecksPage);
-    }
-    // translate(){
-    //   this.cameraService.getTranslation(this.cameraService.getWord())
-    //   setTimeout(() => {
-    //     this.setTranslation();
-    //   }, 1500)
-    // }
-    setTranslation() {
-      this.translatedWord = this.cameraService.getTranslatedWord();
-      this.photos[this.counter]['translation'] = this.translatedWord;
-      this.counter = this.photos.length - 1;
-    }
+  setTranslation() {
+    this.translatedWord = this.cameraService.getTranslatedWord();
+    this.photos[this.counter]['translation'] = this.translatedWord;
+    this.counter = this.photos.length - 1;
+  }
 }

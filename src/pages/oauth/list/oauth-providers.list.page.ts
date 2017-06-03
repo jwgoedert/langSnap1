@@ -23,7 +23,6 @@ export class OAuthProvidersListPage {
 	}
 
 	public login(source: string) {
-
 		this.oauthService.login(source)
 			.then(
 				() => this.navCtrl.setRoot(HomePage),

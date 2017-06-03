@@ -29,9 +29,7 @@ export class MyDecksPage {
         console.log(profile, 'profile')
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
-        if (this.deckService.usersDecks.length === 0) {
-          this.deckService.getUsersDecks(this.profile.id)
-        }
+        this.deckService.getUsersDecks(this.profile.id)
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
@@ -41,7 +39,7 @@ export class MyDecksPage {
       this.items = this.deckService.usersDecks.map((deck) => {
         if (!deck.cards[0]) { deck.cards[0] = { imgUrl: "https://www.wired.com/wp-content/uploads/2015/01/learning-styles.jpg" } }
         return deck;
-      })
+      });
       this.initializeItems();
     }, 1500)
 
@@ -58,46 +56,29 @@ export class MyDecksPage {
     }
   }
   getItems(ev) {
-    // Reset items back to all of the items
     this.initializeItems();
-    // set val to the value of the ev target
     var val = ev.target.value;
-    console.log("target letter", val)
-    // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
-        if ((item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)) { console.log(item.name.toLowerCase) }
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
-  ///////////////
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyDecksPage');
   }
   openCard(deckId) {
-    console.log(deckId)
-    console.log("deckId")
     this.deckService.getAllCardsInADeck(deckId);
     this.navCtrl.push(CardViewerPage)
   }
   editDeck() {
-    console.log('edit deck button was clicked!')
     this.navCtrl.setRoot(EditDeckPage)
   }
 
-  deleteDeck(index) {
-    console.log("BOUT TO DELETE");
-    console.log(index);
-    console.log("delete!!!!!!!!!!!!!!!!!!!!!");
-    // this.navCtrl.setRoot(MyDecksPage)
-    // this.items = this.deckService.deleteADeck(index, this.profile.id);
-    console.log(JSON.stringify(this.items));
-
-    // this.navCtrl.setRoot(MyDecksPage)
-
+  deleteDeck(index, deckName) {
     let confirm = this.alertCtrl.create({
-      title: 'Sure you want to delete this Deck?',
+      title: `Sure you want to delete the ${deckName} Deck?`,
       message: '',
       buttons: [
         {
@@ -108,15 +89,12 @@ export class MyDecksPage {
         {
           text: 'Yes',
           handler: () => {
-            this.items = this.deckService.deleteADeck(index, this.profile.id);
+            this.deckService.deleteADeck(index, this.profile.id);
             this.navCtrl.setRoot(MyDecksPage)
-
-            // return this.deckService.deleteADeck(+index);
           }
         }
       ]
     });
     confirm.present();
   }
-
 }
