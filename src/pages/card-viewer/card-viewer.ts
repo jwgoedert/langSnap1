@@ -59,7 +59,10 @@ export class CardViewerPage {
     console.log("this.wordsTranslations")
     console.log(JSON.stringify(this.wordsTranslations))
     console.log("this.wordsTranslations")
-    this.word = this.wordsTranslations[this.profile.nativeLang];
+    if (this.wordsTranslations['sorry']) {
+      this.wordsLanguages = ['sorry', 'reallSorry'];
+    }
+    this.word = this.wordsTranslations[this.wordsLanguages[0]];
     console.log("this.word")
     console.log(this.word)
     console.log("this.word")
@@ -69,7 +72,7 @@ export class CardViewerPage {
       let currentPos = index + 1
 
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
-      this.word = this.wordsTranslations[this.profile.nativeLang];
+      this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
   }
   swipeRightEvent(index) {
@@ -77,15 +80,15 @@ export class CardViewerPage {
       let currentPos = index - 1;
 
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
-      this.word = this.wordsTranslations[this.profile.nativeLang];
+      this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
   }
   flip(index) {
-    if (this.word === this.wordsTranslations[this.profile.nativeLang]){
-      this.word = this.wordsTranslations[this.profile.learnLang];
+    if (this.word === this.wordsTranslations[this.wordsLanguages[0]]){
+      this.word = this.wordsTranslations[this.wordsLanguages[1]];
       return;
-    } else if (this.word === this.wordsTranslations[this.profile.learnLang]){
-      this.word = this.wordsTranslations[this.profile.nativeLang];
+    } else if (this.word === this.wordsTranslations[this.wordsLanguages[1]]){
+      this.word = this.wordsTranslations[this.wordsLanguages[0]];
       return;
     }
   }

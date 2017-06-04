@@ -15,6 +15,7 @@ export class CameraService {
  public source: any;
  public target: any;
 ​ public loading: any;
+​ public wordMap: any;
 
  constructor(public http: Http,
   public alertCtrl: AlertController, 
@@ -100,6 +101,10 @@ export class CameraService {
     return this.http.post('http://52.14.252.211/v1/googletranslate/wordmap', tranlationData)
       .map(translate => {
         this.word = JSON.parse(translate['_body'])[this.source];
+        this.wordMap = JSON.parse(translate['_body']);
+        console.log("JSON.stringify(this.wordMap)")
+        console.log(JSON.stringify(this.wordMap))
+        console.log("JSON.stringify(this.wordMap)")
         // var formError = this.alertCtrl.create({
         //  title: JSON.stringify(JSON.parse(translate['_body'])[this.source]),
         //  subTitle: JSON.stringify(JSON.parse(translate['_body'])[this.source]),
@@ -137,34 +142,8 @@ export class CameraService {
    console.log(this.target)
    console.log('in translation')
 
-   let tranlationData = {
-    "q": word,
-    "source": this.source,
-    "target": this.target
-   }
-   return this.http.post('http://52.14.252.211/v1/googletranslate/sentence', tranlationData)
-   .map(translate => {
-    this.translation = translate;
-    // var formError = this.alertCtrl.create({
-    //  title: "Translation",
-    //  subTitle: JSON.stringify(translate),
-    //  buttons: ['close']
-    // });
-    // formError.present(formError);
-    console.log(this.translation)
-    console.log("this.translation")
-    // this.translationUpdate.emit(this.translation);
-    return this.translation;
-   })
-   .subscribe(resp => {
-    console.log('RESP', resp);
-    console.log('RESP', JSON.stringify(resp));
-    this.translation = JSON.parse(resp['_body']).data.translations[0].translatedText
-    console.log('translation yea yea')
-    console.log(this.translation)
-    console.log('translation yea yea')
-    return this.translation;
-   })
+   this.translation = this.wordMap[this.target];
+   return this.translation;
   }
 ​
   addTitle(title) {
@@ -191,7 +170,8 @@ export class CameraService {
     title: this.title,
     picture: this.picUrl,
     word: this.word,
-    translation: this.translation 
+    translation: this.translation,
+    wordMap: this.wordMap, 
    }
   }
 }
