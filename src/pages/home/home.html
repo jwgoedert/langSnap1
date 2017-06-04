@@ -9,7 +9,7 @@
 
 <ion-content>
 	<ion-content *ngIf="!!profile">
-		<h1>Welcome</h1>
+		<h1>{{ 'WELCOME' | translate }}</h1>
 		<h2>{{profile.firstName}} {{profile.lastName}}!!!</h2>
 			<div padding>
 				<button ion-button round type="button" (click)="createPage()" block>{{ 'CREATE_A_DECK' | translate }}</button>

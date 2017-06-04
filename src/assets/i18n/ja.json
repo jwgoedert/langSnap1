@@ -20,5 +20,12 @@
   "CREATE_CARD": "カードを作成する",
   "TRY_AGAIN" : "再試行する",
   "CARD_VIEWER" : "カードビューア",
-  "SHARED_DECKS" : "共有デッキ"
+  "SHARED_DECKS" : "共有デッキ",
+  "ADD_TITLE" : "表題を加える",
+  "DECK_TITLE" : "デッキのタイトル",
+  "PHRASE" : "フレーズ",
+  "FLIP" : "フリップ",
+  "EMAIL_ADDRESS" : "電子メールアドレス",
+  "NATIVE_LANGUAGE" : "母国語",
+  "LEARNING_LANGUAGE" : "学習言語"
 }

@@ -11,11 +11,11 @@
 <ion-content padding>
     <form (click)="langForm(langForm.email, langForm.native, langForm.learning)">
        <ion-item>
-        <ion-label>Email Address</ion-label>
+        <ion-label>{{'EMAIL_ADDRESS' | translate}}</ion-label>
         <ion-input type="text" [(ngModel)]="langForm.email" name="email" required></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>Native Language</ion-label>
+        <ion-label>{{ 'NATIVE_LANGUAGE' | translate }}</ion-label>
         <!--<ion-input type="text" [(ngModel)]="langForm.native" name="native" required></ion-input>-->
          <ion-select  [(ngModel)]="langForm.native" name="native">
           <ion-option *ngFor="let language of chooseALang" value= {{language}} required>
@@ -24,7 +24,7 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label>Learning Language</ion-label>
+        <ion-label>{{ 'LEARNING_LANGUAGE' | translate }}</ion-label>
         <ion-select  [(ngModel)]="langForm.learning" name="learning">
           <ion-option *ngFor="let language of chooseALang" value= {{language}} required>
             {{ language }}

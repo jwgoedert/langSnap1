@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Nav } from 'ionic-angular';
+import { ModalController, NavController, NavParams, Nav } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
 import { OAuthService } from '../oauth/oauth.service';
 import { DeckService } from '../../services/deck.service';
-
+import { PhraseModalPage } from '../phrase-modal/phrase-modal';
 @Component({
   selector: 'page-card-viewer',
   templateUrl: 'card-viewer.html',
@@ -24,7 +24,8 @@ export class CardViewerPage {
     public translateService: TranslateService,
     public languageService: LanguageService,
     oauthService: OAuthService,
-    public deckService: DeckService, ) {
+    public deckService: DeckService, 
+    public modalCtrl: ModalController) {
     oauthService.getProfile().toPromise()
         .then(profile => {
           console.log(profile, 'profile')
@@ -34,7 +35,7 @@ export class CardViewerPage {
           this.deckTitle = this.deck[0].name
           this.deck = this.deck[0].cards
           if (!JSON.parse(this.deck[0].wordMap)["sorry"]) {
-            this.deckLanguage = Object.keys(JSON.parse(this.deck[0].wordMap))[1];
+            this.deckLanguage = this.profile.learnLang;
           }
           this.translations();
         })
@@ -47,15 +48,14 @@ export class CardViewerPage {
     console.log('ionViewDidLoad CardViewerPage');
   }
   translations() {
-    this.wordsLanguages = Object.keys(JSON.parse(this.deck[0].wordMap))
-    this.wordsTranslations = JSON.parse(this.deck[0].wordMap)
+    this.wordsLanguages = [this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang)];
+    this.wordsTranslations = JSON.parse(this.deck[0].wordMap);
     this.word = this.wordsTranslations[this.wordsLanguages[0]];
   }
   swipeLeftEvent(index) {
     if (index < this.deck.length - 1) {
       let currentPos = index + 1
 
-      this.wordsLanguages = Object.keys(JSON.parse(this.deck[currentPos].wordMap))
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
@@ -64,7 +64,6 @@ export class CardViewerPage {
     if (index > 0) {
       let currentPos = index - 1;
 
-      this.wordsLanguages = Object.keys(JSON.parse(this.deck[currentPos].wordMap))
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
@@ -78,4 +77,8 @@ export class CardViewerPage {
       return;
     }
   }
+  presentPhraseModal() {
+   let profileModal = this.modalCtrl.create(PhraseModalPage, { userId: 8675309 });
+   profileModal.present();
+ }
 }
