@@ -34,6 +34,9 @@ export class CardViewerPage {
           this.deck = this.deckService.getCurrentDeck();
           this.deckTitle = this.deck[0].name
           this.deck = this.deck[0].cards
+          console.log("this.deck")
+          console.log(JSON.stringify(this.deck))
+          console.log("this.deck")
           if (!JSON.parse(this.deck[0].wordMap)["sorry"]) {
             this.deckLanguage = this.profile.learnLang;
           }
@@ -49,15 +52,24 @@ export class CardViewerPage {
   }
   translations() {
     this.wordsLanguages = [this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang)];
+    console.log("this.wordsLanguages")
+    console.log(JSON.stringify(this.wordsLanguages))
+    console.log("this.wordsLanguages")
     this.wordsTranslations = JSON.parse(this.deck[0].wordMap);
-    this.word = this.wordsTranslations[this.wordsLanguages[0]];
+    console.log("this.wordsTranslations")
+    console.log(JSON.stringify(this.wordsTranslations))
+    console.log("this.wordsTranslations")
+    this.word = this.wordsTranslations[this.profile.nativeLang];
+    console.log("this.word")
+    console.log(this.word)
+    console.log("this.word")
   }
   swipeLeftEvent(index) {
     if (index < this.deck.length - 1) {
       let currentPos = index + 1
 
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
-      this.word = this.wordsTranslations[this.wordsLanguages[0]];
+      this.word = this.wordsTranslations[this.profile.nativeLang];
     }
   }
   swipeRightEvent(index) {
@@ -65,15 +77,15 @@ export class CardViewerPage {
       let currentPos = index - 1;
 
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
-      this.word = this.wordsTranslations[this.wordsLanguages[0]];
+      this.word = this.wordsTranslations[this.profile.nativeLang];
     }
   }
   flip(index) {
-    if (this.word === this.wordsTranslations[this.wordsLanguages[0]]){
-      this.word = this.wordsTranslations[this.wordsLanguages[1]];
+    if (this.word === this.wordsTranslations[this.profile.nativeLang]){
+      this.word = this.wordsTranslations[this.profile.learnLang];
       return;
-    } else if (this.word === this.wordsTranslations[this.wordsLanguages[1]]){
-      this.word = this.wordsTranslations[this.wordsLanguages[0]];
+    } else if (this.word === this.wordsTranslations[this.profile.learnLang]){
+      this.word = this.wordsTranslations[this.profile.nativeLang];
       return;
     }
   }
