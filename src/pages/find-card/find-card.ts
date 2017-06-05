@@ -51,8 +51,8 @@ export class FindCardPage {
         if ((typeof card.wordMap === 'string')) {
           card.wordMap = JSON.parse(card.wordMap);
         } 
-        console.log('card in findcard unstringified') 
-        console.log(card)
+        // console.log('card in findcard unstringified') 
+        // console.log(card)
 
         return card;
       })
@@ -65,8 +65,8 @@ export class FindCardPage {
   initializeItems() {
     this.chosenCards = [];
     this.items = this.deckService.allCards;
-    console.log('ITEMS');
-    console.log(this.items);
+    // console.log('ITEMS');
+    // console.log(this.items);
   }
   getItems(ev) {
     // Reset items back to all of the items
@@ -111,11 +111,26 @@ export class FindCardPage {
         "deck_id": this.deck,
         "cardIds": this.chosenCards
       }
+    this.chosenCards.forEach(card => {
+      console.log('CHOSEN CARD');
+      console.log(JSON.stringify(card.id));
+      console.log(JSON.stringify(this.items[card - 1]));
+      
+      let cardInfo = {
+      "word":  this.items[card - 1].wordMap.en,
+      "image": this.items[card - 1].imgUrl
+    }
+      console.log(card.imgUrl, card.wordMap)
+      this.deckService.addToDeckCreation(cardInfo) 
+    })
     
     console.log(JSON.stringify(addCards));
     console.log(this.chosenCards);
     this.deckService.postCardsToUserDeck(addCards);
     this.chosenCards = [];
-    this.navCtrl.setRoot(CreateDeckPage)
+    setTimeout(() => {
+
+      this.navCtrl.setRoot(CreateDeckPage)
+    }, 1500)
   }
 }

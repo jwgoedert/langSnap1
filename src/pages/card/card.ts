@@ -77,10 +77,6 @@ export class CardPage {
       "user_id": this.profile.id,
       "deck_id": this.deckService.getDeckId(),
       "wordMap": JSON.stringify(this.cardInfo.wordMap),
-      // "wordMap": JSON.stringify({
-      //   [this.profile.nativeLang]: this.cardInfo.word,
-      //   [this.profile.learnLang]: this.translation
-      // }),
       "imgUrl": this.cardInfo.picture
     }
     this.deckService.postCardToUserDeck(addCard)

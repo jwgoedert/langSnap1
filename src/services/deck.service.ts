@@ -67,14 +67,11 @@ export class DeckService {
     // console.log('ADDCARDS');
     // console.log(JSON.stringify(addCards));
     this.http.post(`${this.serverDBUrl}/v1/decks/addcards`, addCards)
-      .map(deck => deck.json())
-      .subscribe(deckObj => {
-        // console.log('POST CARDS ATTEMPT');
-        // console.log(JSON.stringify(deckObj.id))
-        return deckObj.id;
-      }), error => {
+      .map(deck => deck)
+      .subscribe(deckres => deckres), 
+        error => {
         console.log('Error adding cards');
-      console.log(error);
+        console.log(error);
       }
   }
   //mydecks page

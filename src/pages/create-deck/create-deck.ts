@@ -57,6 +57,8 @@ export class CreateDeckPage {
     this.http = http;
     if (this.deckService.deckCreation().length > 0) {
       this.cards = this.deckService.deckCreation().reverse();
+      
+      console.log(JSON.stringify(this.cards));
     }
     if (this.cameraService.getTitle()) {
       this.title = this.cameraService.getTitle();
