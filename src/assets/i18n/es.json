@@ -20,5 +20,18 @@
   "CREATE_CARD": "Crear tarjeta",
   "TRY_AGAIN" : "Inténtalo de nuevo",
   "CARD_VIEWER" : "Visor de tarjetas",
-  "SHARED_DECKS" : "Cubiertas compartidas"
+  "SHARED_DECKS" : "Cubiertas compartidas",
+  "ADD_TITLE" : "Añadir Título",
+  "DECK_TITLE" : "Título de la cubierta",
+  "PHRASE" : "Frase",
+  "FLIP" : "Dar la vuelta",
+  "EMAIL_ADDRESS" : "dirección de correo electrónico",
+  "NATIVE_LANGUAGE" : "Lengua materna",
+  "LEARNING_LANGUAGE" : "Aprendiendo idioma",
+  "CANCEL": "Cancelar",
+  "SEARCH": "Buscar",
+  "YOUR_WORD": "Tu palabra",
+  "TRANSLATION": "Traducción",
+  "NOT_RIGHT_WORD": "¿No es la palabra correcta? Intente escribir la palabra correcta debajo.",
+  "ENTER_YOUR_WORD": "Escriba su palabra aquí"
 }

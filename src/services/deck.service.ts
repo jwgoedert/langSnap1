@@ -45,7 +45,7 @@ export class DeckService {
     return this.http.post(`${this.serverDBUrl}/v1/decks/new`, reqBody)
       .map(deck => deck.json())
       .subscribe(deckObj => {
-        this.deckId = deckObj.id; 
+        this.deckId = deckObj.id;
         return deckObj.id;
       }), error => console.log(error);
   }
@@ -62,7 +62,7 @@ export class DeckService {
 
   }
   //mydecks page
-  getUsersDecks(userId) { 
+  getUsersDecks(userId) {
     this.usersDecks = [];
     return this.http.get(`${this.serverDBUrl}/v1/decks/userid/${userId}`)
       .map(deck => deck.json().forEach(el => {
@@ -81,10 +81,10 @@ export class DeckService {
         return el;
       }))
       .subscribe(deck => {
-        if (!this.currentDeck[0].cards.length){
+        if (!this.currentDeck[0].cards.length) {
           this.currentDeck[0].cards[0] = {
             imgUrl: "https://www.askideas.com/media/08/Sorry-With-Emoticon-Picture.jpg",
-            wordMap : JSON.stringify({
+            wordMap: JSON.stringify({
               sorry: "No Cards, Try Another Deck",
               reallSorry: "Seriously Pick Another Deck Already."
             })
@@ -105,15 +105,15 @@ export class DeckService {
       this.currentDeck = [];
     }, 2000)
   }
-  deleteADeck(deckId,userId) {
+  deleteADeck(deckId, userId) {
     this.http.delete((`${this.serverDBUrl}/v1/decks/${deckId}`))
-    .map( res => res)
-    .subscribe( resp => {
-      return resp;
-    }), err => {
-      console.log(JSON.stringify(err));
-     }
-    }
+      .map(res => res)
+      .subscribe(resp => {
+        return resp;
+      }), err => {
+        console.log(JSON.stringify(err));
+      }
+  }
   //find/add decks page
   getAllDecks() {
     this.http.get(`${this.serverDBUrl}/v1/decks/all`)

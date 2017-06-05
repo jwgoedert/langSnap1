@@ -20,5 +20,19 @@
   "CREATE_CARD": "Erstellen karte",
   "TRY_AGAIN" : "Versuch es noch einmal",
   "CARD_VIEWER" : "Karten-Viewer",
-  "SHARED_DECKS" : "Gemeinsame Decks"
+  "SHARED_DECKS" : "Gemeinsame Decks",
+  "ADD_TITLE" : "Titel hinzufügen",
+  "DECK_TITLE" : "Deck Titel",
+  "PHRASE" : "Phrase",
+  "FLIP" : "Flip",
+  "EMAIL_ADDRESS" : "E-Mail-Addresse",
+  "NATIVE_LANGUAGE" : "Muttersprache",
+  "LEARNING_LANGUAGE" : "Sprache lernen",
+  "CANCEL": "Stornieren",
+  "SEARCH": "Suche",
+  "YOUR_WORD": "Dein Wort",
+  "TRANSLATION": "Übersetzung",
+  "NOT_RIGHT_WORD": "Nicht das richtige wort Versuchen Sie, das richtige Wort unten zu schreiben",
+  "ENTER_YOUR_WORD": "Geben Sie hier Ihr Wort ein"
 }
+

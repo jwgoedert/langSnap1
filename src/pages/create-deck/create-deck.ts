@@ -144,6 +144,9 @@ export class CreateDeckPage {
 
       setTimeout(() => {
         this.fourN = this.cameraService.getWord();
+        console.log('this.fourN')
+        console.log(this.fourN)
+        console.log('this.fourN')
         this.cameraService.getTranslation(this.fourN)
         this.photos[this.counter]['word'] = this.fourN;
         this.deckService.addToDeckCreation(this.photos[this.counter])

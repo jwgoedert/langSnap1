@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-    <ion-title>{{ 'CREATE_A_DECK' | translate }}</ion-title>
+    <ion-title>{{ 'CREATE_DECK' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content *ngIf="!!picUrl">
@@ -13,8 +13,8 @@
 <ion-content padding>
   <ion-content>
     <form (click)="addATitle(addATitle.title); titleForm.reset()" #titleForm="ngForm" *ngIf="!title">
-      <ion-input type="text" [(ngModel)]="addATitle.title" name="title" placeholder="Deck Title"></ion-input>
-      <button type="button" class="add_title_btn" ion-button outline >Add Title</button>
+      <ion-input type="text" [(ngModel)]="addATitle.title" name="title" placeholder="{{ 'DECK_TITLE' | translate }}"></ion-input>
+      <button type="button" class="add_title_btn" ion-button outline >{{ 'ADD_TITLE' | translate }}</button>
     </form>
   <h3>{{ title }}</h3>
   <ion-list >

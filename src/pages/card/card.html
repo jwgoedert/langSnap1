@@ -13,11 +13,11 @@
     <ion-card>  
     <img [src]= "cardInfo.picture" />
     <ion-card *ngIf="!!translation">
-    <h3>Your Word: {{ cardInfo.word }} </h3>
-    <h3>Translation: {{ translation }}</h3>
-    Not the right word? Try typing the correct word in below.
+    <h3>{{ 'YOUR_WORD' | translate }}: {{ cardInfo.word }} </h3>
+    <h3>{{ 'TRANSLATION' | translate }}: {{ translation }}</h3>
+    {{ 'NOT_RIGHT_WORD' | translate}}
     <form (click)="tryAgain(tryAgain.title); tryAgainForm.reset()" #tryAgainForm="ngForm">
-      <ion-input type="text" [(ngModel)]="tryAgain.title" name="title" placeholder="Enter your word here."></ion-input>
+      <ion-input type="text" [(ngModel)]="tryAgain.title" name="title" placeholder="{{ 'ENTER_YOUR_WORD' | translate }}"></ion-input>
       <button type="button">{{ 'TRY_AGAIN' | translate }}</button>
     </form>
     </ion-card>

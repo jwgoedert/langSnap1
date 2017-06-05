@@ -22,9 +22,12 @@ import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
+import { PhraseModalPage } from '../pages/phrase-modal/phrase-modal';
+
 import { LanguageService } from '../services/language.service';
 import { CameraService } from '../services/camera.service';
 import { DeckService } from '../services/deck.service';
+import { PhraseService } from '../services/phrase.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { DeckService } from '../services/deck.service';
     QuizPage,
     ProfilePage,
     CardPage,
-    CardViewerPage
+    CardViewerPage,
+    PhraseModalPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +69,8 @@ import { DeckService } from '../services/deck.service';
     QuizPage,
     ProfilePage,
     CardPage,
-    CardViewerPage
+    CardViewerPage,
+    PhraseModalPage
   ],
   providers: [
     Config,
@@ -75,6 +80,7 @@ import { DeckService } from '../services/deck.service';
     LanguageService,
     CameraService,
     DeckService,
+    PhraseService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
