@@ -1,15 +1,19 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Nav, AlertController, LoadingController } from 'ionic-angular';
+
 import { MyDecksPage } from '../my-decks/my-decks';
+import { FindCardPage } from '../find-card/find-card';
+import { CardPage } from '../card/card';
+
 import { TranslateService } from '@ngx-translate/core';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Http } from '@angular/http';
-import { Config } from '../../config';
 import { OAuthService } from '../oauth/oauth.service';
 import { LanguageService } from '../../services/language.service';
 import { CameraService } from '../../services/camera.service';
-import { CardPage } from '../card/card';
 import { DeckService } from '../../services/deck.service';
+
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Http } from '@angular/http';
+import { Config } from '../../config';
 
 @Component({
   selector: 'page-create-deck',
@@ -187,22 +191,39 @@ export class CreateDeckPage {
       this.navCtrl.setRoot(CardPage)
     } else {
       var formError = this.alertCtrl.create({
-        title: "Dont Forget A Deck Title",
-        subTitle: "Please enter a title for your deck.",
-        buttons: ['close']
+        title: `Looks like you didn't add a deck name... You're gonna have to do that first.`,
+        message: '',        
+        buttons: ['Oh...got it.']
       });
       formError.present(formError);
     }
   }
 
   findCard() {
-    this.navCtrl.setRoot(CardPage);
-  };
+    if (this.title) {
+      console.log('Find card click success:');
+      this.navCtrl.setRoot(FindCardPage);
+    } else {
+      let confirm = this.alertCtrl.create({
+        title: `Looks like you didn't add a deck name... You're gonna have to do that first.`,
+        message: '',
+        buttons: [
+          {
+            text: 'Oh...got it. ',
+            handler: () => {
+            }
+          },
+        ]
+      });
+      confirm.present();
+    }
+  }
 
   addATitle(title) {
     this.title = title;
     this.cameraService.addTitle(this.title)
     this.deckId = this.deckService.postUserDeck(this.title, this.profile.id)
+
   }
 
   ionViewDidLoad() {

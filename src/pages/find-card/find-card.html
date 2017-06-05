@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+    <ion-title>{{deck}}!!{{ 'FIND_ADD' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-title>{{deckTitle}}</ion-title>
+  <ion-list>
+    <ion-item *ngFor="let item of items">
+
+      <!--<ion-checkbox color="dark" checked="true" (ionChange)="markCard(item.id)"></ion-checkbox>-->
+      <button (click)="markCard(item.id)">
+        
+        <img [src]="item.imgUrl"/>
+          <div class="card-title">{{item.wordMap.en}}</div>
+          <div class="card-subtitle">{{item.wordMap['es']}}</div>
+          <div class="card-subtitle">{{added}}</div>
+        
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <button full (click)="addCardsToCurrentDeck()">Add Cards</button>
+</ion-footer>
