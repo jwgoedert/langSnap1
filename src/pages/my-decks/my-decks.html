@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="card-background-page">
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let item of items">
       <button (click)="openCard(item.id)">

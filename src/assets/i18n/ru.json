@@ -27,6 +27,12 @@
   "FLIP" : "кувырок",
   "EMAIL_ADDRESS" : "адрес электронной почты",
   "NATIVE_LANGUAGE" : "родной язык",
-  "LEARNING_LANGUAGE" : "Язык обучения"
+  "LEARNING_LANGUAGE" : "Язык обучения",
+  "CANCEL": "Отмена",
+  "SEARCH": "поиск",
+  "YOUR_WORD": "Твое слово",
+  "TRANSLATION": "Перевод",
+  "NOT_RIGHT_WORD": "Неправильное слово? Попробуйте ввести правильное слово ниже",
+  "ENTER_YOUR_WORD": "Введите слово здесь"
 }
 

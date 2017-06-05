@@ -27,6 +27,7 @@ import { PhraseModalPage } from '../pages/phrase-modal/phrase-modal';
 import { LanguageService } from '../services/language.service';
 import { CameraService } from '../services/camera.service';
 import { DeckService } from '../services/deck.service';
+import { PhraseService } from '../services/phrase.service';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { DeckService } from '../services/deck.service';
     LanguageService,
     CameraService,
     DeckService,
+    PhraseService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -5,6 +5,8 @@ import { LanguageService } from '../../services/language.service';
 import { OAuthService } from '../oauth/oauth.service';
 import { DeckService } from '../../services/deck.service';
 import { PhraseModalPage } from '../phrase-modal/phrase-modal';
+import { QuizPage } from '../quiz/quiz';
+
 @Component({
   selector: 'page-card-viewer',
   templateUrl: 'card-viewer.html',
@@ -19,6 +21,7 @@ export class CardViewerPage {
   public wordsTranslations: any;
   public deckTitle: any;
   public deckLanguage: any;
+  public index: number;
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
@@ -63,6 +66,7 @@ export class CardViewerPage {
       this.wordsLanguages = ['sorry', 'reallSorry'];
     }
     this.word = this.wordsTranslations[this.wordsLanguages[0]];
+    this.index = 0;
     console.log("this.word")
     console.log(this.word)
     console.log("this.word")
@@ -70,7 +74,7 @@ export class CardViewerPage {
   swipeLeftEvent(index) {
     if (index < this.deck.length - 1) {
       let currentPos = index + 1
-
+      this.index += 1;
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
@@ -78,7 +82,7 @@ export class CardViewerPage {
   swipeRightEvent(index) {
     if (index > 0) {
       let currentPos = index - 1;
-
+      this.index -= 1;
       this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
@@ -93,7 +97,10 @@ export class CardViewerPage {
     }
   }
   presentPhraseModal() {
-   let profileModal = this.modalCtrl.create(PhraseModalPage, { userId: 8675309 });
+   let profileModal = this.modalCtrl.create(PhraseModalPage, { word:  JSON.parse(this.deck[this.index].wordMap)['en']});
    profileModal.present();
  }
+  takeAQuiz() {
+    this.navCtrl.setRoot(QuizPage)
+  }
 }

@@ -27,7 +27,13 @@
   "FLIP" : "Flip",
   "EMAIL_ADDRESS" : "Adresse e-mail",
   "NATIVE_LANGUAGE" : "Langue maternelle",
-  "LEARNING_LANGUAGE" : "Apprentissage de la langue"
+  "LEARNING_LANGUAGE" : "Apprentissage de la langue",
+  "CANCEL": "Annuler",
+  "SEARCH": "Chercher",
+  "YOUR_WORD": "Votre mot",
+  "TRANSLATION": "Traduction",
+  "NOT_RIGHT_WORD": "Pas le bon mot? Essayez de taper le mot correct ci-dessous",
+  "ENTER_YOUR_WORD": "Entrez votre mot ici"
 }
 
 

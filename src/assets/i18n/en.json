@@ -26,7 +26,13 @@
   "FLIP" : "Flip",
   "EMAIL_ADDRESS" : "Email Address",
   "NATIVE_LANGUAGE" : "Native Language", 
-  "LEARNING_LANGUAGE" : "Learning Language"
+  "LEARNING_LANGUAGE" : "Learning Language",
+  "CANCEL": "Cancel",
+  "SEARCH": "Search",
+  "YOUR_WORD": "Your word",
+  "TRANSLATION": "Translation",
+  "NOT_RIGHT_WORD": "Not the right word? Try typing the correct word in below.",
+  "ENTER_YOUR_WORD": "Enter your word here"
 }
 
 
