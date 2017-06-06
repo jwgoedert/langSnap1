@@ -7,20 +7,19 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="card-background-page">
+<!--<ion-content class="card-background-page">-->
+<ion-content>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-title>{{deckTitle}}</ion-title>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-
-      <!--<ion-checkbox color="dark" checked="true" (ionChange)="markCard(item.id)"></ion-checkbox>-->
-      <button (click)="markCard(item.id)">
-        
-        <img [src]="item.imgUrl"/>
-          <div class="card-title">{{item.wordMap.en}}</div>
-          <div class="card-subtitle">{{item.wordMap['es']}}</div>
-          <div class="card-subtitle">{{added}}</div>
-        
+    <ion-item *ngFor="let item of items" (click)="markCard(item.id)">
+      <ion-avatar item-start>
+        <img [src]="item.imgUrl">
+      </ion-avatar>
+      <h2>{{item.wordMap.en}}</h2>
+      <p>{{item.wordMap['es']}}</p>
+      <button icon-only item-end>
+      <ion-icon [name]="addIcon" color="primary" ></ion-icon>
       </button>
     </ion-item>
   </ion-list>

@@ -23,6 +23,7 @@ export class FindCardPage {
   public chosenCards: Array<any>;
   public deck: any;
   public added: string;
+  public addIcon: string;
   // public deckTitle: any;
 
   constructor(public navCtrl: NavController,
@@ -41,6 +42,7 @@ export class FindCardPage {
         this.deck = this.deckService.getDeckId();
         // this.deckTitle = this.deck[0].name;
         this.items = this.deckService.getAllCards();
+        this.addIcon = "checkmark-circle-outline";
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
@@ -86,6 +88,27 @@ export class FindCardPage {
   }
 
   markCard(item) {
+    // this.addIcon = "checkmark-circle-outline";
+      let addIcon;
+      if (this.chosenCards.indexOf(item) === -1) {
+        console.log("ALREADY HAVE IT!")
+        console.log(this.chosenCards.indexOf(item));
+        this.added = "true";
+        this.addIcon = "checkmark-circle";
+        this.chosenCards.push(item);
+      } else if(this.chosenCards.indexOf(item !== -1)){
+        console.log("ADDING IT NOW")
+        console.log(item);
+        this.added = "false";
+        this.addIcon = "checkmark-circle-outline";
+        let index = this.chosenCards.indexOf(item);
+        console.log(index);
+        this.chosenCards = this.chosenCards.splice(item, 1);
+    }
+    console.log('chosen cards');
+    console.log(this.chosenCards);
+    
+    console.log(this.addIcon);
     // console.log('THIS IS ITEM:::::::::')
     // console.log(item);
     // console.log('This is the deck!!!!!!!!!!')
@@ -93,8 +116,8 @@ export class FindCardPage {
     // console.log('CURRENTDECk!')
     // console.log(this.cameraService.getTitle());
     // console.log(this.deckService.getDeckId());
-    console.log('Marking card:', item);
-    this.chosenCards.push(item);
+    // console.log('Marking card:', item);
+    // this.chosenCards.push(item);
     // console.log("CHOSEN CARDS:")
     // console.log(this.chosenCards);
   }

@@ -3,6 +3,12 @@ $toolbar-ios-button-border-radius: 8px;
 $footer-background: yellow;
 background-color: teal;
 $fab-mini-size: 10px;
+.true {
+  background-color: lightgreen;
+}
+.false{
+  background-color: pink;
+}
 .card-background-page {
   ion-card {
     position: relative;
