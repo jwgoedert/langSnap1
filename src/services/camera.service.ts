@@ -129,7 +129,7 @@ export class CameraService {
   }
 
   returnWord(word) {
-  return word;
+    return word;
   }
 ​
   getWord() {
@@ -137,15 +137,10 @@ export class CameraService {
   }
 ​
   getTranslation(word) {
-   console.log('in translation')
-   console.log(this.source)
-   console.log(this.target)
-   console.log('in translation')
-
+   this.googleWord(word, 'en')
+   
    this.translation = this.wordMap[this.target];
-   console.log("this.translation")
-   console.log(this.translation)
-   console.log("this.translation")
+
    return this.translation;
   }
 ​
@@ -159,6 +154,7 @@ export class CameraService {
     this.title = null;
   }
 ​   getTranslatedWord() {
+    this.translation = this.wordMap[this.target]
     return this.translation;
   }
   languages(source, target) {

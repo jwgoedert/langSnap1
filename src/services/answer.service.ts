@@ -5,7 +5,8 @@ import { AlertController } from 'ionic-angular';
 @Injectable()
 export class AnswerService {
   public http: Http;
-  public languages: Array<string>;
+  private learningLanguage: string;
+  public answerChoices: Array<string> = [];
 
   constructor(http: Http,
     public alertCtrl: AlertController) {
@@ -27,6 +28,11 @@ export class AnswerService {
         return resp;
       })
   }
+
+  setLearnLang(lang) {
+    this.learningLanguage = lang;
+  }
+
   getCards(userDeckId) {
     return this.http.get(`http://52.14.252.211/v1/cards/deckid/${userDeckId}`)
       .map(deck => deck.json())
@@ -34,6 +40,18 @@ export class AnswerService {
         console.log("deck")
         console.log(JSON.stringify(deck))
         console.log("deck")
+        deck[0].cards.forEach(card => {
+          this.answerChoices.push(JSON.parse(card.wordMap)[this.learningLanguage]);
+        });
+        console.log("this.answerChoices")
+        console.log(JSON.stringify(this.answerChoices))
+        console.log("this.answerChoices")
+        return deck[0].cards;
       }), error => console.log(error);
   }
+
+  clearChoiceArray() {
+    this.answerChoices = [];
+  }
+
 }

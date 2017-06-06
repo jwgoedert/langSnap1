@@ -14,6 +14,8 @@ export class QuizPage {
 
   public rootPage: any = QuizPage;
   public profile: any;
+  public cards: any;
+  public answerChoiceArray: Array<string>;
 
   constructor(public navCtrl: NavController, 
   public translateService: TranslateService,
@@ -28,7 +30,13 @@ export class QuizPage {
         .then(profile => {
           this.profile = profile;
           translateService.use(languageService.translateLang(this.profile.nativeLang));
-          this.answerService.getCards(navParams.get('deck'));
+          this.answerService.setLearnLang(languageService.translateLang(this.profile.learnLang))
+          this.cards = this.answerService.getCards(navParams.get('deck'));
+          console.log("this.cards")
+          console.log(this.cards)
+          console.log("this.cards")
+          this.answerChoiceArray = this.answerService.answerChoices;
+          this.answerService.clearChoiceArray();
         })
         .catch(err => {
           console.log("Error" + JSON.stringify(err))
@@ -38,6 +46,7 @@ export class QuizPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad QuizPage');
   }
+
 
 
 }
