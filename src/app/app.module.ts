@@ -13,11 +13,12 @@ import { OAuthModule } from '../pages/oauth/oauth.module';
 import { Config } from '../config';
 
 import { HomePage } from '../pages/home/home';
-import { CardPage } from '../pages/card/card';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
 import { MyDecksPage } from '../pages/my-decks/my-decks';
+import { CardPage } from '../pages/card/card';
 import { CardViewerPage } from '../pages/card-viewer/card-viewer';
+import { FindCardPage } from '../pages/find-card/find-card';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { QuizPage } from '../pages/quiz/quiz';
@@ -42,7 +43,8 @@ import { PhraseService } from '../services/phrase.service';
     ProfilePage,
     CardPage,
     CardViewerPage,
-    PhraseModalPage
+    PhraseModalPage,
+    FindCardPage,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ import { PhraseService } from '../services/phrase.service';
     ProfilePage,
     CardPage,
     CardViewerPage,
-    PhraseModalPage
+    PhraseModalPage,
+    FindCardPage,
   ],
   providers: [
     Config,
