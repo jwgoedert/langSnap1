@@ -4,8 +4,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
 import { OAuthService } from '../oauth/oauth.service';
 import { DeckService } from '../../services/deck.service';
+import { AnswerService } from '../../services/answer.service';
 import { PhraseModalPage } from '../phrase-modal/phrase-modal';
 import { QuizPage } from '../quiz/quiz';
+import { FontAwesome } from 'font-awesome';
 
 @Component({
   selector: 'page-card-viewer',
@@ -19,22 +21,25 @@ export class CardViewerPage {
   public word: any;
   public wordsLanguages: any;
   public wordsTranslations: any;
-  public deckTitle: any;
+  public deckId: number;
+  public deckTitle: string;
   public deckLanguage: any;
   public index: number;
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
     public languageService: LanguageService,
-    oauthService: OAuthService,
+    private oauthService: OAuthService,
     public deckService: DeckService, 
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController, 
+    private answerService: AnswerService) {
     oauthService.getProfile().toPromise()
         .then(profile => {
           console.log(profile, 'profile')
           this.profile = profile;
           translateService.use(languageService.translateLang(this.profile.nativeLang));
           this.deck = this.deckService.getCurrentDeck();
+          this.deckId = this.deck[0].id;
           this.deckTitle = this.deck[0].name
           this.deck = this.deck[0].cards
           console.log("this.deck")
@@ -95,6 +100,27 @@ export class CardViewerPage {
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
       return;
     }
+  }
+  thumbsUp() {
+    console.log('thumbs up')
+    console.log(this.deckId)
+    console.log(JSON.stringify(this.deck[this.index]))
+    console.log('thumbs up')
+    this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'good')
+  }
+  thumbsMiddle() {
+    console.log('thumbs middle')
+    console.log(this.deckId)
+    console.log(JSON.stringify(this.deck[this.index]))
+    console.log('thumbs middle')
+    this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'ok')
+  }
+  thumbsDown() {
+    console.log('thumbs down')
+    console.log(this.deckId)
+    console.log(JSON.stringify(this.deck[this.index]))
+    console.log('thumbs down')
+    this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'bad')
   }
   presentPhraseModal() {
    let profileModal = this.modalCtrl.create(PhraseModalPage, { word:  JSON.parse(this.deck[this.index].wordMap)['en']});
