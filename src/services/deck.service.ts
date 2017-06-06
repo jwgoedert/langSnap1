@@ -9,6 +9,7 @@ export class DeckService {
   // private serverDBUrl = `http://b79754e7.ngrok.io`;
   public usersDecks: any;
   public allDecks: any;
+  public allCards: any;
   public deckId: any;
   public currentDeck: Array<any> = [];
   public creatingDeck: Array<object> = [];
@@ -21,6 +22,7 @@ export class DeckService {
     this.alertCtrl = alertCtrl;
     this.usersDecks = [];
     this.allDecks = [];
+    this.allCards = [];
   }
 
   addToDeckCreation(card) {
@@ -60,6 +62,17 @@ export class DeckService {
         return deckObj.id;
       }), error => console.log(error);
 
+  }
+  postCardsToUserDeck(addCards) {
+    // console.log('ADDCARDS');
+    // console.log(JSON.stringify(addCards));
+    this.http.post(`${this.serverDBUrl}/v1/decks/addcards`, addCards)
+      .map(deck => deck)
+      .subscribe(deckres => deckres), 
+        error => {
+        console.log('Error adding cards');
+        console.log(error);
+      }
   }
   //mydecks page
   getUsersDecks(userId) {
@@ -127,10 +140,25 @@ export class DeckService {
   }
   addDecksToUser(userId, deckIds) {
   }
-  //find a card
+  //find a card-get all cards everywhere....
   getAllCards() {
-    this.http.get(`${this.serverDBUrl}/v1/decks/all`)
+    this.http.get(`${this.serverDBUrl}/v1/cards/all`)
+      .map(cards => {
+        cards.json().forEach(card => {
+          console.log('GET all being hit');
+          // console.log('Cards in Get All cards:')
+          // console.log(JSON.stringify(card.json()));
+          // console.log(JSON.stringify(card.id));
+          this.allCards.push(card);
+          // console.log(JSON.stringify(this.allCards));
+          return card;
+        })
+      })
+      .subscribe(allCards => {
+        // console.log('Subscribe from all!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        // console.log(JSON.stringify(this.allCards));
+        return allCards;
+      })
   }
-  addCards(cards) {
-  }
+
 }

@@ -15,9 +15,9 @@ import { CardViewerPage } from '../card-viewer/card-viewer'
 export class FindAddDeckPage {
   @ViewChild(Nav) nav: Nav;
   
-  public rootPage: any = FindAddDeckPage;
   public profile: any;
   public items: any;
+  
   constructor(public navCtrl: NavController, 
   public translateService: TranslateService,
   oauthService: OAuthService,

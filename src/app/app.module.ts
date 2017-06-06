@@ -15,11 +15,12 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { Screenshot } from '@ionic-native/screenshot';
 
 import { HomePage } from '../pages/home/home';
-import { CardPage } from '../pages/card/card';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
 import { MyDecksPage } from '../pages/my-decks/my-decks';
+import { CardPage } from '../pages/card/card';
 import { CardViewerPage } from '../pages/card-viewer/card-viewer';
+import { FindCardPage } from '../pages/find-card/find-card';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { QuizPage } from '../pages/quiz/quiz';
@@ -45,7 +46,8 @@ import { AnswerService } from '../services/answer.service';
     ProfilePage,
     CardPage,
     CardViewerPage,
-    PhraseModalPage
+    PhraseModalPage,
+    FindCardPage,
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,8 @@ import { AnswerService } from '../services/answer.service';
     ProfilePage,
     CardPage,
     CardViewerPage,
-    PhraseModalPage
+    PhraseModalPage,
+    FindCardPage,
   ],
   providers: [
     Config,

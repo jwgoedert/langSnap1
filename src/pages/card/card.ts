@@ -19,9 +19,10 @@ export class CardPage {
   public translation: any;
   public profile: any;
   public rootPage: any = CardPage;
-  
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
+
+  constructor(public navCtrl: NavController,
+    public alertCtrl: AlertController,
+    public navParams: NavParams,
     public cameraService: CameraService,
     private oauthService: OAuthService,
     private languageService: LanguageService,
@@ -66,11 +67,27 @@ export class CardPage {
     }
   
   tryAgain(word) {
-    this.cardInfo.word = word;
-    this.cameraService.getTranslation(this.cardInfo.word);
-    word = "";
-    this.getTranslation();
-    this.deckService.editDeckCreation(this.cardInfo.word);
+    // send word off for new translation
+    if (word) {
+      this.cardInfo.word = word;
+      this.cameraService.getTranslation(this.cardInfo.word);
+      word = "";
+      this.getTranslation();
+      this.deckService.editDeckCreation(this.cardInfo.word);
+    } else {
+      let confirm = this.alertCtrl.create({
+        title: `Looks like you didn't put in a new word... You should probably do that.`,
+        message: '',
+        buttons: [
+          {
+            text: 'Oh...got it. ',
+            handler: () => {
+            }
+          },
+        ]
+      });
+      confirm.present();
+    }
   }
 
   ionViewDidLoad() {
