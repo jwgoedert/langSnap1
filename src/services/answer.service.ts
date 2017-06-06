@@ -27,4 +27,13 @@ export class AnswerService {
         return resp;
       })
   }
+  getCards(userDeckId) {
+    return this.http.get(`http://52.14.252.211/v1/cards/deckid/${userDeckId}`)
+      .map(deck => deck.json())
+      .subscribe(deck => {
+        console.log("deck")
+        console.log(JSON.stringify(deck))
+        console.log("deck")
+      }), error => console.log(error);
+  }
 }

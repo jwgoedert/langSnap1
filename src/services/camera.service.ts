@@ -143,6 +143,9 @@ export class CameraService {
    console.log('in translation')
 
    this.translation = this.wordMap[this.target];
+   console.log("this.translation")
+   console.log(this.translation)
+   console.log("this.translation")
    return this.translation;
   }
 ​

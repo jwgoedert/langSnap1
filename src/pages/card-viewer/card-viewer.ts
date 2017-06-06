@@ -102,24 +102,12 @@ export class CardViewerPage {
     }
   }
   thumbsUp() {
-    console.log('thumbs up')
-    console.log(this.deckId)
-    console.log(JSON.stringify(this.deck[this.index]))
-    console.log('thumbs up')
     this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'good')
   }
   thumbsMiddle() {
-    console.log('thumbs middle')
-    console.log(this.deckId)
-    console.log(JSON.stringify(this.deck[this.index]))
-    console.log('thumbs middle')
     this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'ok')
   }
   thumbsDown() {
-    console.log('thumbs down')
-    console.log(this.deckId)
-    console.log(JSON.stringify(this.deck[this.index]))
-    console.log('thumbs down')
     this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'bad')
   }
   presentPhraseModal() {
@@ -127,6 +115,6 @@ export class CardViewerPage {
    profileModal.present();
  }
   takeAQuiz() {
-    this.navCtrl.setRoot(QuizPage)
+    this.navCtrl.setRoot(QuizPage, { deck: this.deckId})
   }
 }
