@@ -33,5 +33,8 @@
   "YOUR_WORD": "あなたの言葉",
   "TRANSLATION": "翻訳",
   "NOT_RIGHT_WORD": "正しい言葉ではない？下に正しい単語を入力してみてください",
-  "ENTER_YOUR_WORD": "ここにあなたの言葉を入力"
+  "ENTER_YOUR_WORD": "ここにあなたの言葉を入力",
+  "QUIZ_PROMPT" : "どの言葉が上のイメージを描いていますか?",
+  "RESULTS" : "結果",
+  "HOME" : "ホーム"
 }

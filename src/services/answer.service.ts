@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 export class AnswerService {
   public http: Http;
   private learningLanguage: string;
+  public deck: Array<any>;
   public answerChoices: Array<string> = [];
 
   constructor(http: Http,
@@ -46,7 +47,8 @@ export class AnswerService {
         console.log("this.answerChoices")
         console.log(JSON.stringify(this.answerChoices))
         console.log("this.answerChoices")
-        return deck[0].cards;
+        this.deck = deck[0].cards;
+        return this.deck.sort();
       }), error => console.log(error);
   }
 

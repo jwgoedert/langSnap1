@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+    <ion-title>{{ 'RESULTS' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-list-header class="row">
+      <span class="col-33">Card</span><span class="col-33">Your Answer</span><span class="col-33">Correct Answer</span>
+    </ion-list-header>
+    <ion-item *ngFor="let result of results; let id = index">
+      <ion-avatar item-start>
+        <img [src]="result.image"/>
+      </ion-avatar>
+        <ion-label [ngStyle]="{color: result.color}">
+          {{ result.results[0] }}
+        </ion-label>
+        <ion-label [ngStyle]="{color: result.color}">
+          {{ result.results[1]}}
+        </ion-label>        
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <button ion-button full class="button button-full" type="button" (click)="goHome()" block>{{ 'HOME' | translate}}</button>
+</ion-footer>

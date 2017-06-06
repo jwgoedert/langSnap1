@@ -1,3 +1,12 @@
 page-quiz {
-
+  $radio-ios-item-start-margin-top: 0px;
+  $radio-ios-item-start-margin-bottom: 0px;
+  .answer {
+    margin: 0px;
+    display: block;
+    // padding: 0px !important;
+  }
+  .label {
+    margin: 0;
+  }
 }
