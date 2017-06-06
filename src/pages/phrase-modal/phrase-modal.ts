@@ -35,7 +35,7 @@ export class PhraseModalPage {
         this.phraseService.getPhrase(navParams.get('word'));
         setTimeout(() => {
           this.getPhrases();
-        }, 1500)
+        }, 800)
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))

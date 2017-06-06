@@ -11,6 +11,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Camera } from '@ionic-native/camera'; 
 import { OAuthModule } from '../pages/oauth/oauth.module';
 import { Config } from '../config';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { Screenshot } from '@ionic-native/screenshot';
 
 import { HomePage } from '../pages/home/home';
 import { CardPage } from '../pages/card/card';
@@ -28,6 +30,7 @@ import { LanguageService } from '../services/language.service';
 import { CameraService } from '../services/camera.service';
 import { DeckService } from '../services/deck.service';
 import { PhraseService } from '../services/phrase.service';
+import { AnswerService } from '../services/answer.service';
 
 @NgModule({
   declarations: [
@@ -81,6 +84,9 @@ import { PhraseService } from '../services/phrase.service';
     CameraService,
     DeckService,
     PhraseService,
+    AnswerService,
+    SocialSharing,
+    Screenshot,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { CameraService } from '../../services/camera.service';
 import { CreateDeckPage } from '../create-deck/create-deck';
 import { LanguageService } from '../../services/language.service';
 import { DeckService } from '../../services/deck.service';
 import { OAuthService } from '../oauth/oauth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { Screenshot } from '@ionic-native/screenshot';
 
 @Component({
   selector: 'page-card',
@@ -24,7 +26,10 @@ export class CardPage {
     private oauthService: OAuthService,
     private languageService: LanguageService,
     private translateService: TranslateService,
-    private deckService: DeckService) {
+    private deckService: DeckService,
+    private socialSharing: SocialSharing,
+    private screenshot: Screenshot,
+    public platform: Platform) {
       oauthService.getProfile().toPromise()
         .then(profile => {
           this.profile = profile;
@@ -42,7 +47,24 @@ export class CardPage {
       this.translation = this.cameraService.getTranslatedWord();
     }, 1500)
   }
-
+  facebookShare() {
+    console.log('inside facebookshare')
+      this.platform.ready().then(() => {
+        this.screenshot.URI(80)
+          .then((res) => {
+              console.log(res);
+              this.socialSharing.shareViaFacebook(null, res.URI, null)
+                .then(() => {},
+                  () => {
+                    alert('SocialSharing failed');
+                  });
+            },
+            () => {
+              alert('Screenshot failed');
+            });
+      });
+    }
+  
   tryAgain(word) {
     this.cardInfo.word = word;
     this.cameraService.getTranslation(this.cardInfo.word);
@@ -56,7 +78,7 @@ export class CardPage {
   }
 
   createCard() {
-     let addCard = {
+    let addCard = {
       "user_id": this.profile.id,
       "deck_id": this.deckService.getDeckId(),
       "wordMap": JSON.stringify(this.cardInfo.wordMap),
@@ -64,7 +86,6 @@ export class CardPage {
     }
     this.deckService.postCardToUserDeck(addCard)
     setTimeout(() => {
-
     this.navCtrl.setRoot(CreateDeckPage)
     }, 1500)
   }
