@@ -70,39 +70,48 @@ export class QuizPage {
       let currentPos = index + 1
     }
     this.index += 1;
+
   }
   swipeRightEvent(index) {
     if (index > 0) {
       let currentPos = index - 1;
     }
     this.index -= 1;
+    // this.slides.slideNext()
+    // this.slides.lockSwipes(true);
+    
   }
 
   slideChanged() {
+    // this.slides.slideNext()
+    // this.slides.slideTo()
     this.slides.lockSwipeToPrev(true);
   }
   chooseAnswer(choice, pos){
     if(!Number(pos)){
       pos = 0;
     }
-    if(this.quizChoiceArray[this.index][pos]['status'].length){
-      this.quizChoiceArray[this.index][pos]['status'] = "";
+    if(this.quizChoiceArray[this.slides.getActiveIndex()][pos]['status'].length){
+      this.quizChoiceArray[this.slides.getActiveIndex()][pos]['status'] = "";
     }
     else{
-      this.quizChoiceArray[this.index][pos]['status'] = "checkmark-circle";
+      this.quizChoiceArray[this.slides.getActiveIndex()][pos]['status'] = "checkmark-circle";
     }
-    if(this.solutionsArray[this.index].length !== 2) {
-      this.solutionsArray[this.index].unshift(choice.word);
+    if(this.solutionsArray[this.slides.getActiveIndex()].length !== 2) {
+      this.solutionsArray[this.slides.getActiveIndex()].unshift(choice.word);
     } else {
-      this.solutionsArray[this.index].shift()
-      this.solutionsArray[this.index].unshift(choice.word);
+      this.solutionsArray[this.slides.getActiveIndex()].shift()
+      this.solutionsArray[this.slides.getActiveIndex()].unshift(choice.word);
     }
     console.log('This is the answer:');
     console.log(JSON.stringify(status), pos);
     console.log(JSON.stringify(this.solutionsArray));
-    if (this.index === this.cards.length - 1) {
+    if (this.slides.getActiveIndex() === this.cards.length - 1) {
       this.compareAnswers();
     }
+    this.slides.lockSwipes(false);
+    this.slides.slideNext();
+    this.slides.lockSwipes(true);
   }
   compareAnswers() {
     console.log("COMPARE ANSWERS");

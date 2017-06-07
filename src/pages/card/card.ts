@@ -49,7 +49,6 @@ export class CardPage {
     }, 1500)
   }
   facebookShare() {
-    console.log('inside facebookshare')
       this.platform.ready().then(() => {
         this.screenshot.URI(80)
           .then((res) => {
@@ -67,7 +66,6 @@ export class CardPage {
     }
   
   tryAgain(word) {
-    // send word off for new translation
     if (word) {
       this.cardInfo.word = word;
       this.cameraService.getTranslation(this.cardInfo.word);

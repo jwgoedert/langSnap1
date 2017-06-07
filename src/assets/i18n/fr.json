@@ -36,7 +36,8 @@
   "ENTER_YOUR_WORD": "Entrez votre mot ici",
   "QUIZ_PROMPT" : "Quel mot décrit l'image ci-dessus?",
   "RESULTS" : "Résultats",
-  "HOME" : "Accueil"
+  "HOME" : "Accueil",
+  "DONE" : "Terminé"
 }
 
 

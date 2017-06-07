@@ -13,7 +13,6 @@
     <ion-slide *ngFor="let card of cards; let id = index" (swipeleft)="swipeLeftEvent(id)" (swiperight)="swipeRightEvent(id)">
         <img [src]="card.imgUrl" class="slide-image"/>
         {{ 'QUIZ_PROMPT' | translate }}
-        {{ id }}
         <ion-list >
             <!--<ion-item class="answer" [(ngModel)]="cardAnswer" *ngFor="let choice of quizChoiceArray[id]; let pos = index">-->
             <ion-item *ngFor="let choice of quizChoiceArray[id]; let pos = index" (click)="chooseAnswer(choice,pos)">

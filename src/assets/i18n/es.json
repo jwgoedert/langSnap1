@@ -36,5 +36,6 @@
   "ENTER_YOUR_WORD": "Escriba su palabra aquí",
   "QUIZ_PROMPT" : "¿Qué palabra describe la imagen anterior?",
   "RESULTS" : "Resultados",
-  "HOME" : "Casa"
+  "HOME" : "Casa",
+  "DONE" : "Hecho"
 }
