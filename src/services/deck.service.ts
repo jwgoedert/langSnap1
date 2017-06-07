@@ -68,8 +68,8 @@ export class DeckService {
     // console.log(JSON.stringify(addCards));
     this.http.post(`${this.serverDBUrl}/v1/decks/addcards`, addCards)
       .map(deck => deck)
-      .subscribe(deckres => deckres), 
-        error => {
+      .subscribe(deckres => deckres),
+      error => {
         console.log('Error adding cards');
         console.log(error);
       }
@@ -138,7 +138,15 @@ export class DeckService {
         return this.allDecks;
       }), error => console.log(error);
   }
-  addDecksToUser(userId, deckIds) {
+  addDecksToUser(addDecks) {
+    this.http.post(`${this.serverDBUrl}/v1/decks/adddecks`, addDecks)
+      .map(deck => deck)
+      .subscribe(deckres => deckres),
+      error => {
+        console.log('Error adding cards');
+        console.log(error);
+      }
+
   }
   //find a card-get all cards everywhere....
   getAllCards() {
@@ -146,17 +154,11 @@ export class DeckService {
       .map(cards => {
         cards.json().forEach(card => {
           console.log('GET all being hit');
-          // console.log('Cards in Get All cards:')
-          // console.log(JSON.stringify(card.json()));
-          // console.log(JSON.stringify(card.id));
           this.allCards.push(card);
-          // console.log(JSON.stringify(this.allCards));
           return card;
         })
       })
       .subscribe(allCards => {
-        // console.log('Subscribe from all!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-        // console.log(JSON.stringify(this.allCards));
         return allCards;
       })
   }

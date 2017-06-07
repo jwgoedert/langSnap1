@@ -6,20 +6,26 @@
     <ion-title>{{ 'MY_DECKS' | translate }} </ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content class="card-background-page">
   <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <button (click)="openCard(item.id)">
-        <img [src]="item.cards[0].imgUrl"/>
-        <div class="card-title">{{item.name}}</div>
-        <div class="card-subtitle">{{item.stars}}Stars!</div>
+      <ion-item-sliding class="my-card" *ngFor="let item of items">
+        <ion-item class="my-decks-deck" (click)="openCard(item.id)">
+          <img class="full-image" [src]="item.cards[0].imgUrl" />
+          <div class="card-title">{{item.name}}</div>
+          <div class="card-subtitle">{{item.stars}}Stars!</div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="primary" (click)="editDeck()">
+        <ion-icon name="text"></ion-icon>
+        Edit
       </button>
-      <ion-fab right bottom>
-        <button ion-fab outline color="danger" (click)="deleteDeck(item.id, item.name)">
-      <ion-icon name="trash"></ion-icon>
+          <button ion-button color="danger" (click)="deleteDeck(item.id, item.name)">
+        <ion-icon name="trash"></ion-icon>
+        Delete
       </button>
-      </ion-fab>
-    </ion-item>
+        </ion-item-options>
+      </ion-item-sliding>
   </ion-list>
 </ion-content>

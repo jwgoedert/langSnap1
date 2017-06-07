@@ -1,16 +1,22 @@
 page-find-add-deck {
-.card-background-page {
+$footer-background: yellow;
+background-color: teal;
+.card-background-page-f {
   ion-card {
     position: relative;
     text-align: center;
+    background:lightcyan;
   }
-img {
+.my-decks-deck-f {
+  height: 150px;
+}
+  img {
     position: relative;
-    height: 70vh;
-    width: auto;
-    margin: auto;
+    width: 100%;
+    padding: 0;
     display: block;    
     align-items: center;
+    border-bottom-color: turquoise;
   }
   .card-title {
     position: absolute;
@@ -20,7 +26,22 @@ img {
     font-weight: bold;
     color: teal;
   }
+  .full-image-f{
+    width: 100%;
+    height: 100%;
+  }
+.my-card-f .item.item-image{
+  width: 100vw;
+  margin-left: -10px;
+}
+.my-card-f{
+  width: 100%;
+}
 
+
+.my-card-f.card{
+  overflow: visible;
+}
   .card-subtitle {
     font-size: 1.7em;
     position: absolute;
@@ -29,6 +50,10 @@ img {
     color: maroon;
   }
 
+}
+
 
 }
-}
+
+
+

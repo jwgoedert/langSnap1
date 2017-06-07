@@ -7,33 +7,25 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="card-background-page">
+<ion-content class="card-background-page-f">
   <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
   <ion-list>
-    <ion-item *ngFor="let item of items">
-      <button (click)="openCard(item.id)">
-        <img [src]="item.cards[0].imgUrl"/>
+      <ion-item-sliding class="my-card-f" *ngFor="let item of items">
+        <ion-item class="my-decks-deck-f" (click)="openCard(item.id)">
+          <img class="full-image-f" [src]="item.cards[0].imgUrl" />
           <div class="card-title">{{item.name}}</div>
           <div class="card-subtitle">{{item.stars}}Stars!</div>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="primary">
+        <ion-icon name="eye"></ion-icon>
+        View
       </button>
-    </ion-item>
+          <button ion-button color="danger" (click)="addDeckToUser(item.id)">
+        <ion-icon name="add-circle"></ion-icon>
+          Add
+      </button>
+        </ion-item-options>
+      </ion-item-sliding>
   </ion-list>
 </ion-content>
-<!--<ion-content class="card-background-page">
-  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <button (click)="openCard()">
-        <img [src]="item.cards[0].imgUrl"/>
-          <div class="card-title">{{item.name}}</div>
-          <div class="card-subtitle">{{item.stars}}Stars!</div>
-      </button>
-    </ion-item>
-  </ion-list>
-</ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <button ion-button type="button" (click)="addDeck()" block>{{ "ADD_DECK" | translate }}</button>
-  </ion-toolbar>-->
-<!--</ion-footer>-->-->

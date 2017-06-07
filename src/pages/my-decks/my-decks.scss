@@ -1,20 +1,22 @@
 page-my-decks {
-$toolbar-ios-button-border-radius: 8px;
 $footer-background: yellow;
 background-color: teal;
-$fab-mini-size: 10px;
 .card-background-page {
   ion-card {
     position: relative;
     text-align: center;
+    background:lightcyan;
   }
+.my-decks-deck {
+  height: 150px;
+}
   img {
     position: relative;
-    height: 70vh;
-    width: auto;
-    margin: auto;
+    width: 100%;
+    padding: 0;
     display: block;    
     align-items: center;
+    border-bottom-color: turquoise;
   }
   .card-title {
     position: absolute;
@@ -24,7 +26,18 @@ $fab-mini-size: 10px;
     font-weight: bold;
     color: teal;
   }
+  .full-image{
+    width: 100%;
+    height: 100%;
+  }
+.my-card .item.item-image{
+  width: 100vw;
+  margin-left: -10px;
+}
 
+.my-card.card{
+  overflow: visible;
+}
   .card-subtitle {
     font-size: 1.7em;
     position: absolute;
