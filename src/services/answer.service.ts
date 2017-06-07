@@ -6,6 +6,7 @@ import { AlertController } from 'ionic-angular';
 export class AnswerService {
   public http: Http;
   private learningLanguage: string;
+  public deck: Array<any>;
   public answerChoices: Array<string> = [];
 
   constructor(http: Http,
@@ -37,16 +38,16 @@ export class AnswerService {
     return this.http.get(`http://52.14.252.211/v1/cards/deckid/${userDeckId}`)
       .map(deck => deck.json())
       .subscribe(deck => {
-        console.log("deck")
-        console.log(JSON.stringify(deck))
-        console.log("deck")
         deck[0].cards.forEach(card => {
           this.answerChoices.push(JSON.parse(card.wordMap)[this.learningLanguage]);
         });
-        console.log("this.answerChoices")
-        console.log(JSON.stringify(this.answerChoices))
-        console.log("this.answerChoices")
-        return deck[0].cards;
+        if (deck[0].length > 10){
+          this.deck = deck[0].cards.sort(() => 0.5 - Math.random()).slice(0,10);
+          return this.deck;
+        } else {
+          this.deck = deck[0].cards;
+          return this.deck.sort(() => 0.5 - Math.random());
+        }
       }), error => console.log(error);
   }
 

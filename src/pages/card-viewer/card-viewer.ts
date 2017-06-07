@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ModalController, NavController, NavParams, Nav } from 'ionic-angular';
+import { ModalController, NavController, NavParams, Nav, AlertController } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
 import { OAuthService } from '../oauth/oauth.service';
@@ -35,7 +35,8 @@ export class CardViewerPage {
     public deckService: DeckService, 
     public modalCtrl: ModalController, 
     private answerService: AnswerService,
-    private textToSpeech: TextToSpeech) {
+    private textToSpeech: TextToSpeech,
+    private alertCtrl: AlertController) {
     oauthService.getProfile().toPromise()
         .then(profile => {
           console.log(profile, 'profile')
@@ -45,12 +46,11 @@ export class CardViewerPage {
           this.deckId = this.deck[0].id;
           this.deckTitle = this.deck[0].name
           this.deck = this.deck[0].cards
-          console.log("this.deck")
-          console.log(JSON.stringify(this.deck))
-          console.log("this.deck")
+
           if (!JSON.parse(this.deck[0].wordMap)["sorry"]) {
             this.deckLanguage = this.profile.learnLang;
           }
+
           this.translations();
         })
         .catch(err => {
@@ -63,21 +63,12 @@ export class CardViewerPage {
   }
   translations() {
     this.wordsLanguages = [this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang)];
-    console.log("this.wordsLanguages")
-    console.log(JSON.stringify(this.wordsLanguages))
-    console.log("this.wordsLanguages")
     this.wordsTranslations = JSON.parse(this.deck[0].wordMap);
-    console.log("this.wordsTranslations")
-    console.log(JSON.stringify(this.wordsTranslations))
-    console.log("this.wordsTranslations")
     if (this.wordsTranslations['sorry']) {
       this.wordsLanguages = ['sorry', 'reallSorry'];
     }
     this.word = this.wordsTranslations[this.wordsLanguages[0]];
     this.index = 0;
-    console.log("this.word")
-    console.log(this.word)
-    console.log("this.word")
   }
   swipeLeftEvent(index) {
     this.langIndex = 0;
@@ -122,7 +113,22 @@ export class CardViewerPage {
    profileModal.present();
  }
   takeAQuiz() {
-    this.navCtrl.setRoot(QuizPage, { deck: this.deckId})
+    if (this.deck.length < 5) {
+      let sorry = this.alertCtrl.create({
+        title: 'Sorry, Quizzes are only avaibable for decks with 5 or more cards.',
+        message: '',
+        buttons: [ 
+          {
+            text: 'Close. ',
+            handler: () => {
+            }
+          },
+         ]
+      });
+      sorry.present();
+    } else {
+      this.navCtrl.setRoot(QuizPage, { deck: this.deckId})
+    }
   }
   async sayText() {
     let langObj = {
@@ -133,7 +139,7 @@ export class CardViewerPage {
       ja: 'ja-JP',
       ru: 'ru-RU',
     }
-    console.log('inside say text function')
+
     try {
       await this.textToSpeech.speak({ text: this.word, locale: langObj[this.wordsLanguages[this.langIndex]], rate: 0.75 });
       console.log(`Succesfully spoke ${this.word}`)

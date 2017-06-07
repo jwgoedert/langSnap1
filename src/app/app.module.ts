@@ -26,8 +26,8 @@ import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
 import { PhraseModalPage } from '../pages/phrase-modal/phrase-modal';
+import { QuizResultsPage } from '../pages/quiz-results/quiz-results';
 import {TextToSpeech } from '@ionic-native/text-to-speech';
-
 import { LanguageService } from '../services/language.service';
 import { CameraService } from '../services/camera.service';
 import { DeckService } from '../services/deck.service';
@@ -49,6 +49,7 @@ import { AnswerService } from '../services/answer.service';
     CardViewerPage,
     PhraseModalPage,
     FindCardPage,
+    QuizResultsPage
   ],
   imports: [
     BrowserModule,
@@ -78,6 +79,7 @@ import { AnswerService } from '../services/answer.service';
     CardViewerPage,
     PhraseModalPage,
     FindCardPage,
+    QuizResultsPage
   ],
   providers: [
     Config,

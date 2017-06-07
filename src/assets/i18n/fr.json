@@ -33,7 +33,11 @@
   "YOUR_WORD": "Votre mot",
   "TRANSLATION": "Traduction",
   "NOT_RIGHT_WORD": "Pas le bon mot? Essayez de taper le mot correct ci-dessous",
-  "ENTER_YOUR_WORD": "Entrez votre mot ici"
+  "ENTER_YOUR_WORD": "Entrez votre mot ici",
+  "QUIZ_PROMPT" : "Quel mot décrit l'image ci-dessus?",
+  "RESULTS" : "Résultats",
+  "HOME" : "Accueil",
+  "DONE" : "Terminé"
 }
 
 

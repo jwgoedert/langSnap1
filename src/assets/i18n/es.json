@@ -33,5 +33,9 @@
   "YOUR_WORD": "Tu palabra",
   "TRANSLATION": "Traducción",
   "NOT_RIGHT_WORD": "¿No es la palabra correcta? Intente escribir la palabra correcta debajo.",
-  "ENTER_YOUR_WORD": "Escriba su palabra aquí"
+  "ENTER_YOUR_WORD": "Escriba su palabra aquí",
+  "QUIZ_PROMPT" : "¿Qué palabra describe la imagen anterior?",
+  "RESULTS" : "Resultados",
+  "HOME" : "Casa",
+  "DONE" : "Hecho"
 }

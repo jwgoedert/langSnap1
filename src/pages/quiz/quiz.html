@@ -3,20 +3,25 @@
     <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-    <ion-title>{{ 'Quiz' | translate }}</ion-title>
+    <ion-title>{{ 'QUIZ' | translate }}</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-  <!--<ion-slides pager>
-    <ion-slide *ngFor="let card of deck; let id = index" (swipeleft)="swipeLeftEvent(id)" (swiperight)="swipeRightEvent(id)">
-      <h2 class="slide-title">{{ deckTitle }}</h2>
-        <h4>{{ deckLanguage }}</h4>
+  <ion-slides pager (ionSlideDidChange)="slideChanged()">
+    <ion-slide *ngFor="let card of cards; let id = index" (swipeleft)="swipeLeftEvent(id)" (swiperight)="swipeRightEvent(id)">
         <img [src]="card.imgUrl" class="slide-image"/>
-      <ion-card>{{ word }}</ion-card>
-      <button (click)="flip(id)">{{ 'FLIP' | translate }}</button>
+        {{ 'QUIZ_PROMPT' | translate }}
+        <ion-list >
+            <!--<ion-item class="answer" [(ngModel)]="cardAnswer" *ngFor="let choice of quizChoiceArray[id]; let pos = index">-->
+            <ion-item *ngFor="let choice of quizChoiceArray[id]; let pos = index" (click)="chooseAnswer(choice,pos)">
+              <ion-label class="answer">
+                {{ choice.word }}
+              </ion-label>
+              <ion-icon [name]="choice.status" color="primary" item-end></ion-icon>
+            </ion-item>
+        </ion-list>
     </ion-slide>
-  </ion-slides>-->
+  </ion-slides>
 </ion-content>
