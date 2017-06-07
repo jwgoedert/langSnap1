@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Nav } from 'ionic-angular';
+import { NavController, Nav, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { OAuthService } from '../oauth/oauth.service';
 import { LanguageService } from '../../services/language.service';
+import { AnswerService } from '../../services/answer.service';
 
 @Component({
   selector: 'page-quiz',
@@ -13,15 +14,29 @@ export class QuizPage {
 
   public rootPage: any = QuizPage;
   public profile: any;
+  public cards: any;
+  public answerChoiceArray: Array<string>;
 
   constructor(public navCtrl: NavController, 
   public translateService: TranslateService,
   oauthService: OAuthService,
-  public languageService: LanguageService) {
+  public languageService: LanguageService,
+  public navParams: NavParams,
+  private answerService: AnswerService) {
+    console.log("navParams.get('deck')");
+    console.log(navParams.get('deck'));
+    console.log("navParams.get('deck')");
     oauthService.getProfile().toPromise()
         .then(profile => {
           this.profile = profile;
           translateService.use(languageService.translateLang(this.profile.nativeLang));
+          this.answerService.setLearnLang(languageService.translateLang(this.profile.learnLang))
+          this.cards = this.answerService.getCards(navParams.get('deck'));
+          console.log("this.cards")
+          console.log(this.cards)
+          console.log("this.cards")
+          this.answerChoiceArray = this.answerService.answerChoices;
+          this.answerService.clearChoiceArray();
         })
         .catch(err => {
           console.log("Error" + JSON.stringify(err))
@@ -31,5 +46,7 @@ export class QuizPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad QuizPage');
   }
+
+
 
 }

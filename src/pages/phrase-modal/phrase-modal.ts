@@ -23,9 +23,6 @@ export class PhraseModalPage {
   private translateService: TranslateService,
   private languageService: LanguageService,
   private phraseService: PhraseService) {
-    console.log("navParams.get('word')");
-    console.log(navParams.get('word'));
-    console.log("navParams.get('word')");
     oauthService.getProfile().toPromise()
       .then(profile => {
         console.log(profile, 'profile')

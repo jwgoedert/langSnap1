@@ -8,6 +8,7 @@ import { AnswerService } from '../../services/answer.service';
 import { PhraseModalPage } from '../phrase-modal/phrase-modal';
 import { QuizPage } from '../quiz/quiz';
 import { FontAwesome } from 'font-awesome';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 @Component({
   selector: 'page-card-viewer',
@@ -25,6 +26,7 @@ export class CardViewerPage {
   public deckTitle: string;
   public deckLanguage: any;
   public index: number;
+  public langIndex: number = 0;
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
@@ -32,7 +34,8 @@ export class CardViewerPage {
     private oauthService: OAuthService,
     public deckService: DeckService, 
     public modalCtrl: ModalController, 
-    private answerService: AnswerService) {
+    private answerService: AnswerService,
+    private textToSpeech: TextToSpeech) {
     oauthService.getProfile().toPromise()
         .then(profile => {
           console.log(profile, 'profile')
@@ -77,6 +80,7 @@ export class CardViewerPage {
     console.log("this.word")
   }
   swipeLeftEvent(index) {
+    this.langIndex = 0;
     if (index < this.deck.length - 1) {
       let currentPos = index + 1
       this.index += 1;
@@ -85,6 +89,7 @@ export class CardViewerPage {
     }
   }
   swipeRightEvent(index) {
+    this.langIndex = 0;
     if (index > 0) {
       let currentPos = index - 1;
       this.index -= 1;
@@ -95,31 +100,21 @@ export class CardViewerPage {
   flip(index) {
     if (this.word === this.wordsTranslations[this.wordsLanguages[0]]){
       this.word = this.wordsTranslations[this.wordsLanguages[1]];
+      this.langIndex = 1;
       return;
     } else if (this.word === this.wordsTranslations[this.wordsLanguages[1]]){
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
+      this.langIndex = 0;
       return;
     }
   }
   thumbsUp() {
-    console.log('thumbs up')
-    console.log(this.deckId)
-    console.log(JSON.stringify(this.deck[this.index]))
-    console.log('thumbs up')
     this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'good')
   }
   thumbsMiddle() {
-    console.log('thumbs middle')
-    console.log(this.deckId)
-    console.log(JSON.stringify(this.deck[this.index]))
-    console.log('thumbs middle')
     this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'ok')
   }
   thumbsDown() {
-    console.log('thumbs down')
-    console.log(this.deckId)
-    console.log(JSON.stringify(this.deck[this.index]))
-    console.log('thumbs down')
     this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'bad')
   }
   presentPhraseModal() {
@@ -127,6 +122,23 @@ export class CardViewerPage {
    profileModal.present();
  }
   takeAQuiz() {
-    this.navCtrl.setRoot(QuizPage)
+    this.navCtrl.setRoot(QuizPage, { deck: this.deckId})
+  }
+  async sayText() {
+    let langObj = {
+      en: 'en-US',
+      fr: 'fr-FR',
+      es: 'es-ES',
+      de: 'de-DE',
+      ja: 'ja-JP',
+      ru: 'ru-RU',
+    }
+    console.log('inside say text function')
+    try {
+      await this.textToSpeech.speak({ text: this.word, locale: langObj[this.wordsLanguages[this.langIndex]], rate: 0.75 });
+      console.log(`Succesfully spoke ${this.word}`)
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

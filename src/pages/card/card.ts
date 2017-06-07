@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { CameraService } from '../../services/camera.service';
 import { CreateDeckPage } from '../create-deck/create-deck';
 import { LanguageService } from '../../services/language.service';
