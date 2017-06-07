@@ -14,18 +14,19 @@ import { CardViewerPage } from '../card-viewer/card-viewer'
 })
 export class FindAddDeckPage {
   @ViewChild(Nav) nav: Nav;
-  
+
   public profile: any;
   public items: any;
-  
-  constructor(public navCtrl: NavController, 
-  public translateService: TranslateService,
-  oauthService: OAuthService,
-  public languageService: LanguageService,
-  public cameraService: CameraService,
-  public deckService: DeckService) {
+  public chosenDecks: Array<any>;
+
+  constructor(public navCtrl: NavController,
+    public translateService: TranslateService,
+    oauthService: OAuthService,
+    public languageService: LanguageService,
+    public cameraService: CameraService,
+    public deckService: DeckService) {
     oauthService.getProfile().toPromise()
-         .then(profile => {
+      .then(profile => {
         console.log(profile, 'profile')
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
@@ -52,7 +53,8 @@ export class FindAddDeckPage {
     //       this.items = this.deckService.allDecks;
     //   }, 1300)
     // } else {
-      this.items = this.deckService.allDecks;
+    this.chosenDecks = [];
+    this.items = this.deckService.allDecks;
     // }
   }
   getItems(ev) {
@@ -69,8 +71,8 @@ export class FindAddDeckPage {
       })
     }
   }
- 
-    openCard(deckId) {
+
+  openCard(deckId) {
     console.log(deckId)
     console.log("deckId")
     this.deckService.getAllCardsInADeck(deckId);
@@ -81,8 +83,18 @@ export class FindAddDeckPage {
     console.log('ionViewDidLoad FindAddDeckPage');
   }
 
+  addDeckToUser(deck) {
+    console.log('deck');
+    console.log(deck);
+    this.chosenDecks.push(deck);
+    console.log(this.chosenDecks);
+}
+  editDeck(){
+    this.navCtrl.setRoot(MyDecksPage)
+  }
   addDeck() {
     console.log('add deck button clicked')
     this.navCtrl.setRoot(MyDecksPage)
   }
+
 }

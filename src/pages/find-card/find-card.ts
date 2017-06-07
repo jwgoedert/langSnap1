@@ -53,9 +53,9 @@ export class FindCardPage {
         if ((typeof card.wordMap === 'string')) {
           card.wordMap = JSON.parse(card.wordMap);
         } 
+        card['status'] = '';
         // console.log('card in findcard unstringified') 
         // console.log(card)
-
         return card;
       })
       this.initializeItems();
@@ -87,23 +87,25 @@ export class FindCardPage {
     }
   }
 
-  markCard(item) {
+  markCard(item, index) {
     // this.addIcon = "checkmark-circle-outline";
       let addIcon;
+      let pos = this.chosenCards.indexOf(item);
       if (this.chosenCards.indexOf(item) === -1) {
         console.log("ALREADY HAVE IT!")
         console.log(this.chosenCards.indexOf(item));
-        this.added = "true";
-        this.addIcon = "checkmark-circle";
+        console.log('ITEMS');
+        console.log(JSON.stringify(this.items));
+        // this.added = "true";
+        this.items[index].status = "checkmark-circle";
+        // item.status = "checkmark-circle";
         this.chosenCards.push(item);
-      } else if(this.chosenCards.indexOf(item !== -1)){
+      } else if(pos !== -1){
         console.log("ADDING IT NOW")
         console.log(item);
-        this.added = "false";
-        this.addIcon = "checkmark-circle-outline";
-        let index = this.chosenCards.indexOf(item);
         console.log(index);
-        this.chosenCards = this.chosenCards.splice(item, 1);
+        this.items[index].status = "";
+        this.chosenCards[pos] = -1;
     }
     console.log('chosen cards');
     console.log(this.chosenCards);
@@ -128,7 +130,8 @@ export class FindCardPage {
 
   addCardsToCurrentDeck() {
     console.log('add deck button clicked')
-    
+    this.chosenCards = this.chosenCards.filter(el=> el !== -1);
+   
     let addCards =
       {
         "deck_id": this.deck,
