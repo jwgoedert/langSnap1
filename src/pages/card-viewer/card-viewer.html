@@ -14,7 +14,7 @@
         <h4>{{ deckLanguage }}</h4>
         <img [src]="card.imgUrl" class="slide-image"/>
       <ion-card>{{ word }}</ion-card><button ion-button outline (click)="sayText()"><ion-icon ios="ios-volume-up-outline" md="md-volume-up"></ion-icon></button>
-      <button (click)="flip(id)">{{ 'FLIP' | translate }}</button>
+      <button ion-button outline (click)="flip(id)">{{ 'FLIP' | translate }}</button>
     </ion-slide>
   </ion-slides>
 </ion-content>

@@ -11,6 +11,7 @@
 <ion-content padding>
   <ion-slides pager (ionSlideDidChange)="slideChanged()">
     <ion-slide *ngFor="let card of cards; let id = index" (swipeleft)="swipeLeftEvent(id)" (swiperight)="swipeRightEvent(id)">
+        {{ 'QUESTION' | translate }} {{ id + 1 }}
         <img [src]="card.imgUrl" class="slide-image"/>
         {{ 'QUIZ_PROMPT' | translate }}
         <ion-list >

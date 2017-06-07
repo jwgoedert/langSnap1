@@ -12,6 +12,7 @@ export class DeckService {
   public allCards: any;
   public deckId: any;
   public currentDeck: Array<any> = [];
+  public cardNames: Array<any> = [];
   public creatingDeck: Array<object> = [];
 
   constructor(
@@ -152,13 +153,16 @@ export class DeckService {
   getAllCards() {
     this.http.get(`${this.serverDBUrl}/v1/cards/all`)
       .map(cards => {
-        cards.json().forEach(card => {
-          console.log('GET all being hit');
-          this.allCards.push(card);
-          return card;
-        })
+        return cards.json()
       })
       .subscribe(allCards => {
+        allCards.forEach((card, index) => {
+          if (JSON.parse(card.wordMap)['en'] && (this.cardNames.indexOf(JSON.parse(card.wordMap)['en']) === -1)) {
+            this.cardNames.push(JSON.parse(card.wordMap)['en']);
+            this.allCards.push(card);
+          }
+        })
+
         return allCards;
       })
   }

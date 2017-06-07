@@ -13,16 +13,16 @@ w<ion-header>
     <ion-card>  
     <img [src]= "cardInfo.picture" />
     <ion-card *ngIf="!!translation">
-    <h3>{{ 'YOUR_WORD' | translate }}: {{ cardInfo.word }} </h3>
+    <h3 padding>{{ 'YOUR_WORD' | translate }}: {{ cardInfo.word }} </h3>
     <h3>{{ 'TRANSLATION' | translate }}: {{ translation }}</h3>
     {{ 'NOT_RIGHT_WORD' | translate}}
-    <form (click)="tryAgain(tryAgain.title); tryAgainForm.reset()" #tryAgainForm="ngForm">
+    <form (click)="tryAgain(tryAgain.title); tryAgainForm.reset()" #tryAgainForm="ngForm" padding>
       <ion-input type="text" [(ngModel)]="tryAgain.title" name="title" placeholder="{{ 'ENTER_YOUR_WORD' | translate }}"></ion-input>
-      <button type="button">{{ 'TRY_AGAIN' | translate }}</button>
+      <button ion-button outline type="button">{{ 'TRY_AGAIN' | translate }}</button>
     </form>
+    <button ion-button outline  (click)="facebookShare()"> <ion-icon name="logo-facebook"></ion-icon></button>
     </ion-card>
     </ion-card>
-  <button full primary round large  (click)="facebookShare()"> <ion-icon name="logo-facebook"></ion-icon></button>
   <button ion-button full (click)="createCard()" outline>{{ 'CREATE_CARD' | translate }}</button>
 </ion-content>
 

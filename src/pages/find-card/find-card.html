@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-    <ion-title>{{deck}}!!{{ 'FIND_ADD' | translate }}</ion-title>
+    <ion-title>{{ 'FIND_ADD' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -15,8 +15,8 @@
       <ion-avatar item-start>
         <img [src]="item.imgUrl">
       </ion-avatar>
-      <h2>{{item.wordMap.en}}</h2>
-      <p>{{item.wordMap['es']}}</p>
+      <h2>{{item.wordMap[nativeLang]}}</h2>
+      <p>{{item.wordMap[learningLang]}}</p>
       <ion-icon [name]="item.status" color="primary" item-end></ion-icon>
     </ion-item>
   </ion-list>

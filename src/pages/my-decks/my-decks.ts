@@ -52,7 +52,6 @@ export class MyDecksPage {
       }, 1500)
     } else {
         this.items = this.deckService.usersDecks; 
-      
     }
   }
   getItems(ev) {

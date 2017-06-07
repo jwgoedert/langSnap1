@@ -21,10 +21,10 @@ export class FindCardPage {
   public nativeLang: any;
   public learningLang: any;
   public chosenCards: Array<any>;
-  public deck: any;
+  public deck: Array<any>;
   public added: string;
   public addIcon: string;
-  // public deckTitle: any;
+  public deckTitle: string;
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
@@ -38,9 +38,9 @@ export class FindCardPage {
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.nativeLang = this.languageService.translateLang(this.profile.nativeLang);
-        this.learningLang = this.languageService.translateLang(this.profile.learningLang);
+        this.learningLang = this.languageService.translateLang(this.profile.learnLang);
         this.deck = this.deckService.getDeckId();
-        // this.deckTitle = this.deck[0].name;
+        this.deckTitle = this.cameraService.getTitle();
         this.items = this.deckService.getAllCards();
         this.addIcon = "checkmark-circle-outline";
       })
@@ -76,13 +76,19 @@ export class FindCardPage {
     // set val to the value of the ev target
     var val = ev.target.value;
 
-    // console.log("target letter", val)
-
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
-        if ((item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)) { console.log(item.name.toLowerCase) }
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        console.log('item')
+        console.log(JSON.stringify(item))
+        console.log('item')
+        
+        if (item.wordMap[this.nativeLang] && (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1)) { 
+          console.log(item.wordMap[this.nativeLang].toLowerCase) 
+          return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
+        }
+        // this will work once the database is re emptied above conditional works for npw
+        // return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
@@ -107,21 +113,6 @@ export class FindCardPage {
         this.items[index].status = "";
         this.chosenCards[pos] = -1;
     }
-    console.log('chosen cards');
-    console.log(this.chosenCards);
-    
-    console.log(this.addIcon);
-    // console.log('THIS IS ITEM:::::::::')
-    // console.log(item);
-    // console.log('This is the deck!!!!!!!!!!')
-    // console.log(this.deck);
-    // console.log('CURRENTDECk!')
-    // console.log(this.cameraService.getTitle());
-    // console.log(this.deckService.getDeckId());
-    // console.log('Marking card:', item);
-    // this.chosenCards.push(item);
-    // console.log("CHOSEN CARDS:")
-    // console.log(this.chosenCards);
   }
 
   ionViewDidLoad() {
@@ -145,7 +136,7 @@ export class FindCardPage {
       let cardInfo = {
       "word":  this.items[card - 1].wordMap.en,
       "image": this.items[card - 1].imgUrl
-    }
+      }
       console.log(card.imgUrl, card.wordMap)
       this.deckService.addToDeckCreation(cardInfo) 
     })
