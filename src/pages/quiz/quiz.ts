@@ -53,13 +53,7 @@ export class QuizPage {
   getQuizInfo() {
     setTimeout(() => {
       this.cards = this.answerService.deck;
-      console.log("this.cards")
-      console.log(JSON.stringify(this.cards))
-      console.log("this.cards")
       this.answerChoiceArray = this.answerService.answerChoices;
-      console.log("this.answerChoiceArray")
-      console.log(JSON.stringify(this.answerChoiceArray))
-      console.log("this.answerChoiceArray")
       this.answerService.clearChoiceArray();
       this.makeQuizChoiceArray();
     }, 500);
@@ -70,21 +64,15 @@ export class QuizPage {
       let currentPos = index + 1
     }
     this.index += 1;
-
   }
   swipeRightEvent(index) {
     if (index > 0) {
       let currentPos = index - 1;
     }
     this.index -= 1;
-    // this.slides.slideNext()
-    // this.slides.lockSwipes(true);
-    
   }
 
   slideChanged() {
-    // this.slides.slideNext()
-    // this.slides.slideTo()
     this.slides.lockSwipeToPrev(true);
   }
   chooseAnswer(choice, pos){

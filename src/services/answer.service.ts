@@ -41,7 +41,7 @@ export class AnswerService {
         deck[0].cards.forEach(card => {
           this.answerChoices.push(JSON.parse(card.wordMap)[this.learningLanguage]);
         });
-        if (deck[0].length > 10){
+        if (deck[0].cards.length > 10){
           this.deck = deck[0].cards.sort(() => 0.5 - Math.random()).slice(0,10);
           return this.deck;
         } else {

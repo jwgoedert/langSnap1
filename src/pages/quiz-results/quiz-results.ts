@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { MyDecksPage } from '../my-decks/my-decks';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Screenshot } from '@ionic-native/screenshot';
@@ -10,12 +10,14 @@ import { Screenshot } from '@ionic-native/screenshot';
 })
 export class QuizResultsPage {
   public results: Array<any> = [];
+  private score: number = 0;
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     private socialSharing: SocialSharing,
     private screenshot: Screenshot,
-    public platform: Platform) {
+    public platform: Platform,
+    private alertCtrl: AlertController) {
     this.results = navParams.get('images').map((image, index) => {
       let tempArr = navParams.get('solutions')[index]
       if (navParams.get('solutions')[0] === null) { tempArr.unshift("No Answer")}
@@ -25,8 +27,29 @@ export class QuizResultsPage {
         results: tempArr
       }
       navParams.get('solutions')[index][0] === navParams.get('solutions')[index][1] ? tempObj['color'] = "green" : tempObj['color'] = "red"; 
+      if (tempObj['color'] === 'green') { this.score += 10; }
       return tempObj;
     })
+    if (this.score >= 70) {
+     let confirm = this.alertCtrl.create({
+        title: `Congratulations! You're doing a great job! Keep up the good work.`,
+        message: 'Don\'t forget to share your progress woth your firends!',
+        buttons: [
+          {
+            text: 'Close.',
+            handler: () => {
+            }
+          },
+          {
+            text: 'Share to Facebook',
+            handler: () => {
+              this.facebookShare();
+            }
+          },
+        ]
+      });
+      confirm.present();
+    }
   }
 
   ionViewDidLoad() {
