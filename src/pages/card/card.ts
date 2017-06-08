@@ -46,6 +46,7 @@ export class CardPage {
   getTranslation() {
     setTimeout(() => {
       this.translation = this.cameraService.getTranslatedWord();
+      this.cardInfo.wordMap = this.cameraService.getCardInfo().wordMap;
     }, 1500)
   }
   facebookShare() {

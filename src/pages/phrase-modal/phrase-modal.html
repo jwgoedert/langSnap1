@@ -14,12 +14,14 @@
 
 
 <ion-content padding>
-  <h2>{{ 'TRANSLATION' | translate }}</h2>
-  <div>
-    {{ phrase }}
-  </div>
-  <h2>{{ 'NATIVE_LANGUAGE' | translate }}</h2>
-  <div>
-    {{ sentence }}
-  </div>
+  <ion-content *ngIf="!!phrase"> 
+    <h2>{{ 'TRANSLATION' | translate }}</h2>
+    <div>
+      {{ phrase }}
+    </div>
+    <h2>{{ 'NATIVE_LANGUAGE' | translate }}</h2>
+    <div>
+      {{ sentence }}
+    </div>
+  </ion-content>
 </ion-content>

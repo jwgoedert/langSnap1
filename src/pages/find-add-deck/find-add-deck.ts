@@ -46,17 +46,11 @@ export class FindAddDeckPage {
 
   }
 
-
   initializeItems() {
-    // if (this.deckService.usersDecks.length === 0) {
-    //   setTimeout(() => {
-    //       this.items = this.deckService.allDecks;
-    //   }, 1300)
-    // } else {
     this.chosenDecks = [];
     this.items = this.deckService.allDecks;
-    // }
   }
+  
   getItems(ev) {
     // Reset items back to all of the items
     this.initializeItems();

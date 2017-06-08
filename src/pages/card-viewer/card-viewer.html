@@ -8,13 +8,13 @@
 </ion-header>
 
 <ion-content padding>
-<ion-slides pager>
-    <ion-slide *ngFor="let card of deck; let id = index" (swipeleft)="swipeLeftEvent(id)" (swiperight)="swipeRightEvent(id)">
+<ion-slides pager (ionSlideWillChange)="slideChanged()">
+    <ion-slide *ngFor="let card of deck; let id = index" >
       <h2 class="slide-title">{{ deckTitle }}</h2>
         <h4>{{ deckLanguage }}</h4>
         <img [src]="card.imgUrl" class="slide-image"/>
       <ion-card>{{ word }}</ion-card><button ion-button outline (click)="sayText()"><ion-icon ios="ios-volume-up-outline" md="md-volume-up"></ion-icon></button>
-      <button (click)="flip(id)">{{ 'FLIP' | translate }}</button>
+      <button ion-button outline (click)="flip(id)">{{ 'FLIP' | translate }}</button>
     </ion-slide>
   </ion-slides>
 </ion-content>
@@ -34,6 +34,7 @@
         </button>
       </ion-col>
 
+          <i class="fa frown-o" aria-hidden="true"></i>	
       <ion-col col-4>
         <button ion-button icon-middle outline (click)="thumbsDown()">
           <ion-icon ios="ios-thumbs-down" md="md-thumbs-down" ></ion-icon>

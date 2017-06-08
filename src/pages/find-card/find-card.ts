@@ -21,10 +21,11 @@ export class FindCardPage {
   public nativeLang: any;
   public learningLang: any;
   public chosenCards: Array<any>;
-  public deck: any;
+  public deck: Array<any>;
   public added: string;
   public addIcon: string;
-  // public deckTitle: any;
+  public deckTitle: string;
+  public displayCards: Array<any> = [];
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
@@ -38,9 +39,9 @@ export class FindCardPage {
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.nativeLang = this.languageService.translateLang(this.profile.nativeLang);
-        this.learningLang = this.languageService.translateLang(this.profile.learningLang);
+        this.learningLang = this.languageService.translateLang(this.profile.learnLang);
         this.deck = this.deckService.getDeckId();
-        // this.deckTitle = this.deck[0].name;
+        this.deckTitle = this.cameraService.getTitle();
         this.items = this.deckService.getAllCards();
         this.addIcon = "checkmark-circle-outline";
       })
@@ -67,8 +68,6 @@ export class FindCardPage {
   initializeItems() {
     this.chosenCards = [];
     this.items = this.deckService.allCards;
-    // console.log('ITEMS');
-    // console.log(this.items);
   }
   getItems(ev) {
     // Reset items back to all of the items
@@ -76,52 +75,30 @@ export class FindCardPage {
     // set val to the value of the ev target
     var val = ev.target.value;
 
-    // console.log("target letter", val)
-
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
-        if ((item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)) { console.log(item.name.toLowerCase) }
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        if (item.wordMap[this.nativeLang] && (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1)) { 
+          console.log(item.wordMap[this.nativeLang].toLowerCase) 
+          return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
+        }
+        // this will work once the database is re emptied above conditional works for npw
+        // return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
 
   markCard(item, index) {
-    // this.addIcon = "checkmark-circle-outline";
-      let addIcon;
-      let pos = this.chosenCards.indexOf(item);
-      if (this.chosenCards.indexOf(item) === -1) {
-        console.log("ALREADY HAVE IT!")
-        console.log(this.chosenCards.indexOf(item));
-        console.log('ITEMS');
-        console.log(JSON.stringify(this.items));
-        // this.added = "true";
-        this.items[index].status = "checkmark-circle";
-        // item.status = "checkmark-circle";
-        this.chosenCards.push(item);
-      } else if(pos !== -1){
-        console.log("ADDING IT NOW")
-        console.log(item);
-        console.log(index);
-        this.items[index].status = "";
-        this.chosenCards[pos] = -1;
+    let pos = this.chosenCards.indexOf(item);
+    if (this.chosenCards.indexOf(item) === -1) {
+      this.items[index].status = "checkmark-circle";
+      this.chosenCards.push(item);
+      this.displayCards.push(index);
+    } else if(pos !== -1){
+      this.items[index].status = "";
+      this.chosenCards[pos] = -1;
+      this.displayCards[pos] = -1;
     }
-    console.log('chosen cards');
-    console.log(this.chosenCards);
-    
-    console.log(this.addIcon);
-    // console.log('THIS IS ITEM:::::::::')
-    // console.log(item);
-    // console.log('This is the deck!!!!!!!!!!')
-    // console.log(this.deck);
-    // console.log('CURRENTDECk!')
-    // console.log(this.cameraService.getTitle());
-    // console.log(this.deckService.getDeckId());
-    // console.log('Marking card:', item);
-    // this.chosenCards.push(item);
-    // console.log("CHOSEN CARDS:")
-    // console.log(this.chosenCards);
   }
 
   ionViewDidLoad() {
@@ -129,33 +106,25 @@ export class FindCardPage {
   }
 
   addCardsToCurrentDeck() {
-    console.log('add deck button clicked')
     this.chosenCards = this.chosenCards.filter(el=> el !== -1);
+    this.displayCards = this.displayCards.filter(el=> el !== -1);
    
     let addCards =
       {
         "deck_id": this.deck,
         "cardIds": this.chosenCards
       }
-    this.chosenCards.forEach(card => {
-      console.log('CHOSEN CARD');
-      console.log(JSON.stringify(card.id));
-      console.log(JSON.stringify(this.items[card - 1]));
-      
+    this.displayCards.forEach(card => {
       let cardInfo = {
-      "word":  this.items[card - 1].wordMap.en,
-      "image": this.items[card - 1].imgUrl
-    }
-      console.log(card.imgUrl, card.wordMap)
+        "word":  this.items[card].wordMap.en,
+        "image": this.items[card].imgUrl
+      }
       this.deckService.addToDeckCreation(cardInfo) 
     })
-    
-    console.log(JSON.stringify(addCards));
-    console.log(this.chosenCards);
+ 
     this.deckService.postCardsToUserDeck(addCards);
     this.chosenCards = [];
     setTimeout(() => {
-
       this.navCtrl.setRoot(CreateDeckPage)
     }, 1500)
   }
