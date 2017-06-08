@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, Nav, AlertController } from 'ionic-angular';
 import { MyDecksPage } from '../my-decks/my-decks';
+import { EditDeckAddPage } from '../edit-deck-add/edit-deck-add';
 import { TranslateService } from '@ngx-translate/core';
 import { OAuthService } from '../oauth/oauth.service';
 import { LanguageService } from '../../services/language.service';
@@ -22,7 +23,6 @@ export class EditDeckPage {
   public added: string;
   public addIcon: string;
   public rootPage: any = EditDeckPage;
-  public loaded: any;
 
   public nativeLang: any;
   public learnLang: any;
@@ -66,14 +66,6 @@ export class EditDeckPage {
 
   initializeItems() {
     this.chosenCards = [];
-    this.loaded = this.items;
-    console.log('Items:')
-    console.log(typeof this.loaded)
-    console.log(JSON.stringify(this.loaded))
-    console.log('all cards on deck:')
-    console.log(JSON.stringify(this.deckService.deckEditCards));
-    // console.log('ITEMS');
-    // console.log(this.items);
   }
   // getItems(ev) {
   //   this.initializeItems();
@@ -95,6 +87,7 @@ export class EditDeckPage {
     console.log('add card button clicked')
     console.log(JSON.stringify(this.items));
     console.log(typeof this.items)
+    this.navCtrl.setRoot(EditDeckAddPage, {deckId:this.deck.id, deckName:this.deckName});
   }
   removeCardFromUserDeck(itemId) {
     console.log('itemIDDDDDD')

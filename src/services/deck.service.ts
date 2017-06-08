@@ -12,6 +12,7 @@ export class DeckService {
   public allCards: any;
   public allCardsInADeck: any;
   public deckId: any;
+  public deckName: any;
   public currentDeck: Array<any> = [];
   public cardNames: Array<any> = [];
   public creatingDeck: Array<object> = [];

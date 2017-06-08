@@ -23,6 +23,8 @@ import { CardViewerPage } from '../pages/card-viewer/card-viewer';
 import { FindCardPage } from '../pages/find-card/find-card';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
+import { EditDeckAddPage } from '../pages/edit-deck-add/edit-deck-add';
+
 import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
 import { PhraseModalPage } from '../pages/phrase-modal/phrase-modal';
@@ -43,6 +45,7 @@ import { AnswerService } from '../services/answer.service';
     MyDecksPage, 
     AboutUsPage,
     EditDeckPage,
+    EditDeckAddPage,
     QuizPage,
     ProfilePage,
     CardPage,
@@ -73,6 +76,7 @@ import { AnswerService } from '../services/answer.service';
     MyDecksPage,
     AboutUsPage,
     EditDeckPage,
+    EditDeckAddPage,
     QuizPage,
     ProfilePage,
     CardPage,
