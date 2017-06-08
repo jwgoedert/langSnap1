@@ -15,8 +15,7 @@
         <img [src]="card.imgUrl" class="slide-image"/>
         {{ 'QUIZ_PROMPT' | translate }}
         <ion-list >
-            <!--<ion-item class="answer" [(ngModel)]="cardAnswer" *ngFor="let choice of quizChoiceArray[id]; let pos = index">-->
-            <ion-item *ngFor="let choice of quizChoiceArray[id]; let pos = index" (click)="chooseAnswer(choice,pos)">
+            <ion-item tappable *ngFor="let choice of quizChoiceArray[id]; let pos = index" (click)="chooseAnswer(choice,pos)">
               <ion-label class="answer">
                 {{ choice.word }}
               </ion-label>

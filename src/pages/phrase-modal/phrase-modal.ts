@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
 import { OAuthService } from '../oauth/oauth.service';
 import { PhraseService } from '../../services/phrase.service';
+import { CameraService } from '../../services/camera.service';
 
 @Component({
   selector: 'page-phrase-modal',
@@ -22,7 +23,8 @@ export class PhraseModalPage {
   private oauthService: OAuthService,
   private translateService: TranslateService,
   private languageService: LanguageService,
-  private phraseService: PhraseService) {
+  private phraseService: PhraseService,
+  private cameraService: CameraService) {
     oauthService.getProfile().toPromise()
       .then(profile => {
         console.log(profile, 'profile')
@@ -30,16 +32,17 @@ export class PhraseModalPage {
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.phraseService.setTargetTrasnlationLang(languageService.translateLang(this.profile.nativeLang), languageService.translateLang(this.profile.learnLang))
         this.phraseService.getPhrase(navParams.get('word'));
-        setTimeout(() => {
-          this.getPhrases();
-        }, 800)
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
       });
+      this.cameraService.showLoading(3000)
+      setTimeout(() => {
+        this.getPhrases();
+      }, 3000)
   }
   getPhrases() {
-    this.phrase = this.phraseService.translatedPhrase;
+    this.phrase = this.phraseService.translatedPhrase || "Sorry Phrase is not available. Try again later.";
     this.sentence = this.phraseService.nativeSentence;
   }
   ionViewDidLoad() {

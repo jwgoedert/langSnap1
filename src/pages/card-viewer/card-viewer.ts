@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ModalController, NavController, NavParams, Nav, AlertController } from 'ionic-angular';
+import { ModalController, NavController, NavParams, Nav, AlertController, Slides } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
 import { OAuthService } from '../oauth/oauth.service';
@@ -16,6 +16,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 })
 export class CardViewerPage {
   @ViewChild(Nav) nav: Nav;
+  @ViewChild(Slides) slides: Slides;
+
   public rootPage: any = CardViewerPage;
   public profile: any;
   public deck: Array<any>;
@@ -25,7 +27,7 @@ export class CardViewerPage {
   public deckId: number;
   public deckTitle: string;
   public deckLanguage: any;
-  public index: number;
+  public index: any;
   public langIndex: number = 0;
 
   constructor(public navCtrl: NavController,
@@ -61,6 +63,7 @@ export class CardViewerPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CardViewerPage');
   }
+
   translations() {
     this.wordsLanguages = [this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang)];
     this.wordsTranslations = JSON.parse(this.deck[0].wordMap);
@@ -68,26 +71,28 @@ export class CardViewerPage {
       this.wordsLanguages = ['sorry', 'reallSorry'];
     }
     this.word = this.wordsTranslations[this.wordsLanguages[0]];
-    this.index = 0;
   }
-  swipeLeftEvent(index) {
-    this.langIndex = 0;
-    if (index < this.deck.length - 1) {
-      let currentPos = index + 1
-      this.index += 1;
-      this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
+
+  slideChanged() {
+    this.index = this.slides.getActiveIndex();
+    if (this.index <= 0) {
+      this.slides.lockSwipeToPrev(true)
+      this.index = 0;
+    } else if (this.index >= this.deck.length - 1) {
+      this.slides.lockSwipeToNext(true)
+      this.index = this.deck.length - 1;
+    }
+    else {
+      this.slides.lockSwipeToPrev(false)
+      this.slides.lockSwipeToNext(false)
+    }
+    if (this.index > 0 || this.index < this.deck.length - 1) {
+      this.langIndex = 0;
+      this.wordsTranslations = JSON.parse(this.deck[this.slides.getActiveIndex()].wordMap)
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
   }
-  swipeRightEvent(index) {
-    this.langIndex = 0;
-    if (index > 0) {
-      let currentPos = index - 1;
-      this.index -= 1;
-      this.wordsTranslations = JSON.parse(this.deck[currentPos].wordMap)
-      this.word = this.wordsTranslations[this.wordsLanguages[0]];
-    }
-  }
+  
   flip(index) {
     if (this.word === this.wordsTranslations[this.wordsLanguages[0]]){
       this.word = this.wordsTranslations[this.wordsLanguages[1]];
@@ -109,7 +114,7 @@ export class CardViewerPage {
     this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'bad')
   }
   presentPhraseModal() {
-   let profileModal = this.modalCtrl.create(PhraseModalPage, { word:  JSON.parse(this.deck[this.index].wordMap)['en']});
+   let profileModal = this.modalCtrl.create(PhraseModalPage, { word:  JSON.parse(this.deck[this.slides.getActiveIndex()].wordMap)['en']});
    profileModal.present();
  }
   takeAQuiz() {
@@ -141,7 +146,7 @@ export class CardViewerPage {
     }
 
     try {
-      await this.textToSpeech.speak({ text: this.word, locale: langObj[this.wordsLanguages[this.langIndex]], rate: 0.75 });
+      await this.textToSpeech.speak({ text: this.word, locale: langObj[this.wordsLanguages[this.langIndex]], rate: 1 });
       console.log(`Succesfully spoke ${this.word}`)
     } catch (error) {
       console.error(error);

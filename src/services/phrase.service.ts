@@ -23,6 +23,8 @@ export class PhraseService {
     return this.http.get(`http://52.14.252.211/v1/oxford/sentence/word/${word}`)
     .map(phrase => phrase)
     .subscribe(phrase => {
+      this.translatedPhrase = "";
+      this.nativeSentence = "";
       let arrOFSentences = [];
       let results = JSON.parse(phrase['_body']).results[0].lexicalEntries[0].sentences
         .filter((obj) => {
@@ -33,6 +35,9 @@ export class PhraseService {
         });
 
       this.sentence = arrOFSentences[Math.floor(Math.random() * arrOFSentences.length - 1)]
+      console.log("this.sentence")
+      console.log(this.sentence)
+      console.log("this.sentence")
       this.translatePhrase(this.sentence);
       this.nativePhrase(this.sentence);
     }), error => console.log(JSON.stringify(error));
