@@ -25,6 +25,7 @@ export class FindCardPage {
   public added: string;
   public addIcon: string;
   public deckTitle: string;
+  public displayCards: Array<any> = [];
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
@@ -67,8 +68,6 @@ export class FindCardPage {
   initializeItems() {
     this.chosenCards = [];
     this.items = this.deckService.allCards;
-    // console.log('ITEMS');
-    // console.log(this.items);
   }
   getItems(ev) {
     // Reset items back to all of the items
@@ -79,10 +78,6 @@ export class FindCardPage {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
-        console.log('item')
-        console.log(JSON.stringify(item))
-        console.log('item')
-        
         if (item.wordMap[this.nativeLang] && (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1)) { 
           console.log(item.wordMap[this.nativeLang].toLowerCase) 
           return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
@@ -94,24 +89,15 @@ export class FindCardPage {
   }
 
   markCard(item, index) {
-    // this.addIcon = "checkmark-circle-outline";
-      let addIcon;
-      let pos = this.chosenCards.indexOf(item);
-      if (this.chosenCards.indexOf(item) === -1) {
-        console.log("ALREADY HAVE IT!")
-        console.log(this.chosenCards.indexOf(item));
-        console.log('ITEMS');
-        console.log(JSON.stringify(this.items));
-        // this.added = "true";
-        this.items[index].status = "checkmark-circle";
-        // item.status = "checkmark-circle";
-        this.chosenCards.push(item);
-      } else if(pos !== -1){
-        console.log("ADDING IT NOW")
-        console.log(item);
-        console.log(index);
-        this.items[index].status = "";
-        this.chosenCards[pos] = -1;
+    let pos = this.chosenCards.indexOf(item);
+    if (this.chosenCards.indexOf(item) === -1) {
+      this.items[index].status = "checkmark-circle";
+      this.chosenCards.push(item);
+      this.displayCards.push(index);
+    } else if(pos !== -1){
+      this.items[index].status = "";
+      this.chosenCards[pos] = -1;
+      this.displayCards[pos] = -1;
     }
   }
 
@@ -120,33 +106,25 @@ export class FindCardPage {
   }
 
   addCardsToCurrentDeck() {
-    console.log('add deck button clicked')
     this.chosenCards = this.chosenCards.filter(el=> el !== -1);
+    this.displayCards = this.displayCards.filter(el=> el !== -1);
    
     let addCards =
       {
         "deck_id": this.deck,
         "cardIds": this.chosenCards
       }
-    this.chosenCards.forEach(card => {
-      console.log('CHOSEN CARD');
-      console.log(JSON.stringify(card.id));
-      console.log(JSON.stringify(this.items[card - 1]));
-      
+    this.displayCards.forEach(card => {
       let cardInfo = {
-      "word":  this.items[card - 1].wordMap.en,
-      "image": this.items[card - 1].imgUrl
+        "word":  this.items[card].wordMap.en,
+        "image": this.items[card].imgUrl
       }
-      console.log(card.imgUrl, card.wordMap)
       this.deckService.addToDeckCreation(cardInfo) 
     })
-    
-    console.log(JSON.stringify(addCards));
-    console.log(this.chosenCards);
+ 
     this.deckService.postCardsToUserDeck(addCards);
     this.chosenCards = [];
     setTimeout(() => {
-
       this.navCtrl.setRoot(CreateDeckPage)
     }, 1500)
   }
