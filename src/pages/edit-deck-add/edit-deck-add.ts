@@ -69,13 +69,11 @@ export class EditDeckAddPage {
     this.title = this.navParams.data.deckName;
     this.deckId = this.navParams.data.deckId;
     this.deckService.deckId = this.deckId;
-    // if (this.cameraService.getTitle()) {
-    //   this.title = this.cameraService.getTitle();
-    // }
   }
   ngOnInit() {
     this.photos = [];
   }
+  
   takePhoto() {
     if (this.title) {
       const options: CameraOptions = {

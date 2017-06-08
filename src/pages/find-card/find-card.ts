@@ -85,12 +85,7 @@ export class FindCardPage {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
-        if (item.wordMap[this.nativeLang] && (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1)) { 
-          console.log(item.wordMap[this.nativeLang].toLowerCase) 
-          return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
-        }
-        // this will work once the database is re emptied above conditional works for npw
-        // return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }

@@ -12,11 +12,10 @@
 
 <ion-content padding>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  <!--<ion-title>DeckName{{deck.name}}</ion-title>-->
-  <ion-title>DeckName{{deckName}}</ion-title>
+  <ion-title>{{deckName}}</ion-title>
   <ion-list>
     <ion-item-sliding tappable *ngFor="let item of items; let i=index"> 
-    <ion-item (click)="markCard(item.id, i)">
+    <ion-item >
       <ion-avatar item-start>
         <img [src]="item.imgUrl">
       </ion-avatar>
@@ -33,5 +32,15 @@
   </ion-list>
 </ion-content>
 <ion-footer>
-  <button ion-button (click)="addCard()">AddCards</button>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button outline block (click)="addCard()">AddCards</button>
+      </ion-col>
+
+      <ion-col col-6>
+        <button ion-button outline block (click)="done()">{{ 'DONE' | translate}}</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-footer>

@@ -1,12 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, Nav, AlertController } from 'ionic-angular';
-import { MyDecksPage } from '../my-decks/my-decks';
-import { EditDeckAddPage } from '../edit-deck-add/edit-deck-add';
 import { TranslateService } from '@ngx-translate/core';
+
 import { OAuthService } from '../oauth/oauth.service';
 import { LanguageService } from '../../services/language.service';
 import { DeckService } from '../../services/deck.service';
 import { CameraService } from '../../services/camera.service';
+
+import { MyDecksPage } from '../my-decks/my-decks';
+import { EditDeckAddPage } from '../edit-deck-add/edit-deck-add';
 
 @IonicPage()
 @Component({
@@ -17,13 +19,11 @@ export class EditDeckPage {
   @ViewChild(Nav) nav: Nav;
   public profile: any;
   public items: any;
-  public chosenCards: Array<any>;
   public deckName: string;
   public deck: any;
   public added: string;
   public addIcon: string;
   public rootPage: any = EditDeckPage;
-
   public nativeLang: any;
   public learnLang: any;
 
@@ -49,44 +49,38 @@ export class EditDeckPage {
       });
     setTimeout(() => {
       this.deckName = this.deckService.deckEditCards[0].name;
-
-      // this.deck = this.deckService.deckEditCards[0];
-      this.deckName = JSON.stringify(this.deckName);
-      console.log('this is DECK!!!!!')
-      console.log(this.deck);
-      this.items = this.deckService.deckEditCards[0].cards.map(el => {
-        if (typeof el.wordMap === 'string') {
-          el.wordMap = JSON.parse(el.wordMap);
-        }
-        return el;
-      });
       this.initializeItems();
     }, 1500)
   }
 
   initializeItems() {
-    this.chosenCards = [];
+    this.items = this.deckService.deckEditCards[0].cards.map(el => {
+        if (typeof el.wordMap === 'string') {
+          el.wordMap = JSON.parse(el.wordMap);
+        }
+        return el;
+      });;
   }
-  // getItems(ev) {
-  //   this.initializeItems();
-  //   var val = ev.target.value;
-  //   if (val && val.trim() != '') {
-  //     this.items = this.items.filter((item) => {
-  //       if ((item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)) { console.log(item.name.toLowerCase) }
-  //       return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-  //     })
-  //   }
-  // }
+  getItems(ev) {
+    this.initializeItems();
+    var val = ev.target.value;
 
+    if (val && val.trim() != '') {
+      this.items = this.items.filter((item) => {
+        return (item.wordMap[this.nativeLang].toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
+  
+  done() {
+    this.navCtrl.setRoot(MyDecksPage);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditDeckPage');
 
   }
 
   addCard() {
-    console.log('add card button clicked')
-    console.log(JSON.stringify(this.items));
-    console.log(typeof this.items)
     this.navCtrl.setRoot(EditDeckAddPage, { deckId: this.deck.id, deckName: this.deckName });
   }
   removeCardFromUserDeck(itemId, index) {
