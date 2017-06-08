@@ -87,11 +87,9 @@ export class EditDeckPage {
     console.log('add card button clicked')
     console.log(JSON.stringify(this.items));
     console.log(typeof this.items)
-    this.navCtrl.setRoot(EditDeckAddPage, {deckId:this.deck.id, deckName:this.deckName});
+    this.navCtrl.setRoot(EditDeckAddPage, { deckId: this.deck.id, deckName: this.deckName });
   }
-  removeCardFromUserDeck(itemId) {
-    console.log('itemIDDDDDD')
-    console.log(itemId);
+  removeCardFromUserDeck(itemId, index) {
     let confirm = this.alertCtrl.create({
       title: `Sure you want to delete this Card?`,
       message: '',
@@ -104,28 +102,17 @@ export class EditDeckPage {
         {
           text: 'Yes',
           handler: () => {
-            console.log("Okay, we'll delete")
-            console.log(itemId)
+            for (let i = 0; i < this.items.length; i++) {
+              if (this.items[i].id == itemId) {
+                this.items.splice(i, 1);
+              }
+            }
             this.deckService.deleteCardFromUserDeck(this.profile.id, this.deck.id, itemId, );
             this.deckService.deckEditCards = this.deckService.getAllCardsInADeck(this.deck.id);
-            setTimeout(()=>{
-            console.log(this.deckService.deckEditCards = this.deckService.getAllCardsInADeck(this.deck.id));
-              
-            this.navCtrl.setRoot(EditDeckPage)
-
-          },1700)
-          this.cameraService.showLoading(1700);
           }
         }
       ]
     });
     confirm.present();
-
-
-
-  }
-
-  deleteCard() {
-    console.log('delete card button clicked')
   }
 }

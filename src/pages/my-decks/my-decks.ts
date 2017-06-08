@@ -93,6 +93,7 @@ export class MyDecksPage {
         {
           text: 'Yes',
           handler: () => {
+
             this.deckService.deleteADeck(index, this.profile.id);
             this.navCtrl.setRoot(MyDecksPage)
           }
