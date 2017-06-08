@@ -19,7 +19,7 @@ export class FindCardPage {
   public profile: any;
   public items: any;
   public nativeLang: any;
-  public learningLang: any;
+  public learnLang: any;
   public chosenCards: Array<any>;
   public deck: Array<any>;
   public added: string;
@@ -39,7 +39,8 @@ export class FindCardPage {
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.nativeLang = this.languageService.translateLang(this.profile.nativeLang);
-        this.learningLang = this.languageService.translateLang(this.profile.learnLang);
+        // this.learningLang = this.languageService.translateLang(this.profile.learnLang);
+        this.learnLang = this.languageService.translateLang(this.profile.learnLang);
         this.deck = this.deckService.getDeckId();
         this.deckTitle = this.cameraService.getTitle();
         this.items = this.deckService.getAllCards();
@@ -99,6 +100,7 @@ export class FindCardPage {
       this.chosenCards[pos] = -1;
       this.displayCards[pos] = -1;
     }
+
   }
 
   ionViewDidLoad() {

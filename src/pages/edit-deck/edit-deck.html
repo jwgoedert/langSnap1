@@ -12,15 +12,26 @@
 
 <ion-content padding>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-title>{{deckTitle}}</ion-title>
+  <!--<ion-title>DeckName{{deck.name}}</ion-title>-->
+  <ion-title>DeckName{{deckName}}</ion-title>
   <ion-list>
-    <ion-item *ngFor="let item of items; let i=index" (click)="markCard(item.id, i)">
+    <ion-item-sliding *ngFor="let item of items; let i=index"> 
+    <ion-item (click)="markCard(item.id, i)">
       <ion-avatar item-start>
         <img [src]="item.imgUrl">
       </ion-avatar>
-      <h2>{{item.wordMap.en}}</h2>
-      <p>{{item.wordMap['es']}}</p>
+      <h2>{{item.wordMap[nativeLang]}}</h2>
+      <p>{{item.wordMap[learnLang]}}</p>
       <ion-icon [name]="item.status" color="primary" item-end></ion-icon>
     </ion-item>
+    <ion-item-options side="right">
+      <button ion-button color="danger" (click)="removeCardFromUserDeck(item.id)">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+    </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
+<!--<ion-footer>
+  <button ion-button (click)="addCard()">AddCards</button>
+</ion-footer>-->

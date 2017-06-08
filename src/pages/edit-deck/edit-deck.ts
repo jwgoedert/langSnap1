@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, Nav } from 'ionic-angular';
+import { IonicPage, NavController, Nav, AlertController } from 'ionic-angular';
 import { MyDecksPage } from '../my-decks/my-decks';
 import { TranslateService } from '@ngx-translate/core';
 import { OAuthService } from '../oauth/oauth.service';
@@ -17,78 +17,119 @@ export class EditDeckPage {
   public profile: any;
   public items: any;
   public chosenCards: Array<any>;
+  public deckName: string;
   public deck: any;
   public added: string;
   public addIcon: string;
   public rootPage: any = EditDeckPage;
+  public loaded: any;
 
   public nativeLang: any;
-  public learningLang: any;
+  public learnLang: any;
 
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
     public languageService: LanguageService,
     oauthService: OAuthService,
     public cameraService: CameraService,
-    public deckService: DeckService) {
+    public deckService: DeckService,
+    public alertCtrl: AlertController) {
     oauthService.getProfile().toPromise()
       .then(profile => {
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
-        this.deck = this.deckService.getDeckId();
-        this.items = this.deckService.getAllCards();
-        this.addIcon = "checkmark-circle-outline";
+        this.nativeLang = this.languageService.translateLang(this.profile.nativeLang);
+        this.learnLang = this.languageService.translateLang(this.profile.learnLang);
 
-        // this.nativeLang = this.languageService.translateLang(this.profile.nativeLang);
-        // this.learningLang = this.languageService.translateLang(this.profile.learningLang);
+        this.deckService.getCurrentDeck();
+        this.deck = this.deckService.deckEditCards[0];
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
       });
-    this.cameraService.showLoading(3000);
     setTimeout(() => {
-      this.items = this.deckService.allCards.map((card) => {
-        if ((typeof card.wordMap === 'string')) {
-          card.wordMap = JSON.parse(card.wordMap);
+      this.deckName = this.deckService.deckEditCards[0].name;
+
+      // this.deck = this.deckService.deckEditCards[0];
+      this.deckName = JSON.stringify(this.deckName);
+      console.log('this is DECK!!!!!')
+      console.log(this.deck);
+      this.items = this.deckService.deckEditCards[0].cards.map(el => {
+        if (typeof el.wordMap === 'string') {
+          el.wordMap = JSON.parse(el.wordMap);
         }
-        card['status'] = '';
-        // console.log('card in findcard unstringified') 
-        // console.log(card)
-        return card;
-      })
+        return el;
+      });
       this.initializeItems();
     }, 1500)
   }
 
   initializeItems() {
     this.chosenCards = [];
-    this.items = this.deckService.allCards;
+    this.loaded = this.items;
+    console.log('Items:')
+    console.log(typeof this.loaded)
+    console.log(JSON.stringify(this.loaded))
+    console.log('all cards on deck:')
+    console.log(JSON.stringify(this.deckService.deckEditCards));
     // console.log('ITEMS');
     // console.log(this.items);
   }
-  getItems(ev) {
-    // Reset items back to all of the items
-    this.initializeItems();
-    // set val to the value of the ev target
-    var val = ev.target.value;
-
-    // console.log("target letter", val)
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.items = this.items.filter((item) => {
-        if ((item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)) { console.log(item.name.toLowerCase) }
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
+  // getItems(ev) {
+  //   this.initializeItems();
+  //   var val = ev.target.value;
+  //   if (val && val.trim() != '') {
+  //     this.items = this.items.filter((item) => {
+  //       if ((item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)) { console.log(item.name.toLowerCase) }
+  //       return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+  //     })
+  //   }
+  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditDeckPage');
+
   }
 
   addCard() {
     console.log('add card button clicked')
+    console.log(JSON.stringify(this.items));
+    console.log(typeof this.items)
+  }
+  removeCardFromUserDeck(itemId) {
+    console.log('itemIDDDDDD')
+    console.log(itemId);
+    let confirm = this.alertCtrl.create({
+      title: `Sure you want to delete this Card?`,
+      message: '',
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            console.log("Okay, we'll delete")
+            console.log(itemId)
+            this.deckService.deleteCardFromUserDeck(this.profile.id, this.deck.id, itemId, );
+            this.deckService.deckEditCards = this.deckService.getAllCardsInADeck(this.deck.id);
+            setTimeout(()=>{
+            console.log(this.deckService.deckEditCards = this.deckService.getAllCardsInADeck(this.deck.id));
+              
+            this.navCtrl.setRoot(EditDeckPage)
+
+          },1700)
+          this.cameraService.showLoading(1700);
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+
+
   }
 
   deleteCard() {
