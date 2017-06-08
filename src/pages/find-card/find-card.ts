@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, Nav } from 'ionic-angular';
+import { IonicPage, NavController, Nav, NavParams } from 'ionic-angular';
 import { MyDecksPage } from '../my-decks/my-decks';
+import { EditDeckAddPage } from '../edit-deck-add/edit-deck-add';
 import { TranslateService } from '@ngx-translate/core';
 import { OAuthService } from '../oauth/oauth.service';
 import { LanguageService } from '../../services/language.service';
@@ -19,7 +20,7 @@ export class FindCardPage {
   public profile: any;
   public items: any;
   public nativeLang: any;
-  public learningLang: any;
+  public learnLang: any;
   public chosenCards: Array<any>;
   public deck: Array<any>;
   public added: string;
@@ -27,7 +28,9 @@ export class FindCardPage {
   public deckTitle: string;
   public displayCards: Array<any> = [];
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navParams: NavParams,
+    public navCtrl: NavController,
     public translateService: TranslateService,
     public languageService: LanguageService,
     oauthService: OAuthService,
@@ -37,9 +40,13 @@ export class FindCardPage {
       .then(profile => {
         console.log(profile, 'profile')
         this.profile = profile;
+        console.log('Params in findCards');
+        console.log(JSON.stringify(this.navParams));
+
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.nativeLang = this.languageService.translateLang(this.profile.nativeLang);
-        this.learningLang = this.languageService.translateLang(this.profile.learnLang);
+        // this.learningLang = this.languageService.translateLang(this.profile.learnLang);
+        this.learnLang = this.languageService.translateLang(this.profile.learnLang);
         this.deck = this.deckService.getDeckId();
         this.deckTitle = this.cameraService.getTitle();
         this.items = this.deckService.getAllCards();
@@ -53,7 +60,7 @@ export class FindCardPage {
       this.items = this.deckService.allCards.map((card) => {
         if ((typeof card.wordMap === 'string')) {
           card.wordMap = JSON.parse(card.wordMap);
-        } 
+        }
         card['status'] = '';
         // console.log('card in findcard unstringified') 
         // console.log(card)
@@ -125,7 +132,11 @@ export class FindCardPage {
     this.deckService.postCardsToUserDeck(addCards);
     this.chosenCards = [];
     setTimeout(() => {
-      this.navCtrl.setRoot(CreateDeckPage)
+       if(this.navParams.data.findAdd === true){
+      this.navCtrl.setRoot(EditDeckAddPage);
+      } else {
+      this.navCtrl.setRoot(CreateDeckPage);
+      }
     }, 1500)
   }
 }

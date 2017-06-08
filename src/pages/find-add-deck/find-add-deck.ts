@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Nav } from 'ionic-angular';
+import { NavController, Nav, AlertController } from 'ionic-angular';
 import { MyDecksPage } from '../my-decks/my-decks';
 import { TranslateService } from '@ngx-translate/core';
 import { OAuthService } from '../oauth/oauth.service';
@@ -18,8 +18,10 @@ export class FindAddDeckPage {
   public profile: any;
   public items: any;
   public chosenDecks: Array<any>;
+  public displayDecks: Array<any> = [];
 
   constructor(public navCtrl: NavController,
+    public alertCtrl: AlertController,
     public translateService: TranslateService,
     oauthService: OAuthService,
     public languageService: LanguageService,
@@ -37,8 +39,14 @@ export class FindAddDeckPage {
       });
     this.cameraService.showLoading(3000);
     setTimeout(() => {
+
       this.items = this.deckService.allDecks.map((deck) => {
-        if (!deck.cards[0]) { deck.cards[0] = { imgUrl: "https://www.wired.com/wp-content/uploads/2015/01/learning-styles.jpg" } }
+        deck['status'] = '';
+        if (!deck.cards[0]) {
+          deck.cards[0] = { imgUrl: "https://www.wired.com/wp-content/uploads/2015/01/learning-styles.jpg", status: "" }
+        }
+        console.log('DECK');
+        console.log(JSON.stringify(deck));
         return deck;
       })
       this.initializeItems();
@@ -50,7 +58,7 @@ export class FindAddDeckPage {
     this.chosenDecks = [];
     this.items = this.deckService.allDecks;
   }
-  
+
   getItems(ev) {
     // Reset items back to all of the items
     this.initializeItems();
@@ -77,18 +85,40 @@ export class FindAddDeckPage {
     console.log('ionViewDidLoad FindAddDeckPage');
   }
 
-  addDeckToUser(deck) {
+  addDeckToUser(deckId, index) {
+
     console.log('deck');
-    console.log(deck);
-    this.chosenDecks.push(deck);
+    // this.chosenDecks.push(deck);
+    console.log(index);
+    console.log(JSON.stringify(this.items));
+    let pos = this.chosenDecks.indexOf(deckId);
+      this.items[+index]["status"] = "added!";
+    if (pos === -1) {
+      this.chosenDecks.push(deckId);
+      this.displayDecks.push(index);
+    } else if (pos !== -1) {
+      this.items[+index]["status"] = "";
+      this.chosenDecks[pos] = -1;
+      this.displayDecks[pos] = -1;
+    }
+    console.log(deckId);
     console.log(this.chosenDecks);
-}
-  editDeck(){
+
+  }
+  editDeck() {
     this.navCtrl.setRoot(MyDecksPage)
   }
-  addDeck() {
+  addDecks() {
+    this.chosenDecks = this.chosenDecks.filter(el => el !== -1);
+    let body = {
+      "user_id": this.profile.id,
+      "decks": JSON.stringify(this.chosenDecks)
+    }
+
     console.log('add deck button clicked')
+    this.deckService.addDecksToUser(body);
     this.navCtrl.setRoot(MyDecksPage)
+
   }
 
 }

@@ -10,10 +10,13 @@ export class DeckService {
   public usersDecks: any;
   public allDecks: any;
   public allCards: any;
+  public allCardsInADeck: any;
   public deckId: any;
+  public deckName: any;
   public currentDeck: Array<any> = [];
   public cardNames: Array<any> = [];
   public creatingDeck: Array<object> = [];
+  public deckEditCards: any;
 
   constructor(
     public http: Http,
@@ -106,6 +109,7 @@ export class DeckService {
           this.emptyCurrentDeck();
           return this.currentDeck;
         } else {
+          this.deckEditCards = this.currentDeck;
           this.emptyCurrentDeck();
           return this.currentDeck;
         }
@@ -119,15 +123,7 @@ export class DeckService {
       this.currentDeck = [];
     }, 2000)
   }
-  deleteADeck(deckId, userId) {
-    this.http.delete((`${this.serverDBUrl}/v1/decks/${deckId}`))
-      .map(res => res)
-      .subscribe(resp => {
-        return resp;
-      }), err => {
-        console.log(JSON.stringify(err));
-      }
-  }
+
   //find/add decks page
   getAllDecks() {
     this.http.get(`${this.serverDBUrl}/v1/decks/all`)
@@ -166,5 +162,24 @@ export class DeckService {
         return allCards;
       })
   }
+  deleteADeck(deckId, userId) {
+    this.http.delete((`${this.serverDBUrl}/v1/decks/${deckId}`))
+      .map(res => res)
+      .subscribe(resp => {
+        return resp;
+      }), err => {
+        console.log(JSON.stringify(err));
+      }
+  }
+  deleteCardFromUserDeck(userId, deckId, itemId) {
+    this.http.delete((`${this.serverDBUrl}/v1/decks/userid/${userId}/deckid/${deckId}/cardid/${itemId}`))
+      .map(res => res)
+      .subscribe(resp => {
+        return resp;
+      }), err => {
+        console.log(JSON.stringify(err));
+      }
 
+
+  }
 }

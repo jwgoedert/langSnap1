@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, AlertController } from 'ionic-angular';
 import { CameraService } from '../../services/camera.service';
 import { CreateDeckPage } from '../create-deck/create-deck';
+import { EditDeckAddPage } from '../edit-deck-add/edit-deck-add';
 import { LanguageService } from '../../services/language.service';
 import { DeckService } from '../../services/deck.service';
 import { OAuthService } from '../oauth/oauth.service';
@@ -33,6 +34,9 @@ export class CardPage {
     public platform: Platform) {
       oauthService.getProfile().toPromise()
         .then(profile => {
+          console.log('Params in cards');
+          console.log(JSON.stringify(this.navParams));
+          
           this.profile = profile;
           translateService.use(languageService.translateLang(this.profile.nativeLang));
           this.cameraService.languages(this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang))
@@ -102,7 +106,11 @@ export class CardPage {
     }
     this.deckService.postCardToUserDeck(addCard)
     setTimeout(() => {
-    this.navCtrl.setRoot(CreateDeckPage)
+      if(this.navParams.data.findAdd === true){
+      this.navCtrl.setRoot(EditDeckAddPage);
+      } else {
+      this.navCtrl.setRoot(CreateDeckPage);
+      }
     }, 1500)
   }
 }

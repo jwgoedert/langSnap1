@@ -10,6 +10,37 @@ background-color: teal;
 .my-decks-deck-f {
   height: 150px;
 }
+.card-title {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  font-size: 2.0em;
+  width: 100%;
+  font-weight: bold;
+  color: lightblue;
+  -webkit-text-stroke-width: .5px;
+  -webkit-text-stroke-color:teal;
+}
+.card-subtitle {
+  font-size: 1.3em;
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  width: 100%;
+  color:lightblue;  
+  -webkit-text-stroke-width: .5px;
+  -webkit-text-stroke-color:maroon;
+}
+.card-added {
+  font-size: 1em;
+  position: absolute;
+  top: 50%;
+  left: 75%;
+  width: 100%;
+  color:lightblue;  
+  -webkit-text-stroke-width: .5px;
+  -webkit-text-stroke-color:maroon;
+}
   img {
     position: relative;
     width: 100%;
@@ -18,14 +49,7 @@ background-color: teal;
     align-items: center;
     border-bottom-color: turquoise;
   }
-  .card-title {
-    position: absolute;
-    top: 43%;
-    font-size: 2.0em;
-    width: 100%;
-    font-weight: bold;
-    color: teal;
-  }
+
   .full-image-f{
     width: 100%;
     height: 100%;
@@ -42,13 +66,7 @@ background-color: teal;
 .my-card-f.card{
   overflow: visible;
 }
-  .card-subtitle {
-    font-size: 1.7em;
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    color: maroon;
-  }
+
 
 }
 

@@ -17,6 +17,7 @@ export class MyDecksPage {
   public rootPage: any = MyDecksPage;
   public profile: any;
   public items: any;
+  public deckToSend: any;
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController,
     public translateService: TranslateService,
@@ -67,12 +68,16 @@ export class MyDecksPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyDecksPage');
   }
-  openCard(deckId) {
+  openDeck(deckId) {
     this.deckService.getAllCardsInADeck(deckId);
     this.navCtrl.push(CardViewerPage)
   }
-  editDeck() {
-    this.navCtrl.setRoot(EditDeckPage)
+  editDeck(deckId) {
+    console.log('Deck to edit');
+    console.log(deckId);
+    this.deckService.deckEditCards = this.deckService.getAllCardsInADeck(deckId);
+    this.cameraService.showLoading(1500);
+    this.navCtrl.setRoot(EditDeckPage);
   }
 
   deleteDeck(index, deckName) {
@@ -88,6 +93,7 @@ export class MyDecksPage {
         {
           text: 'Yes',
           handler: () => {
+
             this.deckService.deleteADeck(index, this.profile.id);
             this.navCtrl.setRoot(MyDecksPage)
           }

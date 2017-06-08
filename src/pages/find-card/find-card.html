@@ -11,12 +11,13 @@
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <ion-title>{{deckTitle}}</ion-title>
   <ion-list>
-    <ion-item *ngFor="let item of items; let i=index" (click)="markCard(item.id, i)">
+    <ion-item tappable *ngFor="let item of items; let i=index" (click)="markCard(item.id, i)">
       <ion-avatar item-start>
         <img [src]="item.imgUrl">
       </ion-avatar>
       <h2>{{item.wordMap[nativeLang]}}</h2>
-      <p>{{item.wordMap[learningLang]}}</p>
+      <!--<p>{{item.wordMap[learningLang]}}</p>-->
+      <p>{{item.wordMap[learnLang]}}</p>
       <ion-icon [name]="item.status" color="primary" item-end></ion-icon>
     </ion-item>
   </ion-list>

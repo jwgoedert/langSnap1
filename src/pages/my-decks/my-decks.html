@@ -11,13 +11,13 @@
   <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
   <ion-list>
       <ion-item-sliding class="my-card" *ngFor="let item of items">
-        <ion-item class="my-decks-deck" (click)="openCard(item.id)">
+        <ion-item class="my-decks-deck" (click)="openDeck(item.id)">
           <img class="full-image" [src]="item.cards[0].imgUrl" />
           <div class="card-title">{{item.name}}</div>
-          <div class="card-subtitle">{{item.stars}}Stars!</div>
+          <div class="card-subtitle">{{item.cards.length}} Cards</div>
         </ion-item>
         <ion-item-options side="right">
-          <button ion-button color="primary" (click)="editDeck()">
+          <button ion-button color="primary" (click)="editDeck(item.id)">
         <ion-icon name="text"></ion-icon>
         Edit
       </button>
