@@ -30,7 +30,7 @@ export class EditDeckPage {
   constructor(public navCtrl: NavController,
     public translateService: TranslateService,
     public languageService: LanguageService,
-    oauthService: OAuthService,
+    private oauthService: OAuthService,
     public cameraService: CameraService,
     public deckService: DeckService,
     public alertCtrl: AlertController) {
@@ -77,12 +77,12 @@ export class EditDeckPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditDeckPage');
-
   }
 
   addCard() {
     this.navCtrl.setRoot(EditDeckAddPage, { deckId: this.deck.id, deckName: this.deckName });
   }
+  
   removeCardFromUserDeck(itemId, index) {
     let confirm = this.alertCtrl.create({
       title: `Sure you want to delete this Card?`,

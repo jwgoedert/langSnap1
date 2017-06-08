@@ -24,7 +24,6 @@ export class FindCardPage {
   public chosenCards: Array<any>;
   public deck: Array<any>;
   public added: string;
-  public addIcon: string;
   public deckTitle: string;
   public displayCards: Array<any> = [];
 
@@ -33,24 +32,18 @@ export class FindCardPage {
     public navCtrl: NavController,
     public translateService: TranslateService,
     public languageService: LanguageService,
-    oauthService: OAuthService,
+    private oauthService: OAuthService,
     public cameraService: CameraService,
     public deckService: DeckService) {
     oauthService.getProfile().toPromise()
       .then(profile => {
-        console.log(profile, 'profile')
         this.profile = profile;
-        console.log('Params in findCards');
-        console.log(JSON.stringify(this.navParams));
-
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.nativeLang = this.languageService.translateLang(this.profile.nativeLang);
-        // this.learningLang = this.languageService.translateLang(this.profile.learnLang);
         this.learnLang = this.languageService.translateLang(this.profile.learnLang);
         this.deck = this.deckService.getDeckId();
         this.deckTitle = this.cameraService.getTitle();
         this.items = this.deckService.getAllCards();
-        this.addIcon = "checkmark-circle-outline";
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
@@ -62,8 +55,6 @@ export class FindCardPage {
           card.wordMap = JSON.parse(card.wordMap);
         }
         card['status'] = '';
-        // console.log('card in findcard unstringified') 
-        // console.log(card)
         return card;
       })
       this.initializeItems();
