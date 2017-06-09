@@ -33,17 +33,11 @@ export class QuizResultsPage {
     if (this.score >= 70) {
      let confirm = this.alertCtrl.create({
         title: `Congratulations! You're doing a great job! Keep up the good work.`,
-        message: 'Don\'t forget to share your progress woth your firends!',
+        message: 'Don\'t forget to share your progress with your friends!',
         buttons: [
           {
             text: 'Close.',
             handler: () => {
-            }
-          },
-          {
-            text: 'Share to Facebook',
-            handler: () => {
-              this.facebookShare();
             }
           },
         ]

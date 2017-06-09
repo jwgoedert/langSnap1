@@ -63,7 +63,7 @@ export class QuizPage {
       // console.log("this.answerChoiceArray")
       this.answerService.clearChoiceArray();
       this.makeQuizChoiceArray();
-    }, 500);
+    }, 1500);
   }
 
   swipeLeftEvent(index) {

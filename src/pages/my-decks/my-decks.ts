@@ -27,7 +27,6 @@ export class MyDecksPage {
     public deckService: DeckService, ) {
     oauthService.getProfile().toPromise()
       .then(profile => {
-        console.log(profile, 'profile')
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.deckService.getUsersDecks(this.profile.id)

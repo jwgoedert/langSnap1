@@ -95,6 +95,7 @@ export class FindAddDeckPage {
   goHome() {
     this.navCtrl.setRoot(HomePage)
   }
+  
   editDeck() {
     this.navCtrl.setRoot(MyDecksPage)
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { AlertController } from 'ionic-angular';
+import { Config } from '../config';
 
 @Injectable()
 export class PhraseService {
@@ -11,16 +11,23 @@ export class PhraseService {
   public translatedPhrase: string;
   public nativeSentence: string;
 
-  constructor(public http: Http, public alertCtrl: AlertController) {
+  constructor(
+    public http: Http, 
+    public config: Config) {
     this.http = http;
-    this.alertCtrl = alertCtrl;
   }
 
+  setTargetTrasnlationLang(source, target) {
+    this.source = source;
+    this.target = target;
+  }
+
+  // gets a phrase for a card word
   getPhrase(word) {
     if (word.split('').length > 1){
       word = word.split(' ')[0]
     }
-    return this.http.get(`http://52.14.252.211/v1/oxford/sentence/word/${word}`)
+    return this.http.get(`${this.config.serverUrl}/oxford/sentence/word/${word}`)
     .map(phrase => phrase)
     .subscribe(phrase => {
       this.translatedPhrase = "";
@@ -43,23 +50,7 @@ export class PhraseService {
     }), error => console.log(JSON.stringify(error));
   }
 
-  translatePhrase(phrase) {
-    if (this.target === 'en') {
-      this.translatedPhrase = this.sentence;
-    } else {
-      let tranlationData = {
-        "q": phrase,
-        "source": 'en',
-        "target": this.target
-      }
-      return this.http.post('http://52.14.252.211/v1/googletranslate/sentence', tranlationData)
-      .map(translate => translate.json())
-      .subscribe(resp => {
-        this.translatedPhrase = resp.data.translations[0].translatedText;
-        return this.translatedPhrase;
-      })
-    }
-  }
+  // translates the phrase into the users native language
   nativePhrase(phrase) {
     if (this.source === 'en') {
       this.nativeSentence = this.sentence;
@@ -69,7 +60,7 @@ export class PhraseService {
         "source": 'en',
         "target": this.source
       }
-      return this.http.post('http://52.14.252.211/v1/googletranslate/sentence', tranlationData)
+      return this.http.post(`${this.config.serverUrl}/googletranslate/sentence`, tranlationData)
       .map(translate => translate.json())
       .subscribe(resp => {
         this.nativeSentence = resp.data.translations[0].translatedText;
@@ -77,8 +68,24 @@ export class PhraseService {
       })
     }
   }
-  setTargetTrasnlationLang(source, target) {
-    this.source = source;
-    this.target = target;
+  
+  // translates the phrase into the users learning language
+  translatePhrase(phrase) {
+    if (this.target === 'en') {
+      this.translatedPhrase = this.sentence;
+    } else {
+      let tranlationData = {
+        "q": phrase,
+        "source": 'en',
+        "target": this.target
+      }
+      return this.http.post(`${this.config.serverUrl}/googletranslate/sentence`, tranlationData)
+      .map(translate => translate.json())
+      .subscribe(resp => {
+        this.translatedPhrase = resp.data.translations[0].translatedText;
+        return this.translatedPhrase;
+      })
+    }
   }
+
 }
