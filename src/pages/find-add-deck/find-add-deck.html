@@ -11,7 +11,7 @@
   <ion-searchbar (ionInput)="getItems($event)" placeholder="{{ 'SEARCH' | translate }}"></ion-searchbar>
   <ion-list>
     <ion-item-sliding class="my-card-f" *ngFor="let item of items; let i = index">
-      <ion-item class="my-decks-deck-f" (click)="openCard(item.id)">
+      <ion-item tappable class="my-decks-deck-f" (click)="openCard(item.id)">
         <img class="full-image-f" [src]="item.cards[0].imgUrl" />
         <div class="card-title">{{item.name}}</div>
         <div class="card-subtitle">{{item.cards.length}} Cards</div>

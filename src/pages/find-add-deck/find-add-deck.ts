@@ -9,7 +9,7 @@ import { CameraService } from '../../services/camera.service';
 
 import { MyDecksPage } from '../my-decks/my-decks';
 import { HomePage } from '../home/home';
-import { CardViewerPage } from '../card-viewer/card-viewer'
+import { FindAddCardListPage } from '../find-add-card-list/find-add-card-list';
 
 @Component({
   selector: 'page-find-add-deck',
@@ -72,7 +72,7 @@ export class FindAddDeckPage {
 
   openCard(deckId) {
     this.deckService.getAllCardsInADeck(deckId);
-    this.navCtrl.push(CardViewerPage)
+    this.navCtrl.push(FindAddCardListPage, { native: this.languageService.translateLang(this.profile.nativeLang), learning: this.languageService.translateLang(this.profile.learnLang) })
   }
 
   ionViewDidLoad() {
@@ -95,7 +95,7 @@ export class FindAddDeckPage {
   goHome() {
     this.navCtrl.setRoot(HomePage)
   }
-  
+
   editDeck() {
     this.navCtrl.setRoot(MyDecksPage)
   }

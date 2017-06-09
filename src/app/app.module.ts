@@ -24,6 +24,7 @@ import { FindCardPage } from '../pages/find-card/find-card';
 import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { EditDeckAddPage } from '../pages/edit-deck-add/edit-deck-add';
+import { FindAddCardListPage } from '../pages/find-add-card-list/find-add-card-list';
 
 import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
@@ -52,7 +53,8 @@ import { AnswerService } from '../services/answer.service';
     CardViewerPage,
     PhraseModalPage,
     FindCardPage,
-    QuizResultsPage
+    QuizResultsPage,
+    FindAddCardListPage
   ],
   imports: [
     BrowserModule,
@@ -83,7 +85,8 @@ import { AnswerService } from '../services/answer.service';
     CardViewerPage,
     PhraseModalPage,
     FindCardPage,
-    QuizResultsPage
+    QuizResultsPage,
+    FindAddCardListPage
   ],
   providers: [
     Config,
