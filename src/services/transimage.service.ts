@@ -6,7 +6,6 @@ import { Config } from '../config';
 @Injectable()
 export class TransImageService {
  translationUpdate: EventEmitter<string> = new EventEmitter();
- private serverUrl = 'http://52.14.252.211';
  public googleReq: any;
  public picUrl: any;
  public word: any;
@@ -16,6 +15,7 @@ export class TransImageService {
  public target: any;
  public nativeLang: string;
  public learnLang: string;
+ public nativeWord: string;
 
  constructor(public http: Http,
   public alertCtrl: AlertController, 
@@ -47,22 +47,12 @@ export class TransImageService {
   return this.http.post(`https://api.cloudinary.com/v1_1/${this.config.cloudinary.cloudId}/image/upload`, form)
    .map(info => {
     this.picUrl = info.json().url;
-    console.log('this.picUrl');
-    console.log(this.picUrl);
-    console.log(JSON.stringify(this.picUrl));
-    console.log('this.picUrl');
     return this.picUrl;
    }).toPromise()
    .then((url) => {
-     console.log('hi my name is Earl');
-     console.log(url);
-     console.log('hi my name is Earl');
     return this.getGoogle(url, this.nativeLang, this.learnLang)
    })
    .then((word) => {
-     console.log('word up yo');
-     console.log(JSON.stringify(word));
-     console.log('word up yo');
     this.word = word
    })
    .catch(err => {
@@ -71,33 +61,16 @@ export class TransImageService {
  }
  
   getGoogle(imgUrl, nativeLang, learnLang) {
-    console.log('before using google OCR on the image');
-    console.log(imgUrl);
-    console.log('before using google OCR on the image');
-  return this.http.post(`${this.serverUrl}/v1/googleocr`, { url: imgUrl })
-    .map(res => {
-      console.log('response from googleORNLKSDGJHSD:G');
-      console.log('response from googleORNLKSDGJHSD:G');
-      console.log(res);
-      console.log(JSON.stringify(res));
-      // console.log(res.json());
-      console.log('response from googleORNLKSDGJHSD:G');
-      return res;
-    }).subscribe(data => {
-    console.log('this is OCR Response!!!');
-    console.log('before using google OCR on the image');
-    console.log(JSON.stringify(data));
-    console.log(data['_body']);
+  return this.http.post(`${this.config.serverUrl}/googleocr`, { url: imgUrl })
+    .map(res => res)
+    .subscribe(data => {
     this.word = data['_body'];
-    console.log(this.word);
-    console.log('before using google OCR on the image');
-    console.log('before using google OCR on the image');
+    this.nativeWord = data['_body'];
     return this.googleWord(this.word, this.nativeLang, this.learnLang);
     
   })
   , err => {
-    console.log('error in err block after subscribe google ocr');
-    console.log(err)
+    console.error(err);
   }
 
   }
@@ -108,23 +81,9 @@ export class TransImageService {
     "source": source,
     "target": target,
    }
-   console.log('before I go get a sentence from google');
-   console.log(word);
-   console.log(source);
-   console.log(target);
-   console.log('before I go get a sentence from google');
-    return this.http.post(`${this.serverUrl}/v1/googletranslate/sentence`, tranlationData)
+    return this.http.post(`${this.config.serverUrl}/googletranslate/sentence`, tranlationData)
       .map(translate => {
-   console.log('after I go get a sentence from google');
-   console.log('after I go get a sentence from google');
-   console.log(JSON.stringify(translate));
-   console.log('after I go get a sentence from google');        
-        console.log('man on the inside yo');
         this.word = JSON.parse(translate['_body']).data.translations[0].translatedText;
-        console.log("this.word");
-        console.log(this.word);
-        console.log("this.word");
-        
         return this.word;
       })
       .subscribe(resp => {
@@ -139,6 +98,10 @@ export class TransImageService {
 ​
   getWord() {
    return this.word;
+  }
+
+  getNativeWord() {
+    return this.nativeWord;
   }
 ​
   getTranslation(word) {

@@ -58,12 +58,8 @@ import { TransImageService } from '../services/transimage.service';
     PhraseModalPage,
     FindCardPage,
     QuizResultsPage,
-<<<<<<< HEAD
-    FindAddCardListPage
-=======
+    FindAddCardListPage,
     TransImagePage,
-    TransViewerPage,
->>>>>>> (feat) Start refactor of trans-image for google ocr
   ],
   imports: [
     BrowserModule,
@@ -95,12 +91,8 @@ import { TransImageService } from '../services/transimage.service';
     PhraseModalPage,
     FindCardPage,
     QuizResultsPage,
-<<<<<<< HEAD
-    FindAddCardListPage
-=======
+    FindAddCardListPage,
     TransImagePage,
-    TransViewerPage
->>>>>>> (feat) Start refactor of trans-image for google ocr
   ],
   providers: [
     Config,

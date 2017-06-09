@@ -32,6 +32,7 @@ export class TransImagePage {
   public translatedWord;
   public nativeLang: string;
   public learnLang: string;
+  public native: string;
 
   constructor(
     public navCtrl: NavController,
@@ -85,11 +86,7 @@ export class TransImagePage {
         this.transImageService.showLoading(5000);
         setTimeout(() => {
           this.fourN = this.transImageService.getWord();
-          console.log('wrapping in a foreign country');
-          console.log(this.fourN);
-          console.log('wrapping in a foreign country');
-          // this.transImageService.getTranslation(this.fourN)
-          // this.navCtrl.setRoot(TransViewerPage)
+          this.native = this.transImageService.getNativeWord();
         }, 3000)
       })
   }
@@ -141,11 +138,6 @@ export class TransImagePage {
 
         setTimeout(() => {
           this.fourN = this.transImageService.getWord();
-          console.log('wrapping in a foreign country');
-          console.log(this.fourN);
-          console.log('wrapping in a foreign country');
-          // this.transImageService.getTranslation(this.fourN)
-          // this.navCtrl.setRoot(TransViewerPage)
         }, 3000)
       })
   }
