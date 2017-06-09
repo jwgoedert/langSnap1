@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { AlertController } from 'ionic-angular';
-import { OAuthProfile } from '../pages/oauth/models/oauth-profile.model';
+
 import { Config } from '../config';
+
 @Injectable()
 export class DeckService {
-  private serverDBUrl = `http://52.14.252.211`;
-  // private serverDBUrl = `http://b79754e7.ngrok.io`;
-  public usersDecks: any;
-  public allDecks: any;
-  public allCards: any;
-  public allCardsInADeck: any;
+  // private serverDBUrl = `http://52.14.252.211`;
+  public usersDecks: Array<any> = [];
+  public allDecks: Array<any> = [];
+  public allCards: Array<any> = [];
   public deckId: any;
   public deckName: any;
   public currentDeck: Array<any> = [];
@@ -20,57 +18,63 @@ export class DeckService {
 
   constructor(
     public http: Http,
-    public alertCtrl: AlertController,
-    public config: Config) {
+    private config: Config) {
     this.http = http;
-    this.alertCtrl = alertCtrl;
-    this.usersDecks = [];
-    this.allDecks = [];
-    this.allCards = [];
   }
-
+  // adds a card to current deck creation for page display
   addToDeckCreation(card) {
     this.creatingDeck.push(card);
   }
+
+  // edit card in current deck creation in case user changes their word 
   editDeckCreation(word) {
     this.creatingDeck[this.creatingDeck.length - 1]['word'] = word;
   }
+
+  // returns the creation deckk for page display
   deckCreation() {
     return this.creatingDeck;
   }
+
   clearDeckCreation() {
     this.creatingDeck = [];
   }
-  //create deck page
+
+  getDeckId() {
+    return this.deckId;
+  }
+
+  getCurrentDeck() {
+    return this.currentDeck;
+  }
+
+  // posts a deck to a user 
   postUserDeck(deckName, userId) {
     let reqBody = {
       "name": deckName,
       "user_id": userId,
       "stars": 5
     }
-    return this.http.post(`${this.serverDBUrl}/v1/decks/new`, reqBody)
+    return this.http.post(`${this.config.serverUrl}/decks/new`, reqBody)
       .map(deck => deck.json())
       .subscribe(deckObj => {
         this.deckId = deckObj.id;
         return deckObj.id;
       }), error => console.log(error);
   }
-  //post cards to deck
-  getDeckId() {
-    return this.deckId;
-  }
+
+  //post cards to a users deck
   postCardToUserDeck(addCard) {
-    this.http.post(`${this.serverDBUrl}/v1/cards/addcard`, addCard)
+    this.http.post(`${this.config.serverUrl}/cards/addcard`, addCard)
       .map(deck => deck.json())
       .subscribe(deckObj => {
         return deckObj.id;
       }), error => console.log(error);
 
   }
+
   postCardsToUserDeck(addCards) {
-    // console.log('ADDCARDS');
-    // console.log(JSON.stringify(addCards));
-    this.http.post(`${this.serverDBUrl}/v1/decks/addcards`, addCards)
+    this.http.post(`${this.config.serverUrl}/decks/addcards`, addCards)
       .map(deck => deck)
       .subscribe(deckres => deckres),
       error => {
@@ -78,10 +82,21 @@ export class DeckService {
         console.log(error);
       }
   }
-  //mydecks page
+
+  addDecksToUser(addDecks) {
+    this.http.post(`${this.config.serverUrl}/decks/adddecks`, addDecks)
+      .map(deck => deck)
+      .subscribe(deckres => deckres),
+      error => {
+        console.log('Error adding cards');
+        console.log(error);
+      }
+  }
+
+  // gets  all user decks 
   getUsersDecks(userId) {
     this.usersDecks = [];
-    return this.http.get(`${this.serverDBUrl}/v1/decks/userid/${userId}`)
+    return this.http.get(`${this.config.serverUrl}/decks/userid/${userId}`)
       .map(deck => deck.json().forEach(el => {
         this.usersDecks.push(el);
         return this.usersDecks;
@@ -91,8 +106,10 @@ export class DeckService {
       }), error => console.log(error);
   }
 
+  // gets  all cards for a specific deck 
   getAllCardsInADeck(userDeckId) {
-    return this.http.get(`${this.serverDBUrl}/v1/cards/deckid/${userDeckId}`)
+    this.currentDeck = []
+    return this.http.get(`${this.config.serverUrl}/cards/deckid/${userDeckId}`)
       .map(deck => deck.json().forEach(el => {
         this.currentDeck.push(el);
         return el;
@@ -106,27 +123,19 @@ export class DeckService {
               reallSorry: "Seriously Pick Another Deck Already."
             })
           }
-          this.emptyCurrentDeck();
           return this.currentDeck;
         } else {
           this.deckEditCards = this.currentDeck;
-          this.emptyCurrentDeck();
           return this.currentDeck;
         }
       }), error => console.log(error);
   }
-  getCurrentDeck() {
-    return this.currentDeck;
-  }
-  emptyCurrentDeck() {
-    setTimeout(() => {
-      this.currentDeck = [];
-    }, 2000)
-  }
 
-  //find/add decks page
+
+  // get all decks for all users 
   getAllDecks() {
-    this.http.get(`${this.serverDBUrl}/v1/decks/all`)
+    this.allDecks = [];
+    this.http.get(`${this.config.serverUrl}/decks/all`)
       .map(deck => deck.json().forEach(el => {
         this.allDecks.push(el);
         return this.allDecks;
@@ -135,19 +144,10 @@ export class DeckService {
         return this.allDecks;
       }), error => console.log(error);
   }
-  addDecksToUser(addDecks) {
-    this.http.post(`${this.serverDBUrl}/v1/decks/adddecks`, addDecks)
-      .map(deck => deck)
-      .subscribe(deckres => deckres),
-      error => {
-        console.log('Error adding cards');
-        console.log(error);
-      }
 
-  }
-  //find a card-get all cards everywhere....
+  //gets all cards from all users so user can add cards to their own deck
   getAllCards() {
-    this.http.get(`${this.serverDBUrl}/v1/cards/all`)
+    this.http.get(`${this.config.serverUrl}/cards/all`)
       .map(cards => {
         return cards.json()
       })
@@ -158,12 +158,12 @@ export class DeckService {
             this.allCards.push(card);
           }
         })
-
         return allCards;
       })
   }
+
   deleteADeck(deckId, userId) {
-    this.http.delete((`${this.serverDBUrl}/v1/decks/${deckId}`))
+    this.http.delete((`${this.config.serverUrl}/decks/${deckId}`))
       .map(res => res)
       .subscribe(resp => {
         return resp;
@@ -171,15 +171,14 @@ export class DeckService {
         console.log(JSON.stringify(err));
       }
   }
+
   deleteCardFromUserDeck(userId, deckId, itemId) {
-    this.http.delete((`${this.serverDBUrl}/v1/decks/userid/${userId}/deckid/${deckId}/cardid/${itemId}`))
+    this.http.delete((`${this.config.serverUrl}/decks/userid/${userId}/deckid/${deckId}/cardid/${itemId}`))
       .map(res => res)
       .subscribe(resp => {
         return resp;
       }), err => {
         console.log(JSON.stringify(err));
       }
-
-
   }
 }

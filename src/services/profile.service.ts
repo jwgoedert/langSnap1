@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { AlertController } from 'ionic-angular';
 import { OAuthProfile } from '../pages/oauth/models/oauth-profile.model';
+import { Config } from '../config';
 
 @Injectable()
 export class ProfileService {
   public http: Http;
   public data: any;
   constructor(http: Http,
-    public alertCtrl: AlertController) {
+    public config: Config) {
     this.http = http;
-    this.alertCtrl = alertCtrl;
   }
-	public checkUser(userName, source): Promise<OAuthProfile> {
+	checkUser(userName, source): Promise<OAuthProfile> {
     if (userName.split(' ').length === 3) {
       userName = [userName.split(' ')[0], userName.split(' ')[2]].join(' ');
     }
-    return this.http.get(`http://52.14.252.211/v1/users/auth/${source}/${userName}`)
+    return this.http.get(`${this.config.serverUrl}/users/auth/${source}/${userName}`)
       .map(data => {
         this.data = data['_body'];
         if (this.data === "{}") {
@@ -57,7 +56,7 @@ export class ProfileService {
     }
 
     updateUser(user) {
-      this.http.post('http://52.14.252.211/v1/users/findorcreate', user)
+      this.http.post(`${this.config.serverUrl}/users/findorcreate`, user)
         .subscribe(data => {
           this.data = JSON.stringify(data);
           return data;

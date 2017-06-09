@@ -32,7 +32,6 @@ export class MyApp {
         { title: 'Login', component: OAuthProvidersListPage, icon: 'log-in' },
         { title: 'Home', component: HomePage, icon: 'home' },
         { title: 'My Decks', component: MyDecksPage, icon: 'albums' },
-        // { title: 'Shared Decks', component: FindAddDeckPage, icon: 'search' },
         { title: 'Find/Add Decks', component: FindAddDeckPage, icon: 'search' },
         { title: 'Create Decks', component: CreateDeckPage, icon: 'add' },
         { title: 'Profile', component: ProfilePage, icon: 'person' },

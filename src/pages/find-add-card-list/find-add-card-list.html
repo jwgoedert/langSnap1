@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+    <ion-title>{{ deckTitle }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let card of cards; let i=index">
+      <ion-avatar item-start>
+        <img [src]="card.imgUrl">
+      </ion-avatar>
+      <h2>{{card.wordMap[nativeLang]}}</h2>
+      <p>{{card.wordMap[learnLang]}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <button ion-button full (click)="goHome()" outline>{{ 'HOME' | translate }}</button>
+</ion-footer>
+

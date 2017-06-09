@@ -27,7 +27,7 @@ export class CardViewerPage {
   public deckId: number;
   public deckTitle: string;
   public deckLanguage: any;
-  public index: any;
+  public index: any = 0;
   public langIndex: number = 0;
 
   constructor(public navCtrl: NavController,
@@ -75,24 +75,29 @@ export class CardViewerPage {
 
   slideChanged() {
     this.index = this.slides.getActiveIndex();
-    if (this.index <= 0) {
+    if (this.index < 0) {
       this.slides.lockSwipeToPrev(true)
       this.index = 0;
-    } else if (this.index >= this.deck.length - 1) {
+    } else if (this.index > this.deck.length - 1) {
       this.slides.lockSwipeToNext(true)
       this.index = this.deck.length - 1;
     }
-    else {
-      this.slides.lockSwipeToPrev(false)
-      this.slides.lockSwipeToNext(false)
-    }
     if (this.index > 0 || this.index < this.deck.length - 1) {
       this.langIndex = 0;
-      this.wordsTranslations = JSON.parse(this.deck[this.slides.getActiveIndex()].wordMap)
+      this.wordsTranslations = JSON.parse(this.deck[this.index].wordMap)
       this.word = this.wordsTranslations[this.wordsLanguages[0]];
     }
   }
-  
+  swipeLeftEvent(index) {
+    if (index < this.deck.length - 1) {
+      this.slides.lockSwipeToNext(false)
+    }
+  }
+  swipeRightEvent(index) {
+    if (index > 0) {
+      this.slides.lockSwipeToPrev(false)
+    }
+  }
   flip(index) {
     if (this.word === this.wordsTranslations[this.wordsLanguages[0]]){
       this.word = this.wordsTranslations[this.wordsLanguages[1]];
@@ -114,7 +119,7 @@ export class CardViewerPage {
     this.answerService.cardAnswer(this.deckId, this.deck[this.index].id, 'bad')
   }
   presentPhraseModal() {
-   let profileModal = this.modalCtrl.create(PhraseModalPage, { word:  JSON.parse(this.deck[this.slides.getActiveIndex()].wordMap)['en']});
+   let profileModal = this.modalCtrl.create(PhraseModalPage, { word:  JSON.parse(this.deck[this.index].wordMap)['en']});
    profileModal.present();
  }
   takeAQuiz() {

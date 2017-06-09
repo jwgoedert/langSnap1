@@ -1,19 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { AlertController } from 'ionic-angular';
+import { Config } from '../config';
 
 @Injectable()
 export class AnswerService {
-  public http: Http;
   private learningLanguage: string;
   public deck: Array<any>;
   public answerChoices: Array<string> = [];
 
-  constructor(http: Http,
-    public alertCtrl: AlertController) {
+  constructor(
+    public http: Http,
+    private config: Config) {
     this.http = http;
-    this.alertCtrl = alertCtrl;
   }
+
+  clearChoiceArray() {
+    this.answerChoices = [];
+  }
+
+  setLearnLang(lang) {
+    this.learningLanguage = lang;
+  }
+
+  // function to change time intervals on card for user
   cardAnswer(deckId, cardId, choice) {
     let answer = {
       "deck_id": deckId,
@@ -21,8 +30,9 @@ export class AnswerService {
       "answer": choice
     }
 
-    return this.http.post('http://52.14.252.211/v1/cards/paginganswer', answer)
+    return this.http.post(`${this.config.serverUrl}/cards/paginganswer`, answer)
       .map(response => {
+        console.log('still working')
         return response
       })
       .subscribe(resp => {
@@ -30,18 +40,15 @@ export class AnswerService {
       })
   }
 
-  setLearnLang(lang) {
-    this.learningLanguage = lang;
-  }
-
+  // get 10 random cards from the deck user is being quizzed on
   getCards(userDeckId) {
-    return this.http.get(`http://52.14.252.211/v1/cards/deckid/${userDeckId}`)
+    return this.http.get(`${this.config.serverUrl}/cards/deckid/${userDeckId}`)
       .map(deck => deck.json())
       .subscribe(deck => {
         deck[0].cards.forEach(card => {
           this.answerChoices.push(JSON.parse(card.wordMap)[this.learningLanguage]);
         });
-        if (deck[0].length > 10){
+        if (deck[0].cards.length > 10){
           this.deck = deck[0].cards.sort(() => 0.5 - Math.random()).slice(0,10);
           return this.deck;
         } else {
@@ -50,9 +57,4 @@ export class AnswerService {
         }
       }), error => console.log(error);
   }
-
-  clearChoiceArray() {
-    this.answerChoices = [];
-  }
-
 }

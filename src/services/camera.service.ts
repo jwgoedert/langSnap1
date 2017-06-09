@@ -37,12 +37,8 @@ export class CameraService {
     setTimeout(() => {
       loading.dismiss();
     }, wait);
-    //   this.loading = this.loadingCtrl.create({
-    //     content: 'Learning takes time...',
-    //     duration: 3000,
-    //     dismissOnPageChange: true
-    //   }).present();
   }
+  
   sendPic(form) {
     console.log('inside send pic')
     console.log(form)
@@ -77,12 +73,6 @@ export class CameraService {
     })
       .subscribe(word => {
         this.word = word
-        // var formError = this.alertCtrl.create({
-        //  title: "Other Form",
-        //  subTitle: JSON.stringify(word),
-        //  buttons: ['close']
-        // });
-        // formError.present(formError);
         console.log(this.word)
         return this.googleWord(this.word, 'en');
         // call get 
@@ -98,19 +88,13 @@ export class CameraService {
       "q": word,
       "source": source,
     }
-    return this.http.post('http://52.14.252.211/v1/googletranslate/wordmap', tranlationData)
+    return this.http.post(`${this.config.serverUrl}/googletranslate/wordmap`, tranlationData)
       .map(translate => {
         this.word = JSON.parse(translate['_body'])[this.source];
         this.wordMap = JSON.parse(translate['_body']);
         console.log("JSON.stringify(this.wordMap)")
         console.log(JSON.stringify(this.wordMap))
         console.log("JSON.stringify(this.wordMap)")
-        // var formError = this.alertCtrl.create({
-        //  title: JSON.stringify(JSON.parse(translate['_body'])[this.source]),
-        //  subTitle: JSON.stringify(JSON.parse(translate['_body'])[this.source]),
-        //  buttons: ['close']
-        // });
-        // formError.present(formError);
         console.log("this.word")
         console.log(this.word)
         console.log("this.word")

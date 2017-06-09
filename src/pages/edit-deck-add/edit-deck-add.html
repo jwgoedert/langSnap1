@@ -3,20 +3,12 @@
     <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-    <!--<ion-title>{{ 'CREATE_DECK' | translate }}</ion-title>-->
-    <ion-title>Add Cards to Deck!</ion-title>
+    <ion-title>{{ 'ADD_CARD' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content *ngIf="!!picUrl">
-  this is image my friends:{{picUrl}}
-</ion-content>
 
 <ion-content padding>
   <ion-content>
-    <!--<form (click)="addATitle(addATitle.title); titleForm.reset()" #titleForm="ngForm" *ngIf="!title">
-      <ion-input type="text" [(ngModel)]="addATitle.title" name="title" placeholder="{{ 'DECK_TITLE' | translate }}"></ion-input>
-      <button type="button" class="add_title_btn" ion-button outline >{{ 'ADD_TITLE' | translate }}</button>
-    </form>-->
   <h3>{{ title }}</h3>
   <ion-list >
     <ion-card>
@@ -60,7 +52,6 @@
 
     </ion-row>
   </ion-grid>
-  <!--<button ion-button full (click)="createDeck()" outline>{{ 'CREATE_DECK' | translate }}</button>-->
-  <button ion-button full (click)="createDeck()" outline>Add Cards to Deck!</button>
+  <button ion-button full (click)="createDeck()" outline>{{ 'ADD_CARD' | translate }}</button>
 </ion-footer>
 

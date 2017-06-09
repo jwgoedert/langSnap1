@@ -55,14 +55,15 @@ export class QuizPage {
       this.cards = this.answerService.deck;
       console.log("this.cards")
       console.log(JSON.stringify(this.cards))
+      console.log(JSON.stringify(this.cards.length))
       console.log("this.cards")
       this.answerChoiceArray = this.answerService.answerChoices;
-      console.log("this.answerChoiceArray")
-      console.log(JSON.stringify(this.answerChoiceArray))
-      console.log("this.answerChoiceArray")
+      // console.log("this.answerChoiceArray")
+      // console.log(JSON.stringify(this.answerChoiceArray))
+      // console.log("this.answerChoiceArray")
       this.answerService.clearChoiceArray();
       this.makeQuizChoiceArray();
-    }, 500);
+    }, 1500);
   }
 
   swipeLeftEvent(index) {
@@ -70,21 +71,15 @@ export class QuizPage {
       let currentPos = index + 1
     }
     this.index += 1;
-
   }
   swipeRightEvent(index) {
     if (index > 0) {
       let currentPos = index - 1;
     }
     this.index -= 1;
-    // this.slides.slideNext()
-    // this.slides.lockSwipes(true);
-    
   }
 
   slideChanged() {
-    // this.slides.slideNext()
-    // this.slides.slideTo()
     this.slides.lockSwipeToPrev(true);
   }
   chooseAnswer(choice, pos){
@@ -103,9 +98,7 @@ export class QuizPage {
       this.solutionsArray[this.slides.getActiveIndex()].shift()
       this.solutionsArray[this.slides.getActiveIndex()].unshift(choice.word);
     }
-    console.log('This is the answer:');
-    console.log(JSON.stringify(status), pos);
-    console.log(JSON.stringify(this.solutionsArray));
+  
     if (this.slides.getActiveIndex() === this.cards.length - 1) {
       this.compareAnswers();
     }
@@ -114,9 +107,6 @@ export class QuizPage {
     this.slides.lockSwipes(true);
   }
   compareAnswers() {
-    console.log("COMPARE ANSWERS");
-    console.log(JSON.stringify(this.solutionsArray));
-    console.log("COMPARE ANSWERS");
     let images = [];
     this.cards.forEach((card) => {
       images.push(card.imgUrl)
