@@ -1,32 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Nav } from 'ionic-angular';
-import { TranslateService } from '@ngx-translate/core';
-import { OAuthService } from '../oauth/oauth.service';
-import { LanguageService } from '../../services/language.service';
+import { IonicPage, NavController, NavParams, Nav, Slides } from 'ionic-angular';
 
+/**
+ * Generated class for the AboutUsPage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+@IonicPage()
 @Component({
   selector: 'page-about-us',
   templateUrl: 'about-us.html',
 })
 export class AboutUsPage {
   @ViewChild(Nav) nav: Nav;
-
-  public rootPage: any = AboutUsPage;
-  public profile: any;
-
-  constructor(public navCtrl: NavController, 
-  public translateService: TranslateService,
-  oauthService: OAuthService,
-  public languageService: LanguageService) {
-    oauthService.getProfile().toPromise()
-        .then(profile => {
-          this.profile = profile;
-          translateService.use(languageService.translateLang(this.profile.nativeLang));
-        })
-        .catch(err => {
-          console.log("Error" + JSON.stringify(err))
-        }); 
-  }
+   @ViewChild(Slides) slides: Slides;
+   backimg: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+     this.backimg = "http://www.iexpats.com/wp-content/uploads/2016/06/foreign-flags.jpg";
+}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AboutUsPage');

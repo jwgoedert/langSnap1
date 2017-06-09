@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { HomePage } from '../pages/home/home';
 import { OAuthProvidersListPage } from '../pages/oauth/list/oauth-providers.list.page';
+import { AboutUsPage } from '../pages/about-us/about-us';
 import { MyDecksPage } from '../pages/my-decks/my-decks';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
@@ -30,6 +31,7 @@ export class MyApp {
       translate.setDefaultLang('en');
       this.pages = [
         { title: 'Login', component: OAuthProvidersListPage, icon: 'log-in' },
+        { title: 'About Us', component: AboutUsPage, icon: 'home' },
         { title: 'Home', component: HomePage, icon: 'home' },
         { title: 'My Decks', component: MyDecksPage, icon: 'albums' },
         { title: 'Find/Add Decks', component: FindAddDeckPage, icon: 'search' },

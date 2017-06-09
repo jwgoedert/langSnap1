@@ -1,10 +1,16 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/v2/theming/
 $font-path: "../assets/fonts";
-$background-color: paleturquoise;
-
+// $background-color: paleturquoise;
+$background-color: rgb(171, 251, 212);
+// $background:url(http://www.iexpats.com/wp-content/uploads/2016/06/foreign-flags.jpg);
 @import "ionic.globals";
-
+header{
+  background: skyblue;
+}
+.toolbar-background {
+  background-color: blue;
+}
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -60,8 +66,8 @@ $colors: (
 // so that the above variables are used and Ionic's
 // default are overridden.
 
-@import "ionic.theme.default";
-// @import "ionic.theme.dark";
+// @import "ionic.theme.default";
+@import "ionic.theme.dark";
 
 
 // Ionicons
@@ -77,3 +83,12 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+// take the red pill
+$red-background: #fff6f6;
+$red-light: #ffa99c;
+$red-dark: #74000e;
+// take the blue pill
+$blue-background: #f6f6ff;
+$blue-light: #53e1ff;
+$blue-dark: #0034a7;
