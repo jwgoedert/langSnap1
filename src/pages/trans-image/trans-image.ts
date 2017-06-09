@@ -4,7 +4,6 @@ import { NavController, Nav, AlertController, LoadingController } from 'ionic-an
 import { MyDecksPage } from '../my-decks/my-decks';
 import { FindCardPage } from '../find-card/find-card';
 import { CardPage } from '../card/card';
-import { TransViewerPage } from '../trans-viewer/trans-viewer';
 
 import { TranslateService } from '@ngx-translate/core';
 import { OAuthService } from '../oauth/oauth.service';
