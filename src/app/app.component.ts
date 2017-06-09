@@ -11,6 +11,7 @@ import { MyDecksPage } from '../pages/my-decks/my-decks';
 import { FindAddDeckPage } from '../pages/find-add-deck/find-add-deck';
 import { CreateDeckPage } from '../pages/create-deck/create-deck';
 import { ProfilePage } from '../pages/profile/profile';
+import { TransImagePage } from '../pages/trans-image/trans-image';
 
 @Component({
   templateUrl: 'app.html'
@@ -37,6 +38,7 @@ export class MyApp {
         { title: 'Find/Add Decks', component: FindAddDeckPage, icon: 'search' },
         { title: 'Create Decks', component: CreateDeckPage, icon: 'add' },
         { title: 'Profile', component: ProfilePage, icon: 'person' },
+        { title: 'Image To Text', component: TransImagePage, icon: 'person' },
       ];
 
   }

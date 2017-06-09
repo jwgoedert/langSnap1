@@ -25,18 +25,18 @@ import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { EditDeckAddPage } from '../pages/edit-deck-add/edit-deck-add';
 import { FindAddCardListPage } from '../pages/find-add-card-list/find-add-card-list';
 import { AboutUsPage } from '../pages/about-us/about-us';
-
-
 import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
 import { PhraseModalPage } from '../pages/phrase-modal/phrase-modal';
 import { QuizResultsPage } from '../pages/quiz-results/quiz-results';
-import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { TransImagePage } from '../pages/trans-image/trans-image';
+import {TextToSpeech } from '@ionic-native/text-to-speech';
 import { LanguageService } from '../services/language.service';
 import { CameraService } from '../services/camera.service';
 import { DeckService } from '../services/deck.service';
 import { PhraseService } from '../services/phrase.service';
 import { AnswerService } from '../services/answer.service';
+import { TransImageService } from '../services/transimage.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,8 @@ import { AnswerService } from '../services/answer.service';
     PhraseModalPage,
     FindCardPage,
     QuizResultsPage,
-    FindAddCardListPage
+    FindAddCardListPage,
+    TransImagePage,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +88,8 @@ import { AnswerService } from '../services/answer.service';
     PhraseModalPage,
     FindCardPage,
     QuizResultsPage,
-    FindAddCardListPage
+    FindAddCardListPage,
+    TransImagePage,
   ],
   providers: [
     Config,
@@ -99,6 +101,7 @@ import { AnswerService } from '../services/answer.service';
     DeckService,
     PhraseService,
     AnswerService,
+    TransImageService,
     SocialSharing,
     Screenshot,
     TextToSpeech,
