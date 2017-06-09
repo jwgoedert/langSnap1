@@ -40,7 +40,12 @@
   "DONE" : "Done",
   "YOURS" : "Yours",
   "ANSWERS" : "Answers",
-  "CARD" : "Card"
+  "CARD" : "Card",
+  "VIEW" : "View",
+  "ADD" : "Add",
+  "DELETE" : "Delete",
+  "EDIT": "Edit",
+  "IMAGE_TEXT" : "Image to text"  
 }
 
 

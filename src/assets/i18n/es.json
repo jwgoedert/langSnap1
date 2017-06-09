@@ -40,5 +40,10 @@
   "DONE" : "Hecho",
   "YOURS" : "Tuya",
   "ANSWERS" : "Respuestas",
-  "CARD" : "Tarjeta"
+  "CARD" : "Tarjeta",
+  "VIEW" : "Ver",
+  "ADD" : "Añadir",
+  "DELETE" : "Borrar",
+  "EDIT": "Editar",
+  "IMAGE_TEXT" : "Imagen al texto"
 }
