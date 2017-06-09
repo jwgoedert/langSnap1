@@ -6,32 +6,22 @@
     <ion-title>Translate Image Text</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content *ngIf="!!picUrl">
-  this is image my friends:{{picUrl}}
-</ion-content>
 
 <ion-content padding>
   <ion-content>
-    <form (click)="addATitle(addATitle.title); titleForm.reset()" #titleForm="ngForm" *ngIf="!title">
-      <ion-input type="text" [(ngModel)]="addATitle.title" name="title" placeholder="{{ 'DECK_TITLE' | translate }}"></ion-input>
-      <!--<button type="button" class="add_title_btn" ion-button outline >{{ 'ADD_TITLE' | translate }}</button>-->
-      <button type="button" class="add_title_btn" ion-button outline >Add a name to your image!</button>
-      
-    </form>
-  <h3>{{ title }}</h3>
   <ion-list >
-    <ion-card>
-      <ion-item *ngFor="let card of cards; let id = index">
+    <ion-card *ngIf="!!fourN">
+      <ion-item>
         <ion-card>
           <ion-thumbnail item-left>
-            <img [src]="card.image" *ngIf="card.image" />
+            <img [src]="photo" *ngIf="photo" />
           </ion-thumbnail>
         </ion-card>
         <ion-card>
-          <div class=“card-title”>{{card.word}}</div>
+          <div class=“card-title”>{{word}}</div>
         </ion-card>
         <ion-card>
-          <div class=“card-subtitle”>{{card.translation}}</div>
+          <div class=“card-subtitle”>{{fourN}}</div>
         </ion-card>
       </ion-item>
     </ion-card>

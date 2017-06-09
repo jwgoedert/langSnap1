@@ -30,6 +30,8 @@ export class TransImagePage {
   public profile: any;
   public fourN: any;
   public translatedWord;
+  public nativeLang: string;
+  public learnLang: string;
 
   constructor(
     public navCtrl: NavController,
@@ -45,6 +47,9 @@ export class TransImagePage {
     oauthService.getProfile().toPromise()
       .then(profile => {
         this.profile = profile;
+        this.nativeLang = this.languageService.translateLang(this.profile.nativeLang);
+        this.learnLang = this.languageService.translateLang(this.profile.learnLang);
+        this.transImageService.setLearnAndNativeLangs(this.nativeLang, this.learnLang);
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.transImageService.languages(this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang))
       })
@@ -78,12 +83,13 @@ export class TransImagePage {
       }).then(imgFormatted => {
         this.transImageService.sendPic(imgFormatted)
         this.transImageService.showLoading(5000);
-
-        this.transImageService.sendPic(imgFormatted)
         setTimeout(() => {
           this.fourN = this.transImageService.getWord();
-          this.transImageService.getTranslation(this.fourN)
-          this.navCtrl.setRoot(TransViewerPage)
+          console.log('wrapping in a foreign country');
+          console.log(this.fourN);
+          console.log('wrapping in a foreign country');
+          // this.transImageService.getTranslation(this.fourN)
+          // this.navCtrl.setRoot(TransViewerPage)
         }, 3000)
       })
   }
@@ -135,8 +141,11 @@ export class TransImagePage {
 
         setTimeout(() => {
           this.fourN = this.transImageService.getWord();
-          this.transImageService.getTranslation(this.fourN)
-          this.navCtrl.setRoot(TransViewerPage)
+          console.log('wrapping in a foreign country');
+          console.log(this.fourN);
+          console.log('wrapping in a foreign country');
+          // this.transImageService.getTranslation(this.fourN)
+          // this.navCtrl.setRoot(TransViewerPage)
         }, 3000)
       })
   }
