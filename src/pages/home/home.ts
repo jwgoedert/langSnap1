@@ -13,6 +13,9 @@ import { CreateDeckPage } from '../create-deck/create-deck';
 import { FindAddDeckPage } from '../find-add-deck/find-add-deck';
 import { MyDecksPage } from '../my-decks/my-decks';
 import { ProfilePage } from '../profile/profile';
+import { AboutUsPage } from '../about-us/about-us';
+
+
 
 @Component({
   selector: 'page-home',
@@ -56,7 +59,9 @@ export class HomePage {
           console.log("Error" + JSON.stringify(err))
         }); 
 	}
-
+  aboutUsPage(){
+    this.navCtrl.setRoot(AboutUsPage);
+  }
   createPage(){
     this.navCtrl.setRoot(CreateDeckPage);
   }

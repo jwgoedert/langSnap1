@@ -1,6 +1,6 @@
 // @import 'font-awesome';
 // http://ionicframework.com/docs/v2/theming/
-$background-color: teal;
+// $background-color: teal;
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +14,10 @@ $background-color: teal;
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+// @import "../pages/page1/page1";
+
+// @import "../pages/page2/page2";
+
+// @import "./app.blue";
+
+// @import "./app.red";

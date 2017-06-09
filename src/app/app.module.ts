@@ -8,7 +8,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { Camera } from '@ionic-native/camera'; 
+import { Camera } from '@ionic-native/camera';
 import { OAuthModule } from '../pages/oauth/oauth.module';
 import { Config } from '../config';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -21,16 +21,17 @@ import { MyDecksPage } from '../pages/my-decks/my-decks';
 import { CardPage } from '../pages/card/card';
 import { CardViewerPage } from '../pages/card-viewer/card-viewer';
 import { FindCardPage } from '../pages/find-card/find-card';
-import { AboutUsPage } from '../pages/about-us/about-us';
 import { EditDeckPage } from '../pages/edit-deck/edit-deck';
 import { EditDeckAddPage } from '../pages/edit-deck-add/edit-deck-add';
 import { FindAddCardListPage } from '../pages/find-add-card-list/find-add-card-list';
+import { AboutUsPage } from '../pages/about-us/about-us';
+
 
 import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
 import { PhraseModalPage } from '../pages/phrase-modal/phrase-modal';
 import { QuizResultsPage } from '../pages/quiz-results/quiz-results';
-import {TextToSpeech } from '@ionic-native/text-to-speech';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { LanguageService } from '../services/language.service';
 import { CameraService } from '../services/camera.service';
 import { DeckService } from '../services/deck.service';
@@ -39,12 +40,12 @@ import { AnswerService } from '../services/answer.service';
 
 @NgModule({
   declarations: [
+    AboutUsPage,
     MyApp,
     HomePage,
     CreateDeckPage,
     FindAddDeckPage,
-    MyDecksPage, 
-    AboutUsPage,
+    MyDecksPage,
     EditDeckPage,
     EditDeckAddPage,
     QuizPage,
@@ -58,7 +59,7 @@ import { AnswerService } from '../services/answer.service';
   ],
   imports: [
     BrowserModule,
-		HttpModule,
+    HttpModule,
     OAuthModule,
     IonicModule.forRoot(MyApp),
     TranslateModule.forRoot({
@@ -71,12 +72,12 @@ import { AnswerService } from '../services/answer.service';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+    AboutUsPage,
     MyApp,
     HomePage,
     CreateDeckPage,
     FindAddDeckPage,
     MyDecksPage,
-    AboutUsPage,
     EditDeckPage,
     EditDeckAddPage,
     QuizPage,
@@ -101,10 +102,10 @@ import { AnswerService } from '../services/answer.service';
     SocialSharing,
     Screenshot,
     TextToSpeech,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
 
 export function createTranslateLoader(http: Http) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');

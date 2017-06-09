@@ -13,6 +13,7 @@
   <h1>{{ 'WELCOME' | translate }}</h1>
 		<h2>{{profile.firstName}} {{profile.lastName}}!!!</h2>
 			<div padding>
+				<button ion-button round type="button" (click)="aboutUsPage()" block>{{ 'ABOUT_US' | translate }}</button>
 				<button ion-button round type="button" (click)="createPage()" block>{{ 'CREATE_A_DECK' | translate }}</button>
 				<button ion-button round type="button" (click)="findAddPage()" block>{{ 'FIND_ADD_A_DECK' | translate }}</button>
 				<button ion-button round type="button" (click)="myDecksPage()" block>{{ 'MY_DECKS' | translate }}</button>
