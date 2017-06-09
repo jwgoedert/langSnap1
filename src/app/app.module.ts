@@ -31,12 +31,15 @@ import { QuizPage } from '../pages/quiz/quiz';
 import { ProfilePage } from '../pages/profile/profile';
 import { PhraseModalPage } from '../pages/phrase-modal/phrase-modal';
 import { QuizResultsPage } from '../pages/quiz-results/quiz-results';
-import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { TransImagePage } from '../pages/trans-image/trans-image';
+import { TransViewerPage } from '../pages/trans-viewer/trans-viewer';
+import {TextToSpeech } from '@ionic-native/text-to-speech';
 import { LanguageService } from '../services/language.service';
 import { CameraService } from '../services/camera.service';
 import { DeckService } from '../services/deck.service';
 import { PhraseService } from '../services/phrase.service';
 import { AnswerService } from '../services/answer.service';
+import { TransImageService } from '../services/transimage.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +58,12 @@ import { AnswerService } from '../services/answer.service';
     PhraseModalPage,
     FindCardPage,
     QuizResultsPage,
+<<<<<<< HEAD
     FindAddCardListPage
+=======
+    TransImagePage,
+    TransViewerPage,
+>>>>>>> (feat) Start refactor of trans-image for google ocr
   ],
   imports: [
     BrowserModule,
@@ -87,7 +95,12 @@ import { AnswerService } from '../services/answer.service';
     PhraseModalPage,
     FindCardPage,
     QuizResultsPage,
+<<<<<<< HEAD
     FindAddCardListPage
+=======
+    TransImagePage,
+    TransViewerPage
+>>>>>>> (feat) Start refactor of trans-image for google ocr
   ],
   providers: [
     Config,
@@ -99,6 +112,7 @@ import { AnswerService } from '../services/answer.service';
     DeckService,
     PhraseService,
     AnswerService,
+    TransImageService,
     SocialSharing,
     Screenshot,
     TextToSpeech,
