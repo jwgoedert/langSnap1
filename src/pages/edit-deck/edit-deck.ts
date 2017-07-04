@@ -42,7 +42,7 @@ export class EditDeckPage {
         this.learnLang = this.languageService.translateLang(this.profile.learnLang);
 
         this.deckService.getCurrentDeck();
-        this.deck = this.deckService.deckEditCards[0];
+        this.deck = this.deckService.currentDeck[0];
       })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
@@ -72,7 +72,7 @@ export class EditDeckPage {
            }        
         }
         return el;
-      });;
+      });
   }
   getItems(ev) {
     this.initializeItems();
