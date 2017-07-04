@@ -1,16 +1,109 @@
+// // Ionic Variables and Theming. For more info, please see:
+// // http://ionicframework.com/docs/v2/theming/
+// $font-path: "../assets/fonts";
+// // $background-color: paleturquoise;
+// $background-color: rgb(171, 251, 212);
+// // $background:url(http://www.iexpats.com/wp-content/uploads/2016/06/foreign-flags.jpg);
+// @import "ionic.globals";
+// header{
+//   background: skyblue;
+// }
+// .toolbar-background {
+//   background-color: blue;
+// }
+// // Shared Variables
+// // --------------------------------------------------
+// // To customize the look and feel of this app, you can override
+// // the Sass variables found in Ionic's source scss files.
+// // To view all the possible Ionic variables, see:
+// // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+
+
+
+// // Named Color Variables
+// // --------------------------------------------------
+// // Named colors makes it easy to reuse colors on various components.
+// // It's highly recommended to change the default colors
+// // to match your app's branding. Ionic uses a Sass map of
+// // colors so you can add, rename and remove colors as needed.
+// // The "primary" color is the only required color in the map.
+
+// // $colors: (
+// //   primary:   teal,
+// //   secondary:  #32db64,
+// //   danger:     #f53d3d,
+// //   light:      #f4f4f4,
+// //   dark:       #222
+// // );
+
+
+// // App iOS Variables
+// // --------------------------------------------------
+// // iOS only Sass variables can go here
+
+
+
+
+// // App Material Design Variables
+// // --------------------------------------------------
+// // Material Design only Sass variables can go here
+
+
+
+
+// // App Windows Variables
+// // --------------------------------------------------
+// // Windows only Sass variables can go here
+
+
+
+
+// // App Theme
+// // --------------------------------------------------
+// // Ionic apps can have different themes applied, which can
+// // then be future customized. This import comes last
+// // so that the above variables are used and Ionic's
+// // default are overridden.
+
+// @import "ionic.theme.default";
+// // @import "ionic.theme.dark";
+
+
+// // Ionicons
+// // --------------------------------------------------
+// // The premium icon font for Ionic. For more info, please see:
+// // http://ionicframework.com/docs/v2/ionicons/
+
+// @import "ionic.ionicons";
+
+
+// // Fonts
+// // --------------------------------------------------
+
+// @import "roboto";
+// @import "noto-sans";
+
+// // take the red pill
+// // $red-background: #fff6f6;
+// // $red-light: #ffa99c;
+// // $red-dark: #74000e;
+// // // take the blue pill
+// // $blue-background: #f6f6ff;
+// // $blue-light: #53e1ff;
+// // $blue-dark: #0034a7;
+
+////////////////////////////////////////////
+
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/v2/theming/
 $font-path: "../assets/fonts";
 // $background-color: paleturquoise;
-$background-color: rgb(171, 251, 212);
+// $background-color: rgb(171, 251, 212);
 // $background:url(http://www.iexpats.com/wp-content/uploads/2016/06/foreign-flags.jpg);
 @import "ionic.globals";
-header{
-  background: skyblue;
-}
-.toolbar-background {
-  background-color: blue;
-}
+@import "../app/app.blue";
+
 // Shared Variables
 // --------------------------------------------------
 // To customize the look and feel of this app, you can override
@@ -30,12 +123,33 @@ header{
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:   teal,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222
+  // take the red pill
+  red-background: #fff6f6,
+  red-light: #ffa99c,
+  red-dark: #74000e,
+  // take the blue pillÏ
+  blue-background: #f6f6ff,
+  // blue-light: #53e1ff,
+  blue-light: rgb(246,255,235),
+  blue-dark: #0034a7,
+  
+  
+  //patriotic 2 palette
+  primary:    rgb(27,50,100),
+  secondary:  rgb(246,255,235),
+  danger:    rgb(237,86,60),
+  light:     rgb(32,175,255),
+  dark:       #222,
+  darkest-blue: rgb(27,50,100),
+  wonderland-skies: rgb(32,175,255),
+  amsterdam-white: rgb(246,255,235),
+  ED563c: rgb(237,86,60),
+  try-this-one-on: rgb(173,18,17),
 );
+
+header{
+  background: amsterdam-white;
+}
 
 
 // App iOS Variables
@@ -66,9 +180,10 @@ $colors: (
 // so that the above variables are used and Ionic's
 // default are overridden.
 
-// @import "ionic.theme.default";
-@import "ionic.theme.dark";
-
+@import "ionic.theme.default";
+// @import "ionic.theme.dark";
+@import "../app/app.blue";
+// @import "../app/app.red";
 
 // Ionicons
 // --------------------------------------------------
@@ -84,11 +199,5 @@ $colors: (
 @import "roboto";
 @import "noto-sans";
 
-// take the red pill
-$red-background: #fff6f6;
-$red-light: #ffa99c;
-$red-dark: #74000e;
-// take the blue pill
-$blue-background: #f6f6ff;
-$blue-light: #53e1ff;
-$blue-dark: #0034a7;
+
+

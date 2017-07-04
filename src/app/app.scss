@@ -1,3 +1,56 @@
+// // @import 'font-awesome';
+// // http://ionicframework.com/docs/v2/theming/
+// // $background-color: teal;
+// // App Global Sass
+// // --------------------------------------------------
+// // Put style rules here that you want to apply globally. These
+// // styles are for the entire app and not just one component.
+// // Additionally, this file can be also used as an entry point
+// // to import other Sass files to be included in the output CSS.
+// //
+// // Shared Sass variables, which can be used to adjust Ionic's
+// // default Sass variables, belong in "theme/variables.scss".
+// //
+// // To declare rules for a specific mode, create a child rule
+// // for the .md, .ios, or .wp mode classes. The mode class is
+// // automatically applied to the <body> element in the app.
+// // @import "../pages/page1/page1";
+
+// // @import "../pages/page2/page2";
+
+// @import "./app.blue";
+
+// // @import "./app.red";
+// @import  "../pages/home/home";
+// @import  "../pages/create-deck/create-deck";
+// @import  "../pages/find-add-deck/find-add-deck";
+// @import  "../pages/my-decks/my-decks";
+// @import  "../pages/card/card";
+// @import  "../pages/card-viewer/card-viewer";
+// @import  "../pages/find-card/find-card";
+// @import  "../pages/edit-deck/edit-deck";
+// @import  "../pages/edit-deck-add/edit-deck-add";
+// @import  "../pages/find-add-card-list/find-add-card-list";
+// @import  "../pages/about-us/about-us";
+// @import  "../pages/quiz/quiz";
+// @import  "../pages/profile/profile";
+// @import  "../pages/phrase-modal/phrase-modal";
+// @import  "../pages/quiz-results/quiz-results";
+
+
+// @font-face {
+//   font-family: 'Lily Script One';
+//   src: url('../assets/fonts/LilyScriptOne-Regular.woff') format('woff'), url('../assets/fonts/LilyScriptOne-Regular.woff') format('woff');
+//   font-weight: normal;
+//   font-style: normal;
+//   line-height: normal;
+//   }
+//   .toolbar-title .add_title_btn .ion-button{
+//     font-family: 'Lily Script One';
+//   }
+
+////////////////////////
+
 // @import 'font-awesome';
 // http://ionicframework.com/docs/v2/theming/
 // $background-color: teal;
@@ -14,10 +67,38 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-// @import "../pages/page1/page1";
 
-// @import "../pages/page2/page2";
+@import  "../pages/home/home";
+@import  "../pages/create-deck/create-deck";
+@import  "../pages/find-add-deck/find-add-deck";
+@import  "../pages/my-decks/my-decks";
+@import  "../pages/card/card";
+@import  "../pages/card-viewer/card-viewer";
+@import  "../pages/find-card/find-card";
+@import  "../pages/edit-deck/edit-deck";
+@import  "../pages/edit-deck-add/edit-deck-add";
+@import  "../pages/find-add-card-list/find-add-card-list";
+@import  "../pages/about-us/about-us";
+@import  "../pages/quiz/quiz";
+@import  "../pages/profile/profile";
+@import  "../pages/phrase-modal/phrase-modal";
+@import  "../pages/quiz-results/quiz-results";
 
-// @import "./app.blue";
 
-// @import "./app.red";
+@import "./app.blue";
+
+@import "./app.red";
+
+ @font-face {
+  font-family: 'Lily Script One';
+  src: url('../assets/fonts/LilyScriptOne-Regular.woff') format('woff'), url('../assets/fonts/LilyScriptOne-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  line-height: normal;
+  }
+  .toolbar-title .add_title_btn .ion-button{
+    font-family: 'Lily Script One';
+  }
+  *{
+    font-family: 'Lily Script One';
+  }

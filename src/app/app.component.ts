@@ -19,7 +19,7 @@ import { TransImagePage } from '../pages/trans-image/trans-image';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = OAuthProvidersListPage;
-
+  chosenTheme: string;
   pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform, 
@@ -27,6 +27,7 @@ export class MyApp {
     public splashScreen: SplashScreen,
     public translate: TranslateService) {
       this.initializeApp();
+      this.chosenTheme = 'blue-theme';
 
       // used for an example of ngFor and navigation
       translate.setDefaultLang('en');
@@ -47,7 +48,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
+      // this.statusBar.styleDefault();
+      this.statusBar.styleLightContent();
       this.splashScreen.hide();
     });
   }
