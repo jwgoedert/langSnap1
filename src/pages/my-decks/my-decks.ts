@@ -79,6 +79,14 @@ export class MyDecksPage {
     this.navCtrl.setRoot(EditDeckPage);
   }
 
+  card(length, image) {
+     if (image === "https://www.wired.com/wp-content/uploads/2015/01/learning-styles.jpg") {
+       return "0 Cards"
+     } else {
+       return length === 1 ? '1 Card' : `${length} Cards`;
+     }
+   }
+
   deleteDeck(index, deckName) {
     let confirm = this.alertCtrl.create({
       title: `Sure you want to delete the ${deckName} Deck?`,

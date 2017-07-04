@@ -52,6 +52,11 @@ export class FindCardPage {
     setTimeout(() => {
       this.items = this.deckService.allCards.map((card) => {
         if ((typeof card.wordMap === 'string')) {
+          console.log("card.wordMap")
+          console.log(JSON.stringify(card.wordMap))
+          console.log(JSON.stringify(this.nativeLang))
+          console.log(JSON.stringify(this.learnLang))
+          console.log("card.wordMap")
           card.wordMap = JSON.parse(card.wordMap);
         }
         card['status'] = '';
@@ -109,7 +114,7 @@ export class FindCardPage {
       }
     this.displayCards.forEach(card => {
       let cardInfo = {
-        "word":  this.items[card].wordMap.en,
+        "word":  this.items[card].wordMap,
         "image": this.items[card].imgUrl
       }
       this.deckService.addToDeckCreation(cardInfo) 

@@ -48,15 +48,28 @@ export class EditDeckPage {
         console.log("Error" + JSON.stringify(err))
       });
     setTimeout(() => {
-      this.deckName = this.deckService.deckEditCards[0].name;
+      // this.deckName = this.deckService.deckEditCards[0].name;
+      this.deckName = this.deckService.currentDeck[0].name;
       this.initializeItems();
     }, 1500)
   }
 
   initializeItems() {
-    this.items = this.deckService.deckEditCards[0].cards.map(el => {
+    // this.items = this.deckService.deckEditCards[0].cards.map(el => {
+    this.items = this.deckService.currentDeck[0].cards.map(el => {
         if (typeof el.wordMap === 'string') {
-          el.wordMap = JSON.parse(el.wordMap);
+          if (JSON.parse(el.wordMap)['sorry']) {
+             el.wordMap = {
+               "en": "No Cards",
+               "es": "No Tarjetas",
+               "fr": "Pas de cartes",
+               "de": "Keine Karten",
+               "ja": "カードなし",
+               "ru": "Нет карточек"
+             }
+           } else {
+             el.wordMap = JSON.parse(el.wordMap);
+           }        
         }
         return el;
       });;
@@ -80,7 +93,8 @@ export class EditDeckPage {
   }
 
   addCard() {
-    this.navCtrl.setRoot(EditDeckAddPage, { deckId: this.deck.id, deckName: this.deckName });
+    this.navCtrl.setRoot(EditDeckAddPage, { deckId: this.deck.id, deckName: this.deckName })
+    .then(success => console.log(success)).catch(err => console.log(err));
   }
   
   removeCardFromUserDeck(itemId, index) {
@@ -101,7 +115,7 @@ export class EditDeckPage {
                 this.items.splice(i, 1);
               }
             }
-            this.deckService.deleteCardFromUserDeck(this.profile.id, this.deck.id, itemId, );
+            this.deckService.deleteCardFromUserDeck(this.profile.id, this.deck.id, itemId);
             this.deckService.deckEditCards = this.deckService.getAllCardsInADeck(this.deck.id);
           }
         }

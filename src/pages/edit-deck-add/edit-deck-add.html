@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-    <ion-title>{{ 'ADD_CARD' | translate }}</ion-title>
+    <ion-title>{{ 'ADD_CARDS' | translate }}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -19,10 +19,10 @@
           </ion-thumbnail>
         </ion-card>
         <ion-card>
-          <div class=“card-title”>{{card.word}}</div>
+          <div class=“card-title”>{{card.word[nativeLang]}}</div>
         </ion-card>
         <ion-card>
-          <div class=“card-subtitle”>{{card.translation}}</div>
+          <div class=“card-subtitle”>{{card.word[learnLang]}}</div>
         </ion-card>
       </ion-item>
     </ion-card>
@@ -52,6 +52,6 @@
 
     </ion-row>
   </ion-grid>
-  <button ion-button full (click)="createDeck()" outline>{{ 'ADD_CARD' | translate }}</button>
+  <button ion-button full (click)="createDeck()" outline>{{ 'ADD_CARDS' | translate }}</button>
 </ion-footer>
 

@@ -34,6 +34,8 @@ export class EditDeckAddPage {
   public translatedWord;
   public counter: number = 0;
   public deckId;
+  public nativeLang;
+  public learnLang;
   public cards: Array<object>;
 
   constructor(
@@ -56,7 +58,9 @@ export class EditDeckAddPage {
         this.profile = profile;
         translateService.use(languageService.translateLang(this.profile.nativeLang));
         this.cameraService.languages(this.languageService.translateLang(this.profile.nativeLang), this.languageService.translateLang(this.profile.learnLang))
-      })
+        this.nativeLang = this.languageService.translateLang(this.profile.nativeLang)
+        this.learnLang = this.languageService.translateLang(this.profile.learnLang)
+    })
       .catch(err => {
         console.log("Error" + JSON.stringify(err))
       });
@@ -66,7 +70,7 @@ export class EditDeckAddPage {
 
       console.log(JSON.stringify(this.cards));
     }
-    this.title = this.navParams.data.deckName;
+    this.title = this.deckService.currentDeck[0].name;
     this.deckId = this.navParams.data.deckId;
     this.deckService.deckId = this.deckId;
   }

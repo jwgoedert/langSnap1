@@ -36,7 +36,7 @@ export class QuizResultsPage {
         message: 'Don\'t forget to share your progress with your friends!',
         buttons: [
           {
-            text: 'Close.',
+            text: 'Close',
             handler: () => {
             }
           },

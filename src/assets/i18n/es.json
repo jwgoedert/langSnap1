@@ -45,5 +45,7 @@
   "ADD" : "Añadir",
   "DELETE" : "Borrar",
   "EDIT": "Editar",
-  "IMAGE_TEXT" : "Imagen al texto"
+  "IMAGE_TEXT" : "Imagen al texto",
+  "PLAYER": "Jugador",
+  "ADD_CARDS": "Tarjetas"
 }

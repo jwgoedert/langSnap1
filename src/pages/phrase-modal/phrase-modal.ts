@@ -42,8 +42,16 @@ export class PhraseModalPage {
       }, 3000)
   }
   getPhrases() {
-    this.phrase = this.phraseService.translatedPhrase || "Sorry Phrase is not available. Try again later.";
-    this.sentence = this.phraseService.nativeSentence;
+    let sorry = { 
+      "en": "Sorry Phrase is not available. Try again later.",
+      "es": "La frase desafortunada no está disponible. Vuelva a intentarlo más tarde.",
+      "fr": "Désolé, la phrase n&#39;est pas disponible. Réessayez plus tard.",
+      "de": "Sorry Phrase ist nicht verfügbar. Versuchen Sie es später noch einmal.",
+      "ja": "申し訳ありませんフレーズは利用できません。あとでもう一度試してみてください。",
+      "ru": "Извините, фраза недоступна. Попробуйте позже."
+    }
+    this.phrase = this.phraseService.translatedPhrase || sorry[this.languageService.translateLang(this.profile.learnLang)];
+    this.sentence = this.phraseService.nativeSentence || sorry[this.languageService.translateLang(this.profile.nativeLang)];
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PhraseModalPage');
